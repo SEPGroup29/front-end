@@ -1,7 +1,14 @@
 import React from "react";
-import {Button, Card, CardContent, Grid, Link, TextField, Typography} from "@mui/material";
+import {Button, Card, CardContent, Grid, Link, Typography} from "@mui/material";
+import {MuiOtpInput} from "mui-one-time-password-input";
 
 export default function Login_enterOTP(){
+    const [value, setValue] = React.useState('')
+
+    const handleChange = (newValue) => {
+        setValue(newValue)
+    }
+
     return(
         <div>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
@@ -17,7 +24,7 @@ export default function Login_enterOTP(){
                             <Typography variant="subtitle1" sx={{paddingTop:2}}>
                                 Enter OTP sent to 077*******2
                             </Typography>
-                            <TextField id="outlined-basic" label="Email" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <MuiOtpInput length={6} value={value} onChange={handleChange}/>
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
                             <Link href="#">Register</Link>
                         </CardContent>
