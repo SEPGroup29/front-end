@@ -63,16 +63,16 @@ export default function OwnersTable() {
 
   return(
     <Container maxWidth="lg">
-    <Box sx={{ height: '100vh', borderColor: "primary.main"}}>
-    <Paper sx={{ width: '100%', overflow: 'hidden'}}>
-      <h1>Vehicle Owners</h1>
+    <Box sx={{ height: '100vh'}}>
+    <Paper sx={{ width: '100%'}} elevation={4} >
+      <h1 align= "center">Vehicle Owners</h1>
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" >
-
-          <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>
-            <TableRow>
+          <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"}}}>
+            <TableRow >
               {columns.map((column) => (
                 <TableCell
+                  sx={{color: "rgb(255,255,255)", fontSize: "1rem"}}
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
