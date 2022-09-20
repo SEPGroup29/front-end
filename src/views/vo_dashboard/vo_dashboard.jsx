@@ -7,14 +7,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, TableHead } from "@mui/material";
 import './vo_dashboard.css';
-import NavbarComp from "../../components/navbar/navbar";
-import { Delete, InfoOutlined, AddCircle, Download, FollowTheSigns, Logout, LocalGasStation, FormatListNumbered, LocationOn } from '@mui/icons-material';
+import Navbar from "../../components/navbar/navbar";
+import { Delete, InfoOutlined, AddCircle, Download, FollowTheSigns, Logout, LocalGasStation, FormatListNumbered, LocationOn, Search } from '@mui/icons-material';
 import { Box } from "@mui/system";
 
+import VehicleDetails from "./vehicle_details";
+
 const vehicles = [
-    { reg_no: 'XQ - 6799', type: 'bike', fuel: 'Petrol' },
-    { reg_no: 'CAB - 4067', type: 'car', fuel: 'Petrol' },
-    { reg_no: 'TL - 3353', type: 'bike', fuel: 'Petrol' },
+    { reg_no: 'XQ - 6799', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
+    { reg_no: 'CAB - 4067', chassis_no: 'XXXXXXXX', type: 'car', fuel: 'Petrol' },
+    { reg_no: 'TL - 3353', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
 ];
 
 const stations = [
@@ -29,9 +31,16 @@ const queues = [
 ];
 
 const VODashboard = () => {
+    const [clicked, setClicked] = useState(false)
+    const [vehicleDetails, setVehicleDetails] = useState(null)
+    const handleClick = () => {
+        setVehicleDetails({ regNo: 'CAA - 1234', chassisNo: 123456789, type: 'Car', fuel: 'Petrol' })   // Get from database
+        setClicked(true)
+    }
+
     return (
         <div className="vo_dashboard">
-            <NavbarComp />
+            <Navbar />
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-6 mb-3 vehicle_list">
@@ -47,22 +56,12 @@ const VODashboard = () => {
                                             <TableCell component="th" scope="row">
                                                 {row.reg_no}
                                             </TableCell>
-
-                                            {/* {row.type === 'car' && <TableCell align="center"><DirectionsCar /></TableCell>}
-                                            {row.type === 'bike' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'three-wheeler' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'quadricycle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'van' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'bus' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'lorry' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'land-vehicle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                            {row.type === 'special-vehicle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
-                                             */}
                                             <TableCell align="center">{(row.type).charAt(0).toUpperCase() + (row.type).slice(1)}</TableCell>
                                             <TableCell align="center">{row.fuel}</TableCell>
-                                            <TableCell align="left"><Button variant="contained"><InfoOutlined />&ensp;Details</Button></TableCell>
+                                            <TableCell align="left"><Button variant="contained" onClick={handleClick}><InfoOutlined />&ensp;Details</Button></TableCell>
                                             <TableCell align="left"><Button variant="contained" color="error"><Delete />&ensp;Remove</Button></TableCell>
                                         </TableRow>
+
                                     ))}
                                 </TableBody>
                             </Table>
@@ -127,7 +126,7 @@ const VODashboard = () => {
                             </Table>
                         </TableContainer>
                         <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained">Search fuel stations</Button>
+                            <Button className="add_vehicle_btn" variant="contained"><Search />&ensp;Search fuel stations</Button>
                         </div>
                     </div>
                     <div className="col-md-6 mb-3 queue_details">
@@ -162,6 +161,7 @@ const VODashboard = () => {
                     </div>
                 </div>
             </div>
+            {clicked && <VehicleDetails clicked={clicked} setClicked={setClicked} vehicleDetails={vehicleDetails} />}
         </div>
     );
 }
