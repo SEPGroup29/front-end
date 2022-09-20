@@ -4,9 +4,8 @@ import {Card, CardContent, Grid, Typography} from "@mui/material";
 export default function Login(){
     return(
         <div>
-            <Grid container>
-                <Grid justifyContent={"center"} alignItems={"center"}>
-                    <Grid item>
+            <Grid container justifyContent="center" alignItems="center">
+                    <Grid item paddingTop={2}>
                         <Card sx={{width : 408 , alignSelf : 'center'}} variant={"outlined"}>
                             <CardContent>
                                 <Typography variant="h4">
@@ -15,8 +14,6 @@ export default function Login(){
                             </CardContent>
                         </Card>
                     </Grid>
-
-                </Grid>
             </Grid>
 
         </div>
