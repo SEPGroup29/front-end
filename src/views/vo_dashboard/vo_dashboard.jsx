@@ -8,10 +8,12 @@ import Paper from '@mui/material/Paper';
 import { Button, TableHead } from "@mui/material";
 import './vo_dashboard.css';
 import Navbar from "../../components/navbar/navbar";
+import Footers from "../../components/footer/footer";
 import { Delete, InfoOutlined, AddCircle, Download, FollowTheSigns, Logout, LocalGasStation, FormatListNumbered, LocationOn, Search } from '@mui/icons-material';
 import { Box } from "@mui/system";
 
 import VehicleDetails from "./vehicle_details";
+import Footer from "../../components/footer/footer";
 
 const vehicles = [
     { reg_no: 'XQ - 6799', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
@@ -162,6 +164,7 @@ const VODashboard = () => {
                 </div>
             </div>
             {clicked && <VehicleDetails clicked={clicked} setClicked={setClicked} vehicleDetails={vehicleDetails} />}
+            <Footer />
         </div>
     );
 }
