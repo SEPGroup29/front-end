@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -59,22 +61,14 @@ export default function OwnersTable() {
     setPage(0);
   };
 
-  const tableContainerSx: SxProps = {
-    border: "1px solid rgba(128,128,128,0.4)",
-    width: "max-content",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 4,
-    borderRadius: 2,
-    maxHeight: 400
-  };
-
   return(
-    
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <h1 className='heading mt 5'>Vehicle Owners</h1>
-      <TableContainer sx={{ tableContainerSx }}>
-        <Table stickyHeader aria-label="sticky table">
+    <Container maxWidth="lg">
+    <Box sx={{ height: '100vh', borderColor: "primary.main"}}>
+    <Paper sx={{ width: '100%', overflow: 'hidden'}}>
+      <h1>Vehicle Owners</h1>
+      <TableContainer >
+        <Table stickyHeader aria-label="sticky table" >
+
           <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>
             <TableRow>
               {columns.map((column) => (
@@ -109,6 +103,7 @@ export default function OwnersTable() {
               })}
           </TableBody>
         </Table>
+        
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
@@ -120,5 +115,9 @@ export default function OwnersTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    </Box>
+    
+  </Container>
+
   );
 }
