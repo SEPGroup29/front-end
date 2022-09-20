@@ -6,7 +6,7 @@ import './navbar.css'
 export default function NavbarComp() {
 
     return (
-        <Navbar className="NAV" bg="primary">
+        <Navbar className="NAV">
             <div className="contents">
                 <Container>
                     <Nav className="me-auto">

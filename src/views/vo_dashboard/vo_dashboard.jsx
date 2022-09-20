@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,11 +8,13 @@ import Paper from '@mui/material/Paper';
 import { Button, TableHead } from "@mui/material";
 import './vo_dashboard.css';
 import NavbarComp from "../../components/navbar/navbar";
+import { Delete, InfoOutlined, AddCircle, Download, FollowTheSigns, Logout, LocalGasStation, FormatListNumbered, LocationOn } from '@mui/icons-material';
+import { Box } from "@mui/system";
 
 const vehicles = [
-    { reg_no: 'XQ - 6799', type: 'Bike', fuel: 'Petrol' },
-    { reg_no: 'CAB - 4067', type: 'Car', fuel: 'Petrol' },
-    { reg_no: 'TL - 3353', type: 'Bike', fuel: 'Petrol' },
+    { reg_no: 'XQ - 6799', type: 'bike', fuel: 'Petrol' },
+    { reg_no: 'CAB - 4067', type: 'car', fuel: 'Petrol' },
+    { reg_no: 'TL - 3353', type: 'bike', fuel: 'Petrol' },
 ];
 
 const stations = [
@@ -32,19 +34,10 @@ const VODashboard = () => {
             <NavbarComp />
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-md-6 mb-5 vehicle_list">
-                        <h3 className="text-center vehicle_list_heading">VEHICLE LIST</h3>
+                    <div className="col-md-6 mb-3 vehicle_list">
+                        <h3 className="text-center heading"><FormatListNumbered />&ensp;VEHICLE LIST</h3>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                {/* <TableHead>
-                            <TableRow>
-                                <TableCell>Dessert (100g serving)</TableCell>
-                                <TableCell align="right">Calories</TableCell>
-                                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                            </TableRow>
-                        </TableHead> */}
                                 <TableBody>
                                     {vehicles.map((row) => (
                                         <TableRow
@@ -54,50 +47,63 @@ const VODashboard = () => {
                                             <TableCell component="th" scope="row">
                                                 {row.reg_no}
                                             </TableCell>
-                                            <TableCell align="center">{row.type}</TableCell>
+
+                                            {/* {row.type === 'car' && <TableCell align="center"><DirectionsCar /></TableCell>}
+                                            {row.type === 'bike' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'three-wheeler' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'quadricycle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'van' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'bus' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'lorry' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'land-vehicle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                            {row.type === 'special-vehicle' && <TableCell align="center"><BikeScooterOutlined /></TableCell>}
+                                             */}
+                                            <TableCell align="center">{(row.type).charAt(0).toUpperCase() + (row.type).slice(1)}</TableCell>
                                             <TableCell align="center">{row.fuel}</TableCell>
-                                            <TableCell align="center"><Button variant="contained">Details</Button></TableCell>
-                                            <TableCell align="center"><Button variant="contained" color="error">Remove</Button></TableCell>
+                                            <TableCell align="left"><Button variant="contained"><InfoOutlined />&ensp;Details</Button></TableCell>
+                                            <TableCell align="left"><Button variant="contained" color="error"><Delete />&ensp;Remove</Button></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
                         <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained">Add a vehicle</Button>
+                            <Button className="add_vehicle_btn" variant="contained"><AddCircle />&ensp;Add a vehicle</Button>
                         </div>
                     </div>
-                    <div className="col-md-6 mb-5 fuel_quota">
+                    <div className="col-md-6 mb-3 fuel_quota">
                         <div className="row">
                             <div className="col-md-8 qr">
-                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png' alt="" height="300px" width="300px" />
+                                <Box component="span" sx={{ p: 2 }}>
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png' alt="" height="300px" width="300px" />
+                                </Box>
                             </div>
                             <div className="col-md-4">
                                 <p><b>Remaining Petrol Quota</b></p>
-                                <p className="quota">6.50L</p>
+                                <p className="quota" style={{ color: 'rgb(14, 210, 46)' }}><span className="magnify">6.50</span>&nbsp;L</p>
                                 <p><b>Eligible Petrol Quota</b></p>
-                                <p className="quota">10.00L</p>
+                                <p className="quota"><span className="magnify">10.00</span>&nbsp;L</p>
                                 <p><b>Remaining Diesel Quota</b></p>
-                                <p className="quota">16.20L</p>
+                                <p className="quota" style={{ color: 'rgb(14, 210, 46)' }}><span className="magnify">16.20</span>&nbsp;L</p>
                                 <p><b>Eligible Diesel Quota</b></p>
-                                <p className="quota">20.00L</p>
+                                <p className="quota"><span className="magnify">20.00</span>&nbsp;L</p>
                             </div>
                         </div>
                         <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained" color="warning">Add a vehicle</Button>
+                            <Button className="add_vehicle_btn" variant="contained" color="warning"><Download />&ensp;Download QR</Button>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 mb-5 station_list">
-                        <h3 className="text-center vehicle_list_heading">FUEL STATIONS</h3>
-                        <p className="recent"><b>Recently joined fuel stations: </b></p>
+                    <div className="col-md-6 mb-3 station_list">
+                        <h3 className="text-center heading"><LocalGasStation />&ensp;FUEL STATIONS</h3>
+                        <p className="recent" style={{ color: '#ed6c02' }}><b>Recently joined fuel stations: </b></p>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell align="center"><b>Fuel Station</b></TableCell>
-                                        <TableCell align="center"><b>Near city</b></TableCell>
+                                        <TableCell align="center"><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;<b>Near city</b></TableCell>
                                         <TableCell align="center"><b>Petrol Stock</b></TableCell>
                                         <TableCell align="center"><b>Diesel Stock</b></TableCell>
                                     </TableRow>
@@ -114,7 +120,7 @@ const VODashboard = () => {
                                             <TableCell align="center">{row.city}</TableCell>
                                             <TableCell align="center">{row.petrol}</TableCell>
                                             <TableCell align="center">{row.diesel}</TableCell>
-                                            <TableCell align="center"><Button variant="contained">Add to queue</Button></TableCell>
+                                            <TableCell align="center"><Button variant="contained"><FollowTheSigns />Add to queue</Button></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -124,8 +130,8 @@ const VODashboard = () => {
                             <Button className="add_vehicle_btn" variant="contained">Search fuel stations</Button>
                         </div>
                     </div>
-                    <div className="col-md-6 mb-5 queue_details">
-                        <h3 className="text-center vehicle_list_heading">QUEUE DETAILS</h3>
+                    <div className="col-md-6 mb-3 queue_details">
+                        <h3 className="text-center heading"><FollowTheSigns />&ensp;QUEUE DETAILS</h3>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
@@ -144,10 +150,10 @@ const VODashboard = () => {
                                             <TableCell component="th" scope="row">
                                                 {row.vehicle}
                                             </TableCell>
-                                            <TableCell align="center">{row.token}</TableCell>
+                                            <TableCell align="center" style={{ color: 'rgb(14, 210, 46)' }}><b>{row.token}</b></TableCell>
                                             <TableCell align="center">{row.ongoing}</TableCell>
-                                            <TableCell align="center"><Button variant="contained">Details</Button></TableCell>
-                                            <TableCell align="center"><Button variant="contained" color="error">Withdraw</Button></TableCell>
+                                            <TableCell align="center"><Button variant="contained"><InfoOutlined />&nbsp;Details</Button></TableCell>
+                                            <TableCell align="center"><Button variant="contained" color="error"><Logout />Withdraw</Button></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
