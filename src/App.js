@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './views/home/home';
 import Login from './views/login/login';
-import VehicleOwnersList from './views/vehicleOwnersList/vehicleOwnersList';
+import VehicleOwnersList from './views/vo_list/vo_list';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/vehicleOwnersList' element={<VehicleOwnersList/>}></Route>
+        <Route path='/vo_list' element={<VehicleOwnersList/>}></Route>
       </Routes>
     </BrowserRouter>
   );
