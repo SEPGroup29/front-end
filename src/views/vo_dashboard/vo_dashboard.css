@@ -1,0 +1,25 @@
+.vehicle_list_heading {
+    background-color: rgb(207, 207, 207);
+}
+
+.add_vehicle_btn {
+    width: 100%;
+}
+
+.quota {
+    font-size: 20pt;
+    font-weight: lighter;
+}
+
+.qr {
+    overflow: scroll;
+}
+
+img {
+    display: flex;
+}
+
+.quota_details {
+    padding: 20px;
+    border: 1px solid rgb(207, 207, 207);
+}
