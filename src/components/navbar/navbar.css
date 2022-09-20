@@ -1,0 +1,17 @@
+.NAV {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+}
+
+.contents {
+    margin-right: 5%;
+}
+
+span {
+    font-size: larger;
+}
+
+.navBtn{
+    border: none !important;
+}
