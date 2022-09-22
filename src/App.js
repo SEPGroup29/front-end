@@ -4,6 +4,7 @@ import Login from './views/login/login';
 import VODashboard from './views/vo_dashboard/vo_dashboard';
 import LoginEnterOTP from "./views/login-enterOTP/login-enterOTP";
 import Register_user from "./views/register_page/register_user";
+import Register_vehicle from "./views/register_vehicle/Register_vehicle";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/vo_dashboard" element={<VODashboard />} />
         <Route path="/login-enterOTP" element={<LoginEnterOTP />} />
         <Route path="/register-user" element={<Register_user />} />
+        <Route path="/register-vehicle" element={<Register_vehicle />} />
       </Routes>
     </BrowserRouter>
   );
