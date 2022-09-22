@@ -6,7 +6,6 @@ const vehicleOwnersList = () => {
     return (
         <div className="vehicleOwnersList">
             <OwnersTable/>
-
         </div>
     );
 }
