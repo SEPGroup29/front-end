@@ -6,6 +6,7 @@ import LoginEnterOTP from "./views/login-enterOTP/login-enterOTP";
 import Register_user from "./views/register_page/register_user";
 import Register_vehicle from "./views/register_vehicle/Register_vehicle";
 import Register_fuel_station from "./views/register_fuel_station/register_fuel_station";
+import Update_fuel_stock from "./update_fuel_stock/update_fuel_stock";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register-user" element={<Register_user />} />
         <Route path="/register-vehicle" element={<Register_vehicle />} />
         <Route path="/register-fuel-station" element={<Register_fuel_station />} />
+        <Route path="/update-fuel-stock" element={<Update_fuel_stock />} />
       </Routes>
     </BrowserRouter>
   );
