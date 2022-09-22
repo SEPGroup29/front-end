@@ -4,13 +4,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { Facebook, LinkedIn, YouTube } from '@mui/icons-material';
-import { Avatar } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 
 function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary">
             {'Copyright © '}
-            <Link color="inherit" href="/">
+            <Link color="inherit" href="https://mui.com/">
                 FuelQ
             </Link>{' '}
             {new Date().getFullYear()}
@@ -21,7 +21,14 @@ function Copyright() {
 
 export default function Footer() {
     return (
-        <div className="footer text-center">
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '80vh',
+            }}
+        >
+
             <Box
                 component="footer"
                 sx={{
@@ -34,6 +41,7 @@ export default function Footer() {
                             : theme.palette.grey[800],
                 }}
             >
+                <CssBaseline />
                 <Container maxWidth="sm">
                     <Copyright />
                     <div className="social_media display-inline">
@@ -43,6 +51,6 @@ export default function Footer() {
                     </div>
                 </Container>
             </Box>
-        </div>
+        </Box>
     );
 }

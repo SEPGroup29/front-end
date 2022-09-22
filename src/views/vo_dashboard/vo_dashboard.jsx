@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "@mui/material";
 import './vo_dashboard.css';
-import Navbar from "../../components/navbar/navbar";
 import VehicleDetails from "./vehicle_details";
-import Footer from "../../components/footer/footer";
 import VehicleList from "./vehicle_list";
 import FuelQUota from "./fuel_quota";
 import StationList from "./station_list";
@@ -36,7 +34,6 @@ const VODashboard = () => {
 
     return (
         <div className="vo_dashboard">
-            <Navbar />
             <Container maxWidth="xl" className="mt-5">
                 <div className="row">
                     <div className="col-md-6 mb-3 vehicle_list">
@@ -56,7 +53,6 @@ const VODashboard = () => {
                 </div>
             </Container>
             {clicked && <VehicleDetails clicked={clicked} setClicked={setClicked} vehicleDetails={vehicleDetails} />}
-            <Footer />
         </div>
     );
 }
