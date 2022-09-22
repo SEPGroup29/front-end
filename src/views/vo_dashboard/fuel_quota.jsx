@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 
 const FuelQUota = () => {
     return (
-        <Box component="span" sx={{ p:2, boxShadow: 5 }}>
+        <Box component="span" sx={{ p:2, boxShadow: 5, background: '#fff' }}>
             <div className="row">
                 <div className="col-md-8 qr">
                     <Box component="span" sx={{ p: 2 }}>

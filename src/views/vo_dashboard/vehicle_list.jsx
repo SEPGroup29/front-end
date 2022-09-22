@@ -7,10 +7,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from "@mui/material";
 import { Delete, InfoOutlined, AddCircle, FormatListNumbered } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
 const VehicleList = ({ handleClick, vehicles }) => {
     return (
-        <Box component="span" sx={{ p: 2, boxShadow: 5 }}>
+
+        <Box component="span" sx={{ p: 2, boxShadow: 5, background: '#fff' }}>
             <h3 className="text-center heading"><FormatListNumbered />&ensp;VEHICLE LIST</h3>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -37,6 +39,7 @@ const VehicleList = ({ handleClick, vehicles }) => {
                 <Button className="add_vehicle_btn" variant="contained"><AddCircle />&ensp;Add a vehicle</Button>
             </div>
         </Box>
+
     );
 }
 
