@@ -6,7 +6,7 @@ const Login = () => {
     return (
         <div className="login">
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={10} md={6} paddingTop={2}>
+                <Grid item xs={10} md={5} paddingTop={2}>
                     <Card sx={{ alignSelf : 'center' , boxShadow: 12}} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
