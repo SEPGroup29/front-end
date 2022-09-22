@@ -35,7 +35,7 @@ const VODashboard = () => {
     return (
         <div className="vo_dashboard">
             <Container maxWidth="xl" className="mt-5">
-                <div className="row">
+                <div className="row"> 
                     <div className="col-md-6 mb-3 vehicle_list">
                         <VehicleList handleClick={handleClick} vehicles={vehicles} />
                     </div>
