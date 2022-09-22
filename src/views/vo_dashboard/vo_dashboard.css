@@ -4,7 +4,7 @@
     padding: 5px;
 }
 
-.vehicle_list {
+.vehicle_list, .fuel_quota, .station_list, .queue_details {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

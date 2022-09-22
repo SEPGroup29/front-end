@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Button, TableHead } from "@mui/material";
+import { Container } from "@mui/material";
 import './vo_dashboard.css';
 import Navbar from "../../components/navbar/navbar";
-import Footers from "../../components/footer/footer";
-import { Delete, InfoOutlined, AddCircle, Download, FollowTheSigns, Logout, LocalGasStation, FormatListNumbered, LocationOn, Search } from '@mui/icons-material';
-import { Box } from "@mui/system";
-
 import VehicleDetails from "./vehicle_details";
 import Footer from "../../components/footer/footer";
+import VehicleList from "./vehicle_list";
+import FuelQUota from "./fuel_quota";
+import StationList from "./station_list";
+import QueueDetails from "./queue_details";
 
 const vehicles = [
     { reg_no: 'XQ - 6799', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
@@ -43,126 +37,24 @@ const VODashboard = () => {
     return (
         <div className="vo_dashboard">
             <Navbar />
-            <div className="container mt-5">
+            <Container maxWidth="xl" className="mt-5">
                 <div className="row">
                     <div className="col-md-6 mb-3 vehicle_list">
-                        <h3 className="text-center heading"><FormatListNumbered />&ensp;VEHICLE LIST</h3>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableBody>
-                                    {vehicles.map((row) => (
-                                        <TableRow
-                                            key={row.reg_no}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row.reg_no}
-                                            </TableCell>
-                                            <TableCell align="center">{(row.type).charAt(0).toUpperCase() + (row.type).slice(1)}</TableCell>
-                                            <TableCell align="center">{row.fuel}</TableCell>
-                                            <TableCell align="left"><Button variant="contained" onClick={handleClick}><InfoOutlined />&ensp;Details</Button></TableCell>
-                                            <TableCell align="left"><Button variant="contained" color="error"><Delete />&ensp;Remove</Button></TableCell>
-                                        </TableRow>
-
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained"><AddCircle />&ensp;Add a vehicle</Button>
-                        </div>
+                        <VehicleList handleClick={handleClick} vehicles={vehicles} />
                     </div>
                     <div className="col-md-6 mb-3 fuel_quota">
-                        <div className="row">
-                            <div className="col-md-8 qr">
-                                <Box component="span" sx={{ p: 2 }}>
-                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png' alt="" height="300px" width="300px" />
-                                </Box>
-                            </div>
-                            <div className="col-md-4">
-                                <p><b>Remaining Petrol Quota</b></p>
-                                <p className="quota" style={{ color: 'rgb(14, 210, 46)' }}><span className="magnify">6.50</span>&nbsp;L</p>
-                                <p><b>Eligible Petrol Quota</b></p>
-                                <p className="quota"><span className="magnify">10.00</span>&nbsp;L</p>
-                                <p><b>Remaining Diesel Quota</b></p>
-                                <p className="quota" style={{ color: 'rgb(14, 210, 46)' }}><span className="magnify">16.20</span>&nbsp;L</p>
-                                <p><b>Eligible Diesel Quota</b></p>
-                                <p className="quota"><span className="magnify">20.00</span>&nbsp;L</p>
-                            </div>
-                        </div>
-                        <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained" color="warning"><Download />&ensp;Download QR</Button>
-                        </div>
+                        <FuelQUota />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-6 mb-3 station_list">
-                        <h3 className="text-center heading"><LocalGasStation />&ensp;FUEL STATIONS</h3>
-                        <p className="recent" style={{ color: '#ed6c02' }}><b>Recently joined fuel stations: </b></p>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center"><b>Fuel Station</b></TableCell>
-                                        <TableCell align="center"><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;<b>Near city</b></TableCell>
-                                        <TableCell align="center"><b>Petrol Stock</b></TableCell>
-                                        <TableCell align="center"><b>Diesel Stock</b></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {stations.map((row) => (
-                                        <TableRow
-                                            key={row.name}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="center">{row.city}</TableCell>
-                                            <TableCell align="center">{row.petrol}</TableCell>
-                                            <TableCell align="center">{row.diesel}</TableCell>
-                                            <TableCell align="center"><Button variant="contained"><FollowTheSigns />Add to queue</Button></TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <div className="mt-3">
-                            <Button className="add_vehicle_btn" variant="contained"><Search />&ensp;Search fuel stations</Button>
-                        </div>
+                        <StationList stations={stations} />
                     </div>
                     <div className="col-md-6 mb-3 queue_details">
-                        <h3 className="text-center heading"><FollowTheSigns />&ensp;QUEUE DETAILS</h3>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center"><b>Vehicle Number</b></TableCell>
-                                        <TableCell align="center"><b>Token Number</b></TableCell>
-                                        <TableCell align="center"><b>Ongoing Number</b></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {queues.map((row) => (
-                                        <TableRow
-                                            key={row.vehicle}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row.vehicle}
-                                            </TableCell>
-                                            <TableCell align="center" style={{ color: 'rgb(14, 210, 46)' }}><b>{row.token}</b></TableCell>
-                                            <TableCell align="center">{row.ongoing}</TableCell>
-                                            <TableCell align="center"><Button variant="contained"><InfoOutlined />&nbsp;Details</Button></TableCell>
-                                            <TableCell align="center"><Button variant="contained" color="error"><Logout />Withdraw</Button></TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                        <QueueDetails queues={queues} />
                     </div>
                 </div>
-            </div>
+            </Container>
             {clicked && <VehicleDetails clicked={clicked} setClicked={setClicked} vehicleDetails={vehicleDetails} />}
             <Footer />
         </div>
