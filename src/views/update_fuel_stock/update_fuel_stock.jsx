@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Card, CardContent, Grid, TextField, Typography} from "@mui/material";
+import {Button, Card, CardContent, Grid, Typography} from "@mui/material";
+import FormInput from "../../components/form_input/FormInput";
 
 export default function Update_fuel_stock(){
     return(
@@ -28,7 +29,7 @@ export default function Update_fuel_stock(){
                             <Typography variant="h1" sx={{textAlign : 'center'}}>
                                 15.5L
                             </Typography>
-                            <TextField id="outlined-basic" label="Liters Arrived" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="Liters Arrived" />
                             <Button variant="contained" color="success" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>UPDATE</Button>
                         </CardContent>
                     </Card>

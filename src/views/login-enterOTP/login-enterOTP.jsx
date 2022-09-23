@@ -26,7 +26,7 @@ export default function Login_enterOTP(){
                             </Typography>
                             <MuiOtpInput length={6} value={value} onChange={handleChange}/>
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link href="#">Register</Link>
+                            <Link to="/register-user">Register</Link>
                         </CardContent>
                     </Card>
                 </Grid>
