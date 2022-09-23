@@ -15,7 +15,7 @@ const Login = () => {
                                 Log in
                             </Typography>
                             <Typography variant="subtitle1">
-                                FuelQ 
+                                FuelQ Management System
                             </Typography>
                             <FormInput label="Email" />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
