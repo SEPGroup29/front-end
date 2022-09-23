@@ -20,7 +20,7 @@ const vehicle_types = [
     },
 ];
 
-export default function Register_vehicle(){
+export default function RegisterVehicle(){
 
     const [vehicle, setVehicle] = React.useState('Motor Bike');
 
