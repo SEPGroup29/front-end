@@ -17,7 +17,7 @@ const Login = () => {
                             </Typography>
                             <TextField id="outlined-basic" label="Email" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link href="#">Register</Link>
+                            <Link href="/register-user">Register</Link>
                         </CardContent>
                     </Card>
                 </Grid>

@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from "@mui/material";
 import { Delete, InfoOutlined, AddCircle, FormatListNumbered } from '@mui/icons-material';
-import PropTypes from 'prop-types';
+
 
 const VehicleList = ({ handleClick, vehicles }) => {
     return (
