@@ -28,7 +28,7 @@ export default function Register_user(){
                             <TextField id="outlined-basic" label="First Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <TextField id="outlined-basic" label="Last Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link href="/login">Log in</Link>
+                            <Link to="/login">Log in</Link>
                         </CardContent>
                     </Card>
                 </Grid>
