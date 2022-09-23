@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Card, CardContent, Grid, Link, TextField, Typography} from "@mui/material";
 
+
 const Login = () => {
 
     return (
@@ -17,7 +18,7 @@ const Login = () => {
                             </Typography>
                             <TextField id="outlined-basic" label="Email" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link href="/register-user">Register</Link>
+                            <Link to="/register-user">Register</Link>
                         </CardContent>
                     </Card>
                 </Grid>
