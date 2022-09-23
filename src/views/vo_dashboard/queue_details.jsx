@@ -9,7 +9,7 @@ import { InfoOutlined, FollowTheSigns, Logout } from '@mui/icons-material';
 
 const QueueDetails = ({queues}) => {
     return (
-        <Box component="span" sx={{ p:2, boxShadow: 5, background: '#fff' }}>
+        <Box component="span" sx={{ p:2, boxShadow: 5, background: '#fff'}} className="qb">
             <h3 className="text-center heading"><FollowTheSigns />&ensp;QUEUE DETAILS</h3>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">

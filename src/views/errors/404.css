@@ -1,0 +1,13 @@
+.not_found{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.back_button {
+    text-align: center;
+}
