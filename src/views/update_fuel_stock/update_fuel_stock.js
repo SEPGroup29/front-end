@@ -5,8 +5,8 @@ export default function Update_fuel_stock(){
     return(
         <div>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item paddingTop={2}>
-                    <Card sx={{width : 408 , alignSelf : 'center' , boxShadow: 12}} variant={"outlined"}>
+                <Grid item xs={10} md={5} paddingTop={2}>
+                    <Card sx={{alignSelf : 'center' , boxShadow: 12}} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
                                 Fuel Stock Update
