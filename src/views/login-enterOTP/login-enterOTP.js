@@ -19,7 +19,7 @@ export default function Login_enterOTP(){
                                 Log in
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <Typography variant="subtitle1" sx={{paddingTop:2}}>
                                 Enter OTP sent to 077*******2

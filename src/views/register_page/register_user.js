@@ -19,7 +19,7 @@ export default function Register_user(){
                                 Register User
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <TextField id="outlined-basic" label="NIC number" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <TextField id="outlined-basic" label="E-mail" variant="outlined" sx={{marginTop : 2}} fullWidth />
