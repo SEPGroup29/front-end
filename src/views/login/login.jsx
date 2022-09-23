@@ -13,7 +13,7 @@ const Login = () => {
                                 Log in
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <TextField id="outlined-basic" label="Email" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>

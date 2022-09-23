@@ -38,7 +38,7 @@ export default function Register_vehicle(){
                                 Register Vehicle
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <Typography sx={{paddingTop : 2}}>
                                 Vehicle Number

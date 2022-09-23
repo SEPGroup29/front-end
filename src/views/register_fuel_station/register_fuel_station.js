@@ -38,7 +38,7 @@ export default function Register_fuel_station(){
                                 Register Fuel Station
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <TextField id="outlined-basic" label="Owner Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
                             <TextField

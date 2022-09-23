@@ -12,7 +12,7 @@ export default function Update_fuel_stock(){
                                 Fuel Stock Update
                             </Typography>
                             <Typography variant="subtitle1">
-                                National Fuel Queue Management System
+                                FuelQ 
                             </Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
