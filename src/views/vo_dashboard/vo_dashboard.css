@@ -10,6 +10,17 @@
     justify-content: space-between;
 }
 
+.vlb {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.qb, .sb {
+    height: 100%;
+}
+
 .add_vehicle_btn {
     width: 100%;
 }
@@ -23,8 +34,9 @@
     font-size: 40px;
 }
 
-.qr {
-    overflow: scroll;
+.qr_img {
+    width: 80%;
+    height: 80%;
 }
 
 img {

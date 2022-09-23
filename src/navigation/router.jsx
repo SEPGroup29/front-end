@@ -11,6 +11,8 @@ import RegisterVehicle from '../views/register_vehicle/register_vehicle';
 import RegisterFuelStation from '../views/register_fuel_station/register_fuel_station';
 import UpdateFuelStock from '../views/update_fuel_stock/update_fuel_stock';
 
+import NotFound from "../views/errors/404";
+
 const Router = () => {
     return (
         <BrowserRouter>
@@ -26,6 +28,9 @@ const Router = () => {
                 <Route path="/register-vehicle" element={<RegisterVehicle />} />
                 <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
                 <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
+
+                {/* 404 Error Page */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
