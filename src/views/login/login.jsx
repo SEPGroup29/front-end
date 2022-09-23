@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Card, CardContent, Grid, Link, TextField, Typography} from "@mui/material";
+import {Button, Card, CardContent, Grid, Link, Typography} from "@mui/material";
+import FormInput from "../../components/form_input/FormInput";
 
 
 const Login = () => {
@@ -16,7 +17,7 @@ const Login = () => {
                             <Typography variant="subtitle1">
                                 FuelQ 
                             </Typography>
-                            <TextField id="outlined-basic" label="Email" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="Email" />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
                             <Link to="/register-user">Register</Link>
                         </CardContent>
