@@ -1,9 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Card, CardContent, Grid, Link, Typography} from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
 
-
 const Login = () => {
+
+    const [email,setEmail] =useState('');
+
+    const handleEmailChange = e => {
+        setEmail(e.target.value);
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (validate()[1])
+            window.alert('Error')
+    }
+
+    const validate= () => {
+        let error = ""
+        let valid = !(/$^|.+@.+..+/).test(email)
+        if (valid)
+            error = "Email is not valid"
+
+        return [error , valid]
+    }
+
 
     return (
         <div className="login">
@@ -17,8 +38,8 @@ const Login = () => {
                             <Typography variant="subtitle1">
                                 FuelQ Management System
                             </Typography>
-                            <FormInput label="Email" />
-                            <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
+                            <FormInput label="Email" name="Email" value={email}  onChange = {handleEmailChange}  />
+                            <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth onClick={handleSubmit} >PROCEED</Button>
                             <Link to="/register-user">Register</Link>
                         </CardContent>
                     </Card>

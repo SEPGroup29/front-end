@@ -3,9 +3,18 @@ import React from "react";
 import "./formInput.css"
 
 const FormInput = (props) => {
+
+    const {name , label , onChange , value} = props;
     return(
         <div className="form_input">
-            <TextField label={props.label} variant="outlined" fullWidth />
+            <TextField
+                name = {name}
+                label={label}
+                variant="outlined"
+                value={value}
+                onChange = {onChange}
+                fullWidth
+            />
         </div>
     )
 }
