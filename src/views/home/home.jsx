@@ -6,7 +6,7 @@ const Home = () => {
         <div className="home">
             <Container maxWidth="xl" className="mt-5">
                 <h1>WELCOME!</h1>
-                <h1>Fuel Q - Token Issuer And Queue  </h1>
+                <h1>Fuel Q - Token Issuer And Queue Management System </h1>
             </Container >
         </div>
     );
