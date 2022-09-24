@@ -15,7 +15,7 @@ import { deepPurple } from '@mui/material/colors';
 import { LocalGasStation } from '@mui/icons-material';
 
 const pages = ['Products', 'About Us', 'How to Use'];
-const settings = ['Profile', 'Dashboard', 'Logout'];
+const settings = ['Dashboard', 'Logout', 'Login'];
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -127,7 +127,7 @@ const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar sx={{ bgcolor: deepPurple[500] }}>DL</Avatar>
+                                <Avatar sx={{ bgcolor: deepPurple[500] }}>DL</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -146,8 +146,12 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
+                            <div className="info">
+                                <h6 style={{ padding: '5px', textAlign: 'center', color: '#0d6efd' }}>Deshan Lakshitha</h6>
+                                <p style={{ padding: '5px', textAlign: 'center', color: '#d32f2f' }}>NIC No: 123456789V</p>
+                            </div>
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem style={{textAlign: 'center'}} key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}

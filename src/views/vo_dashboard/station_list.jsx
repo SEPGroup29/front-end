@@ -9,9 +9,9 @@ import Paper from '@mui/material/Paper';
 import { Box, Button } from "@mui/material";
 import { FollowTheSigns, LocalGasStation, LocationOn, Search } from '@mui/icons-material';
 
-const StationList = ({stations}) => {
+const StationList = ({ stations }) => {
     return (
-        <Box component="span" sx={{ p:2, boxShadow: 5, background: '#fff' }} className="sb">
+        <Box component="span" sx={{ p: 2, boxShadow: 5, background: '#fff' }} className="sb">
             <h3 className="text-center heading"><LocalGasStation />&ensp;FUEL STATIONS</h3>
             <p className="recent" style={{ color: '#ed6c02' }}><b>Recently joined fuel stations: </b></p>
             <TableContainer component={Paper}>

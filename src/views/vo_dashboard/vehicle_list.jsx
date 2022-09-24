@@ -7,9 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from "@mui/material";
 import { Delete, InfoOutlined, AddCircle, FormatListNumbered } from '@mui/icons-material';
+import { Link } from "react-router-dom";
 
 
-const VehicleList = ({ handleClick, vehicles }) => {
+const VehicleList = ({ handleClick, handleRemoveVehicle, vehicles }) => {
     return (
 
         <Box component="span" sx={{ p: 2, boxShadow: 5, background: '#fff' }} className="vlb">
@@ -29,7 +30,7 @@ const VehicleList = ({ handleClick, vehicles }) => {
                                     <TableCell align="center">{(row.type).charAt(0).toUpperCase() + (row.type).slice(1)}</TableCell>
                                     <TableCell align="center">{row.fuel}</TableCell>
                                     <TableCell align="left"><Button variant="contained" onClick={handleClick}><InfoOutlined />&ensp;Details</Button></TableCell>
-                                    <TableCell align="left"><Button variant="contained" color="error"><Delete />&ensp;Remove</Button></TableCell>
+                                    <TableCell align="left"><Button variant="contained" color="error" onClick={handleRemoveVehicle}><Delete />&ensp;Remove</Button></TableCell>
                                 </TableRow>
 
                             ))}
@@ -37,7 +38,7 @@ const VehicleList = ({ handleClick, vehicles }) => {
                     </Table>
                 </TableContainer>
             </div>
-            <Button className="add_vehicle_btn" variant="contained"><AddCircle />&ensp;Add a vehicle</Button>
+            <Link to={'/register-vehicle'}><Button className="add_vehicle_btn" variant="contained"><AddCircle />&ensp;Add a vehicle</Button></Link>
 
         </Box>
 
