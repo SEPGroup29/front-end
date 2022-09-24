@@ -6,7 +6,6 @@ const fuelStationList = () => {
     return (
         <div className="fuelStationList">
             <StationTable/>
-
         </div>
     );
 }
