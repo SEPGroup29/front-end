@@ -6,6 +6,9 @@ import VehicleList from "./vehicle_list";
 import FuelQUota from "./fuel_quota";
 import StationList from "./station_list";
 import QueueDetails from "./queue_details";
+import QueueDet from "./queue_det";
+import WithdrawAlertBox from "./withdraw_alertbox";
+import RemoveAlertBox from "./remove_alertbox";
 
 const vehicles = [
     { reg_no: 'XQ - 6799', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
@@ -20,24 +23,43 @@ const stations = [
 ];
 
 const queues = [
-    { vehicle: 'XQ - 6799', token: 205, ongoing: 124 },
-    { vehicle: 'CAB - 4067', token: 123, ongoing: 14 },
+    { vehicle: 'XQ - 6799', token: 124, ongoing: 205 },
+    { vehicle: 'CAB - 4067', token: 14, ongoing: 123 },
 ];
 
 const VODashboard = () => {
-    const [clicked, setClicked] = useState(false)
+    const [clickedVehicles, setClickedVehicles] = useState(false)
     const [vehicleDetails, setVehicleDetails] = useState(null)
-    const handleClick = () => {
+    const handleClickVehicles = () => {
         setVehicleDetails({ regNo: 'CAA - 1234', chassisNo: 123456789, type: 'Car', fuel: 'Petrol' })   // Get from database
-        setClicked(true)
+        setClickedVehicles(true)
+    }
+
+    const [clickedQueues, setClickedQueues] = useState(false)
+    const [queueDetails, setQueueDetails] = useState(null)
+    const handleClickQueues = () => {
+        setQueueDetails({ regNo: 'CAA - 1234', tokenNo: 124, totalTokens: 205, type: 'Petrol', fsName: 'Abeysekara Filling Station', city: 'Galle' })   // Get from database
+        setClickedQueues(true)
+    }
+
+    const [clickedWithdraw, setClickedWithdraw] = useState(false)
+    const handleWithdrawQueues = () => {
+        setQueueDetails({ regNo: 'CAA - 1234', tokenNo: 124, totalTokens: 205, type: 'Petrol', fsName: 'Abeysekara Filling Station', city: 'Galle' })   // Get from database
+        setClickedWithdraw(true)
+    }
+    
+    const [clickedRemove, setClickedRemove] = useState(false)
+    const handleRemoveVehicle = () => {
+        setVehicleDetails({ regNo: 'CAA - 1234', chassisNo: 123456789, type: 'Car', fuel: 'Petrol' })   // Get from database
+        setClickedRemove(true)
     }
 
     return (
         <div className="vo_dashboard">
             <Container maxWidth="xl" className="mt-5">
-                <div className="row"> 
+                <div className="row">
                     <div className="col-md-6 mb-3 vehicle_list">
-                        <VehicleList handleClick={handleClick} vehicles={vehicles} />
+                        <VehicleList handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
                     </div>
                     <div className="col-md-6 mb-3 fuel_quota">
                         <FuelQUota />
@@ -48,11 +70,14 @@ const VODashboard = () => {
                         <StationList stations={stations} />
                     </div>
                     <div className="col-md-6 mb-3 queue_details">
-                        <QueueDetails queues={queues} />
+                        <QueueDetails handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
                     </div>
                 </div>
             </Container>
-            {clicked && <VehicleDetails clicked={clicked} setClicked={setClicked} vehicleDetails={vehicleDetails} />}
+            {clickedVehicles && <VehicleDetails clicked={clickedVehicles} setClicked={setClickedVehicles} vehicleDetails={vehicleDetails} />}
+            {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
+            {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
+            {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
         </div>
     );
 }
