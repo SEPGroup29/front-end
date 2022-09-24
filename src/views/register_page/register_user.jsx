@@ -1,6 +1,7 @@
 import React from "react";
-import {Button, Card, CardContent, Grid, Link, TextField, Typography} from "@mui/material";
+import {Button, Card, CardContent, Grid, Link, Typography} from "@mui/material";
 import {MuiOtpInput} from "mui-one-time-password-input";
+import FormInput from "../../components/form_input/FormInput";
 
 export default function Register_user(){
     const [value, setValue] = React.useState('')
@@ -21,14 +22,14 @@ export default function Register_user(){
                             <Typography variant="subtitle1">
                                 FuelQ 
                             </Typography>
-                            <TextField id="outlined-basic" label="NIC number" variant="outlined" sx={{marginTop : 2}} fullWidth />
-                            <TextField id="outlined-basic" label="E-mail" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="NIC Number" />
+                            <FormInput label="E-mail" />
                             <Button variant="contained" color="secondary" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>SEND OTP</Button>
                             <MuiOtpInput length={6} value={value} onChange={handleChange}/>
-                            <TextField id="outlined-basic" label="First Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
-                            <TextField id="outlined-basic" label="Last Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="First Name" />
+                            <FormInput label="Last Name" />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link href="/login">Log in</Link>
+                            <Link to="/login">Log in</Link>
                         </CardContent>
                     </Card>
                 </Grid>

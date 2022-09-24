@@ -7,8 +7,8 @@ import FuelStaionList from '../views/fs_list/fs_list';
 import VODashboard from '../views/vo_dashboard/vo_dashboard';
 import LoginEnterOTP from '../views/login-enterOTP/login-enterOTP';
 import RegisterUser from '../views/register_page/register_user';
-import RegisterVehicle from '../views/register_vehicle/register_vehicle';
-import RegisterFuelStation from '../views/register_fuel_station/register_fuel_station';
+import RegisterVehicle from "../views/register_vehicle/Register_vehicle";
+import RegisterFuelStation from "../views/register_fuel_station/register_fuel_station";
 import UpdateFuelStock from '../views/update_fuel_stock/update_fuel_stock';
 
 import NotFound from "../views/errors/404";

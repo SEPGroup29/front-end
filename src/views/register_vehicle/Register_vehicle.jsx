@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Card, CardContent, Grid, MenuItem, TextField, Typography} from "@mui/material";
+import FormInput from "../../components/form_input/FormInput";
 
 const vehicle_types = [
     {
@@ -20,7 +21,7 @@ const vehicle_types = [
     },
 ];
 
-export default function Register_vehicle(){
+export default function RegisterVehicle(){
 
     const [vehicle, setVehicle] = React.useState('Motor Bike');
 
@@ -38,20 +39,20 @@ export default function Register_vehicle(){
                                 Register Vehicle
                             </Typography>
                             <Typography variant="subtitle1">
-                                FuelQ 
+                                FuelQ Management System
                             </Typography>
                             <Typography sx={{paddingTop : 2}}>
                                 Vehicle Number
                             </Typography>
-                            <Grid container spacing={2}>
+                            <Grid container spacing={2} sx={{marginBottom : 2}}>
                                 <Grid item xs={4}>
-                                    <TextField id="outlined-basic" label="ABC" variant="outlined" fullWidth />
+                                    <FormInput label="ABC" />
                                 </Grid>
                                 <Grid item xs={8}>
-                                    <TextField id="outlined-basic" label="1234" variant="outlined" fullWidth />
+                                    <FormInput label="1234" />
                                 </Grid>
                             </Grid>
-                            <TextField id="outlined-basic" label="Chassis Number" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="Chassis Number" />
                             <TextField
                                 id="select_vehicle"
                                 select

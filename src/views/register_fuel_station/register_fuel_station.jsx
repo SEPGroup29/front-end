@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Card, CardContent, Grid, MenuItem, TextField, Typography} from "@mui/material";
+import FormInput from "../../components/form_input/FormInput";
 
 const towns = [
     {
@@ -20,7 +21,7 @@ const towns = [
     },
 ];
 
-export default function Register_fuel_station(){
+export default function RegisterFuelStation(){
 
     const [town, setTown] = React.useState('Colombo 1');
 
@@ -38,9 +39,9 @@ export default function Register_fuel_station(){
                                 Register Fuel Station
                             </Typography>
                             <Typography variant="subtitle1">
-                                FuelQ 
+                                FuelQ Management System
                             </Typography>
-                            <TextField id="outlined-basic" label="Owner Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="Owner Name" />
                             <TextField
                                 id="select_tow"
                                 select
@@ -56,7 +57,7 @@ export default function Register_fuel_station(){
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            <TextField id="outlined-basic" label="Display Name" variant="outlined" sx={{marginTop : 2}} fullWidth />
+                            <FormInput label="Display Name" />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>REGISTER</Button>
                         </CardContent>
                     </Card>
