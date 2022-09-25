@@ -8,8 +8,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button } from "@mui/material";
 import { FollowTheSigns, LocalGasStation, LocationOn, Search } from '@mui/icons-material';
+import { Link } from "react-router-dom";
 
-const StationList = ({ stations }) => {
+const StationList = ({ handleClick, stations }) => {
     return (
         <Box component="span" sx={{ p: 2, boxShadow: 5, background: '#fff' }} className="sb">
             <h3 className="text-center heading"><LocalGasStation />&ensp;FUEL STATIONS</h3>
@@ -36,14 +37,14 @@ const StationList = ({ stations }) => {
                                 <TableCell align="center">{row.city}</TableCell>
                                 <TableCell align="center">{row.petrol}</TableCell>
                                 <TableCell align="center">{row.diesel}</TableCell>
-                                <TableCell align="center"><Button variant="contained"><FollowTheSigns />Add to queue</Button></TableCell>
+                                <TableCell align="center"><Button variant="contained" onClick={handleClick}><FollowTheSigns />Add to queue</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             <div className="mt-3">
-                <Button className="add_vehicle_btn" variant="contained"><Search />&ensp;Search fuel stations</Button>
+                <Link to={'/fuel-stations'}><Button className="add_vehicle_btn" variant="contained"><Search />&ensp;Search fuel stations</Button></Link>
             </div>
         </Box>
     );

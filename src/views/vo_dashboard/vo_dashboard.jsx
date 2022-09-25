@@ -9,6 +9,7 @@ import QueueDetails from "./queue_details";
 import QueueDet from "./queue_det";
 import WithdrawAlertBox from "./withdraw_alertbox";
 import RemoveAlertBox from "./remove_alertbox";
+import JoinQueue from "./join_queue";
 
 const vehicles = [
     { reg_no: 'XQ - 6799', chassis_no: 'XXXXXXXX', type: 'bike', fuel: 'Petrol' },
@@ -54,9 +55,15 @@ const VODashboard = () => {
         setClickedRemove(true)
     }
 
+    const[clickedAdd, setClickAdd] = useState(false)
+    const handleAddQueue = () => {
+        setClickAdd(true)
+    }
+
     return (
         <div className="vo_dashboard">
-            <Container maxWidth="xl" className="mt-5">
+            <h1 align="center" style={{marginTop: '5px'}}>Dashboard</h1>
+            <Container maxWidth="xl" className="mt-3">
                 <div className="row">
                     <div className="col-md-6 mb-3 vehicle_list">
                         <VehicleList handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
@@ -67,17 +74,20 @@ const VODashboard = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-6 mb-3 station_list">
-                        <StationList stations={stations} />
+                        <StationList handleClick={handleAddQueue} stations={stations} />
                     </div>
                     <div className="col-md-6 mb-3 queue_details">
                         <QueueDetails handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
                     </div>
                 </div>
             </Container>
+
+            {/* Popup components */}
             {clickedVehicles && <VehicleDetails clicked={clickedVehicles} setClicked={setClickedVehicles} vehicleDetails={vehicleDetails} />}
             {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
             {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
             {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
+            {clickedAdd && <JoinQueue clicked={clickedAdd} setClicked={setClickAdd} />}
         </div>
     );
 }
