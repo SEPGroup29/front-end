@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, CardMedia, Grid, Typography} from "@mui/material";
+import {Button, Card, CardMedia, Grid, Typography} from "@mui/material";
 import "../home/home.css"
 import {LocalGasStation} from "@mui/icons-material";
 
@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <div className="home">
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={6} justifyContent="center" alignItems="center"  >
+                <Grid item xs={6} justifyContent="center" alignItems="center" sx={{paddingLeft : 10 , paddingRight : 10 , }}  >
                     <Typography  sx={{textAlign : "center" }}>
                         <LocalGasStation sx={{fontSize : 150 , color : 'white' , lineHeight : 1}}/>
                     </Typography>
@@ -27,8 +27,6 @@ const Home = () => {
                             fontSize : 30    ,
                             color : "white" ,
                             fontWeight : "lighter",
-                            paddingLeft : 10,
-                            paddingRight :10,
                             paddingTop : 1,
                             lineHeight: 1.1
                         }}>
@@ -36,16 +34,16 @@ const Home = () => {
                         Sri Lanka.
                     </Typography>
 
-                    <Grid container>
+                    <Grid container spacing={2} sx={{paddingTop : 5}}>
                         <Grid item xs={6}>
-
+                            <Button variant="contained" color="warning" sx={{marginTop : 2}} fullWidth> Petrol </Button>
                         </Grid>
 
                         <Grid item xs={6}>
-
+                            <Button variant="contained" color="warning" sx={{marginTop : 2}} fullWidth> Petrol </Button>
                         </Grid>
-
                     </Grid>
+                    <Button variant="contained" color="warning" sx={{marginTop : 2}} fullWidth> Register </Button>
 
                 </Grid>
                 <Grid item xs={6}>
