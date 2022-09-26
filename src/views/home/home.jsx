@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, CardMedia, Grid, Typography} from "@mui/material";
+import {Card, CardMedia, Grid, Link, Typography} from "@mui/material";
 import "../home/home.css"
 import {LocalGasStation} from "@mui/icons-material";
 import RoundedButton from "../../components/rounded_button/roundedButton";
@@ -54,21 +54,21 @@ const Home = () => {
                             paddingTop : 1,
                             lineHeight: 1.1
                         }}>
-                        Fuel Queue management software  developed for manage fuel queues in
+                        Fuel Queue Management System  developed to manage fuel queues in
                         Sri Lanka.
                     </Typography>
 
                     <Grid container spacing={2} sx={{paddingTop : 5}}>
                         <Grid item xs={12} md={6}>
-                            <RoundedButton text="User Login" color="white" />
+                            <Link href="/login"><RoundedButton text="User Login" color="white"/></Link>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            <RoundedButton text="Fuel Station Login" color="white" />
+                            <Link href="/"><RoundedButton text="Fuel Station Login" color="white" /></Link>
+                            
                         </Grid>
                     </Grid>
-                    <RoundedButton text="Register" />
-
+                    <Link href="/register-user"><RoundedButton text="Register" /></Link>
                 </Grid>
                 <Grid item
                       md={5}
