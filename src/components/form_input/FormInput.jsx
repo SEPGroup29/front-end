@@ -5,7 +5,7 @@ import "./formInput.css"
 const FormInput = (props) => {
     return(
         <div className="form_input">
-            <TextField label={props.label} variant="outlined" fullWidth />
+            <TextField label={props.label} variant="outlined" fullWidth onChange={(e)=>props.setValue(e.target.value)}/>
         </div>
     )
 }
