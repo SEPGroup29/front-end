@@ -3,7 +3,6 @@ import {Button} from "@mui/material";
 
 const RoundedButton = (props) => {
     const {color = null , text } = props;
-    console.log(color)
 
     return(
         <Button
@@ -12,12 +11,13 @@ const RoundedButton = (props) => {
             sx={{
                 marginTop : 2,
                 borderRadius : 10 ,
-                fontSize : 20,
+                fontSize : "1.2rem",
                 backgroundColor : color,
                 color : (color === null) ? null : "black",
                 '&:hover' : {
                     backgroundColor : (color === null) ? null : "#cccccc",
-                }
+                },
+
             }}
             fullWidth>
             {text}
