@@ -4,7 +4,7 @@ import "./formInput.css"
 
 const FormInput = (props) => {
 
-    const {name , label , onChange , value , isValid , helperText , onBlur } = props;
+    const {name , label ,  value , isValid , helperText , onBlur } = props;
     return(
         <div className="form_input">
             <TextField
@@ -12,11 +12,11 @@ const FormInput = (props) => {
                 label={label}
                 variant="outlined"
                 value={value}
-                onChange = {onChange}
                 fullWidth
                 error = {isValid}
                 helperText={helperText}
                 onBlur={onBlur}
+                onChange={(e)=>props.setValue(e.target.value)}
             />
         </div>
     )
