@@ -34,7 +34,7 @@ const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     {vehicleDetails.regNo}
-                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1976d2', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuel}</span>
+                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1976d2', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuelType}</span>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     Chassis No: {vehicleDetails.chassisNo}

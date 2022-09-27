@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 const VehicleList = ({ handleClick, handleRemoveVehicle, vehicles }) => {
     return (
-
         <Box component="span" sx={{ p: 2, boxShadow: 5, background: '#fff' }} className="vlb">
             <div className="list_content">
                 <h3 className="text-center heading"><FormatListNumbered />&ensp;VEHICLE LIST</h3>
@@ -21,19 +20,19 @@ const VehicleList = ({ handleClick, handleRemoveVehicle, vehicles }) => {
                         <TableBody>
                             {vehicles.map((row) => (
                                 <TableRow
-                                    key={row.reg_no}
+                                    key={row.regNo}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.reg_no}
+                                        {row.regNo}
                                     </TableCell>
-                                    <TableCell align="center">{(row.type).charAt(0).toUpperCase() + (row.type).slice(1)}</TableCell>
-                                    <TableCell align="center">{row.fuel}</TableCell>
-                                    <TableCell align="left"><Button variant="contained" onClick={handleClick}><InfoOutlined />&ensp;Details</Button></TableCell>
-                                    <TableCell align="left"><Button variant="contained" color="error" onClick={handleRemoveVehicle}><Delete />&ensp;Remove</Button></TableCell>
+                                    <TableCell align="center">{(row.vehicleType).charAt(0).toUpperCase() + (row.vehicleType).slice(1)}</TableCell>
+                                    <TableCell align="center">{(row.fuelType).charAt(0).toUpperCase() + (row.fuelType).slice(1)}</TableCell>
+                                    <TableCell align="left"><Button id={row.id} variant="contained" onClick={handleClick}><InfoOutlined />&ensp;Details</Button></TableCell>
+                                    <TableCell align="left"><Button id={row.id} variant="contained" color="error" onClick={handleRemoveVehicle}><Delete />&ensp;Remove</Button></TableCell>
                                 </TableRow>
 
-                            ))}
+                            ))} 
                         </TableBody>
                     </Table>
                 </TableContainer>
