@@ -13,8 +13,20 @@ const emailExistance = (email) => {
     });
 }
 
+const adminLogin = (email, password) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/login-admin',
+        data: {
+            email: email,
+            password: password
+        }
+    });
+}
+ 
 export default {
-    emailExistance
+    emailExistance,
+    adminLogin
 }
 
 
