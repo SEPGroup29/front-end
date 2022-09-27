@@ -5,6 +5,7 @@ import FormInput from "../../components/form_input/FormInput";
 import auth_services from "../../services/auth_services";
 import ErrorAlert from "../../alerts/errorAlert";
 import { useNavigate } from "react-router-dom";
+import InfoAlert from "../../alerts/infoAlert";
 
 export default function Register_user() {
     const [otp, setOtp] = useState('')
@@ -19,29 +20,33 @@ export default function Register_user() {
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState()
 
-    const [otpContent, setOtpContent] = useState(null)
-    const [exists, setExists] = useState(null)
+    const [otpContent, setOtpContent] = useState()
+    const [exists, setExists] = useState()
     const sendOTP = async (e) => {
         e.preventDefault()
 
         // Handle validations here
 
-        const response = await auth_services.emailExistance(email)
-        console.log(response.data)
         setOtpContent(null)
         setExists(null)
+        const response = await auth_services.emailExistance(email)
+        console.log(response.data)
         if (response.status === 200) {
             if (response.data.result === 'Sent') {
-                setOtpContent('Enter the OTP sent to ' + email)
+                setOtpContent('Enter the OTP sent to ' + email.slice(0,3) + '***' + email.slice(email.indexOf('@')))
             } else if (response.data.result === 'Email already exists') {
                 setEmail('')
                 setExists('Email you entered already exists')
             }
         }
+        console.log("Error", error)
     }
 
     const handleRegister = async (e) => {
         e.preventDefault()
+
+        // Handle validations here
+
         try{
             const response = await auth_services.registerUser(NIC, email, otp, firstName, lastName)
             console.log(response)
@@ -61,7 +66,7 @@ export default function Register_user() {
     return (
         <dev>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={10} md={5} paddingTop={2}>
+                <Grid item xs={10} md={5} paddingTop={1}>
                     <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
@@ -70,8 +75,9 @@ export default function Register_user() {
                             <Typography variant="subtitle1">
                                 FuelQ
                             </Typography>
+                            {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
+                            {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
                             {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                            {/* {success && <SuccessAlert custom_message={success}></SuccessAlert>} */}
                             <FormInput label="NIC Number" setValue = {setNIC} />
                             <FormInput label="E-mail" setValue={setEmail}/>
                             <Button 
@@ -82,14 +88,6 @@ export default function Register_user() {
                                 onClick={sendOTP}
 
                             >SEND OTP</Button>
-                            {otpContent &&
-                                <Typography variant="subtitle1" sx={{ margin: '5px', color: '#1976d2' }}>
-                                    <b>{otpContent}</b>
-                                </Typography>}
-                            {exists &&
-                                <Typography variant="subtitle1" sx={{ margin: '5px', color: '#d32f2f' }}>
-                                    <b>{exists}</b>
-                                </Typography>}
                             <MuiOtpInput length={6} value={otp} onChange={handleChange} />
                             <FormInput label="First Name" setValue={setFirstName} />
                             <FormInput label="Last Name" setValue={setLastName} />
