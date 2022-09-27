@@ -20,20 +20,45 @@ export default function Register_user() {
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState()
 
+    const countdown = () => {
+        var seconds = 59;
+        function tick() {
+            var counter = document.getElementById("counter");
+            seconds--;
+            counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+            if (seconds > 0) {
+                setTimeout(tick, 1000);
+            } else {
+                document.getElementById("counter").innerHTML = "";
+            }
+        }
+        tick();
+    }
+
     const [otpContent, setOtpContent] = useState()
     const [exists, setExists] = useState()
+    const [disabled, setDisabled] = useState(false)
     const sendOTP = async (e) => {
         e.preventDefault()
 
         // Handle validations here
 
+        setDisabled(true)
+        setOtpContent(null)
+        setExists(null)
+        const response = await auth_services.emailExistance(email)
+        console.log(response.data)
         setOtpContent(null)
         setExists(null)
         const response = await auth_services.emailExistance(email)
         console.log(response.data)
         if (response.status === 200) {
             if (response.data.result === 'Sent') {
-                setOtpContent('Enter the OTP sent to ' + email.slice(0,3) + '***' + email.slice(email.indexOf('@')))
+                setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
+                countdown()
+                setTimeout(() => {
+                    setDisabled(false)
+                }, 60000)
             } else if (response.data.result === 'Email already exists') {
                 setEmail('')
                 setExists('Email you entered already exists')
@@ -47,18 +72,18 @@ export default function Register_user() {
 
         // Handle validations here
 
-        try{
+        try {
             const response = await auth_services.registerUser(NIC, email, otp, firstName, lastName)
             console.log(response)
-            if(response.data.error){
+            if (response.data.error) {
                 setError(response.data.error)
-            } else{
+            } else {
                 navigate('/vo-dashboard')
             }
-        } catch(error){
+        } catch (error) {
             console.log(error)
         }
-        
+
 
     }
 
@@ -78,23 +103,29 @@ export default function Register_user() {
                             {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
                             {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
                             {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                            <FormInput label="NIC Number" setValue = {setNIC} />
-                            <FormInput label="E-mail" setValue={setEmail}/>
-                            <Button 
-                                variant="contained" 
-                                color="secondary" 
-                                sx={{marginTop : 2 , marginBottom : 2}} 
+                            <FormInput label="NIC Number" setValue={setNIC} />
+                            <FormInput label="E-mail" setValue={setEmail} />
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                sx={{ marginTop: 2, marginBottom: 2 }}
                                 fullWidth
                                 onClick={sendOTP}
-
-                            >SEND OTP</Button>
+                                id="send"
+                                disabled={disabled}
+                            >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
+                            {otpContent ? <span class="timer" style={{ color: '#ed6c02' }}>
+                                OTP Will expire in <span id="counter"></span> seconds
+                            </span> : <span class="timer" style={{ color: '#ed6c02' }}>
+                                <span id="counter"></span>
+                            </span>}
                             <MuiOtpInput length={6} value={otp} onChange={handleChange} />
                             <FormInput label="First Name" setValue={setFirstName} />
                             <FormInput label="Last Name" setValue={setLastName} />
-                            <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth 
-                            onClick={handleRegister}>PROCEED</Button>
+                            <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth
+                                onClick={handleRegister}>PROCEED</Button>
                             <Link to="/login">Log in</Link>
-                            
+
                         </CardContent>
                     </Card>
                 </Grid>
