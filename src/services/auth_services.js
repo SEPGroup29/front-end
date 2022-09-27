@@ -14,8 +14,35 @@ const emailExistance = (email) => {
     });
 }
 
+const adminLogin = (email, password) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/login-admin',
+        data: {
+            email: email,
+            password: password
+        }
+    });
+}
+
+const registerUser = (NIC, email, otp, firstName, lastName) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/register',
+        data: {
+            NIC: NIC,
+            email: email,
+            entered_otp: otp,
+            firstName: firstName,
+            lastName: lastName
+        }
+    })
+}
+ 
 export default {
-    emailExistance
+    emailExistance,
+    adminLogin,
+    registerUser
 }
 
 

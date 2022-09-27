@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SignIn from "../views/admin_login/admin_login";
 import Home from '../views/home/home';
 import Login from '../views/login/login';
 import VehicleOwnersList from '../views/vo_list/vo_list';
@@ -30,6 +31,9 @@ const Router = () => {
                 <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
                 <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
                 <Route path="/fuel-stations" element={<FuelStations/>} />
+                <Route path="/admin-login" element={<SignIn/>}>
+                    
+                </Route>
 
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />

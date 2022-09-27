@@ -60,7 +60,7 @@ const Home = () => {
 
                     <Grid container spacing={2} sx={{paddingTop : 5}}>
                         <Grid item xs={12} md={6}>
-                            <Link href="/login"><RoundedButton text="User Login" color="white"/></Link>
+                            <Link href="/login"><RoundedButton text="Vehicle Owner Login" color="white"/></Link>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
