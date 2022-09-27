@@ -10,17 +10,27 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import auth_services from "../../services/auth_services";
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigation = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const response = await auth_services.adminLogin(data.get('email'),data.get('password'))
+    console.log(response.data.result);
+    if(response.status === 200 ){
+       //chnage page to dashboard
+      if(response.data.result === "Login sucess"){
+        navigation('/fs-dashboard');
+      }
+      else if(response.data.result === "Invalid credentials"){
+        alert("Invalid credentials")
+      }
+    } 
   };
 
   return (
@@ -76,7 +86,6 @@ export default function SignIn() {
             </Button>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
