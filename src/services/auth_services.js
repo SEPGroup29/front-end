@@ -23,10 +23,25 @@ const adminLogin = (email, password) => {
         }
     });
 }
+
+const registerUser = (NIC, email, otp, firstName, lastName) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/register',
+        data: {
+            NIC: NIC,
+            email: email,
+            entered_otp: otp,
+            firstName: firstName,
+            lastName: lastName
+        }
+    })
+}
  
 export default {
     emailExistance,
-    adminLogin
+    adminLogin,
+    registerUser
 }
 
 
