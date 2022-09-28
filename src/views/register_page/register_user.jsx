@@ -43,13 +43,13 @@ export default function Register_user() {
 
         // Handle validations here
 
-        setDisabled(true)
         setOtpContent(null)
         setExists(null)
         const response = await auth_services.emailExistance(email)
         console.log(response.data)
         if (response.status === 200) {
             if (response.data.result === 'Sent') {
+                setDisabled(true)
                 setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
                 countdown()
                 setTimeout(() => {
@@ -96,7 +96,6 @@ export default function Register_user() {
                             <Typography variant="subtitle1">
                                 FuelQ
                             </Typography>
-                            {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
                             {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
                             {error && <ErrorAlert custom_message={error}></ErrorAlert>}
                             <FormInput label="NIC Number" setValue={setNIC} />
@@ -110,9 +109,10 @@ export default function Register_user() {
                                 id="send"
                                 disabled={disabled}
                             >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
-                            {otpContent ? <span class="timer" style={{ color: '#ed6c02' }}>
+                            {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
+                            {otpContent ? <span class="timer" id="timer" style={{ color: '#ed6c02' }}>
                                 OTP Will expire in <span id="counter"></span> seconds
-                            </span> : <span class="timer" style={{ color: '#ed6c02' }}>
+                            </span> : <span class="timer" id="timer" style={{ color: '#ed6c02' }}>
                                 <span id="counter"></span>
                             </span>}
                             <MuiOtpInput length={6} value={otp} onChange={handleChange} />
