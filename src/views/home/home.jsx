@@ -41,7 +41,8 @@ const Home = () => {
                             } ,
                             color : "white" ,
                             fontWeight : "bold",
-                            lineHeight: 1
+                            lineHeight: 1,
+                            fontFamily: 'monospace',
                         }}>
                         FuelQ
                     </Typography>
@@ -60,15 +61,15 @@ const Home = () => {
 
                     <Grid container spacing={2} sx={{paddingTop : 5}}>
                         <Grid item xs={12} md={6}>
-                            <Link href="/login"><RoundedButton text="Vehicle Owner Login" color="white"/></Link>
+                            <Link href="/login" style={{textDecoration: 'none'}}><RoundedButton text="Vehicle Owner Login" color="white"/></Link>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            <Link href="/"><RoundedButton text="Fuel Station Login" color="white" /></Link>
+                            <Link href="/" style={{textDecoration: 'none'}}><RoundedButton text="Fuel Station Login" color="white" /></Link>
                             
                         </Grid>
                     </Grid>
-                    <Link href="/register-user"><RoundedButton text="Register" /></Link>
+                    <Link href="/register-user" style={{textDecoration: 'none'}}><RoundedButton text="Register" /></Link>
                 </Grid>
                 <Grid item
                       md={5}
