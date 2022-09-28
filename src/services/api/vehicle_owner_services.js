@@ -3,13 +3,20 @@ import config from '../../config.json';
 
 const API_URL = config.DOMAIN_NAME + '/api/vehicle-owner';
 
-const showVehicles = () => {
+const registerVehicle = (regNo, chassisNo, vehicleType, fuelType ) => {
     return axios({
-        method: 'get',
-        url: API_URL + '/show-vehicles',
-    });
+        method: 'post',
+        url: API_URL + '/add-vehicle',
+        data: {
+            regNo: regNo,
+            chassisNo: chassisNo,
+            vehicleType: vehicleType,
+            fuelType: fuelType
+        }
+    })
 }
 
-export default {
-    showVehicles,
+export default{
+    registerVehicle
 }
+

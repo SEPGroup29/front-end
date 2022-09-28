@@ -65,7 +65,7 @@ export default function OwnersTable() {
     <Container maxWidth="lg">
     <Box sx={{ height: '100vh'}}>
     <Paper sx={{ width: '100%'}} elevation={4} >
-      <h1 align= "center">Fuel Stations</h1>
+      <h1 align= "center" style={{marginTop: '20px'}}>Fuel Stations</h1>
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" >
           <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"}}}>
