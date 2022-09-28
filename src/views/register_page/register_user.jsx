@@ -48,10 +48,6 @@ export default function Register_user() {
         setExists(null)
         const response = await auth_services.emailExistance(email)
         console.log(response.data)
-        setOtpContent(null)
-        setExists(null)
-        const response = await auth_services.emailExistance(email)
-        console.log(response.data)
         if (response.status === 200) {
             if (response.data.result === 'Sent') {
                 setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
