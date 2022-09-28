@@ -1,7 +1,7 @@
 import axois from 'axios';
 import config from '../../config.json';
 
-const API_URL = config.DOMAIN_NAME + '/veicle-owner';
+const API_URL = config.DOMAIN_NAME + '/api/vehicle-owner';
 
 const registerVehicle = (regNo, chassisNo, vehicleType, fuelType ) => {
     return axois({

@@ -11,26 +11,28 @@ import ErrorAlert from "../../alerts/errorAlert";
 
 const vehicle_types = [
     {
-        value: 'Motor Bike',
-        label: 'Motor Bike',
+        value: 'bike',
+        label: 'Motor Bike', 
     },
     {
-        value: 'Car',
+        value: 'car',
         label: 'Car',
     },
     {
-        value: 'Van',
+        value: 'van',
         label: 'Van',
     },
     {
-        value: 'Lorry',
+        value: 'lorry',
         label: 'Lorry',
     },
 ];
 
 export default function RegisterVehicle() {
 
+    const [letters, setLetters] = React.useState('')
     const [vehicleNo, setVehicleNo] = React.useState('')
+    let regNo = ''
     const [chassisNo, setChassisNo] = React.useState('')
     const [vehicle, setVehicle] = React.useState('Motor Bike');
 
@@ -54,10 +56,12 @@ export default function RegisterVehicle() {
       }));
 
     const handleAddVehicle = async (e) => {
-        console.log(vehicleNo,chassisNo,vehicle,fuel)
         e.preventDefault()
+        console.log(letters, vehicleNo)
+        regNo = letters + ' ' + vehicleNo
         try {
-            const response = await vehicle_owner_services.registerVehicle(vehicleNo,chassisNo,vehicle,fuel)
+            console.log([regNo,chassisNo,vehicle,fuel])
+            const response = await vehicle_owner_services.registerVehicle(regNo,chassisNo,vehicle,fuel)
             console.log(response)
             if(response.data.error){
                 setError(response.data.error)
@@ -88,10 +92,10 @@ export default function RegisterVehicle() {
                             </Typography>
                             <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                 <Grid item xs={4}>
-                                    <FormInput label="ABC" setValue={setVehicleNo} />
+                                    <FormInput label="ABC" setValue={setLetters} />
                                 </Grid>
                                 <Grid item xs={8}>
-                                    <FormInput label="1234" />
+                                    <FormInput label="1234" setValue={setVehicleNo} />
                                 </Grid>
                             </Grid>
                             <FormInput label="Chassis Number" setValue={setChassisNo}/>
