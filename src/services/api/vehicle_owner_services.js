@@ -16,6 +16,7 @@ const registerVehicle = (regNo, chassisNo, vehicleType, fuelType ) => {
     })
 }
 
+// eslint-disable-next-line
 export default{
     registerVehicle
 }

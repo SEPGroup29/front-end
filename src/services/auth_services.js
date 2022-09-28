@@ -38,7 +38,8 @@ const registerUser = (NIC, email, otp, firstName, lastName) => {
         }
     })
 }
- 
+
+// eslint-disable-next-line
 export default {
     emailExistance,
     adminLogin,

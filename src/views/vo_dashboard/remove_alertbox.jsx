@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Box, Button } from "@mui/material";
-import { LocalGasStation, LocationOn } from "@mui/icons-material";
+//import { LocalGasStation, LocationOn } from "@mui/icons-material";
 
 const style = {
     position: 'absolute',
