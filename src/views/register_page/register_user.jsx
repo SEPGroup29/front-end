@@ -29,7 +29,8 @@ export default function Register_user() {
             if (seconds > 0) {
                 setTimeout(tick, 1000);
             } else {
-                document.getElementById("counter").innerHTML = "";
+                // document.getElementById("timer").style.color = "#d32f2f";
+                // document.getElementById("timer").innerHTML = "OTP expired!";
             }
         }
         tick();
@@ -37,6 +38,7 @@ export default function Register_user() {
 
     const [otpContent, setOtpContent] = useState()
     const [exists, setExists] = useState()
+    const [allowed, setAllowed] = useState(true)
     const [disabled, setDisabled] = useState(false)
     const sendOTP = async (e) => {
         e.preventDefault()
@@ -50,6 +52,7 @@ export default function Register_user() {
         if (response.status === 200) {
             if (response.data.result === 'Sent') {
                 setDisabled(true)
+                setAllowed(false)
                 setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
                 countdown()
                 setTimeout(() => {
@@ -74,7 +77,7 @@ export default function Register_user() {
             if (response.data.error) {
                 setError(response.data.error)
             } else {
-                navigate('/vo-dashboard')
+                navigate('/register-vehicle')
             }
         } catch (error) {
             console.log(error)
@@ -91,7 +94,7 @@ export default function Register_user() {
                     <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
-                                Register User
+                                Register Vehicle Owner
                             </Typography>
                             <Typography variant="subtitle1">
                                 FuelQ
@@ -118,8 +121,15 @@ export default function Register_user() {
                             <MuiOtpInput length={6} value={otp} onChange={handleChange} />
                             <FormInput label="First Name" setValue={setFirstName} />
                             <FormInput label="Last Name" setValue={setLastName} />
-                            <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth
-                                onClick={handleRegister}>PROCEED</Button>
+                            <Button
+                                variant="contained"
+                                sx={{ marginTop: 2, marginBottom: 2 }}
+                                fullWidth
+                                onClick={handleRegister}
+                                disabled={allowed}
+                            >
+                                PROCEED
+                            </Button>
                             <Link to="/login">Log in</Link>
 
                         </CardContent>
