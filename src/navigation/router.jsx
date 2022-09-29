@@ -12,6 +12,7 @@ import RegisterVehicle from "../views/register_vehicle/register_vehicle";
 import RegisterFuelStation from "../views/register_fuel_station/register_fuel_station";
 import UpdateFuelStock from '../views/update_fuel_stock/update_fuel_stock';
 import FuelStations from "../views/fuel_stations/fuel_stations";
+import VoDashbordNew from "../views/vo_dashbord_new/vo_dashbord_new"
 
 import NotFound from "../views/errors/404";
 
@@ -34,6 +35,7 @@ const Router = () => {
                 <Route path="/admin-login" element={<SignIn/>}>
                     
                 </Route>
+                <Route path="/vo-dashbord-new" element={<VoDashbordNew />} />
 
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />
