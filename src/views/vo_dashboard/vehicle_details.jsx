@@ -27,7 +27,7 @@ const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
     return (
         <Modal
             open={open}
-            onClose={handleClose}
+            onClose={handleClose} //kakulu was here
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -37,10 +37,10 @@ const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
                     <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1976d2', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuelType}</span>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Chassis No: {vehicleDetails.chassisNo}
+                    <b>Chassis No:</b> {vehicleDetails.chassisNo}
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {vehicleDetails.type}
+                    <b>Vehicle category:</b> {(vehicleDetails.vehicleType.type).charAt(0).toUpperCase() + (vehicleDetails.vehicleType.type).slice(1)} ({vehicleDetails.vehicleType.description})
                 </Typography>
             </Box>
         </Modal>

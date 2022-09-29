@@ -10,6 +10,11 @@
     justify-content: space-between;
 }
 
+.image {
+    display: flex;
+    justify-content: center;
+}
+
 .vlb {
     display: flex;
     flex-direction: column;
