@@ -1,6 +1,5 @@
 import {TextField} from "@mui/material";
 import React from "react";
-import "./formInput.css"
 
 const FormInput = (props) => {
 
