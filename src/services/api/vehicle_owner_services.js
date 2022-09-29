@@ -16,8 +16,23 @@ const registerVehicle = (regNo, chassisNo, vehicleType, fuelType ) => {
     })
 }
 
-// eslint-disable-next-line
+const showVehicles = () => {
+    return axios({
+        method: 'get',
+        url: API_URL + '/show-vehicles',
+    })
+}
+
+const deleteVehicle = (vehicle_id) => {
+    return axios({
+        method: 'delete',
+        url: API_URL + `/delete-vehicle/${vehicle_id}`,
+    })
+}
+
 export default{
-    registerVehicle
+    registerVehicle,
+    showVehicles,
+    deleteVehicle,
 }
 

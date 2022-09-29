@@ -43,21 +43,23 @@ const VODashboard = () => {
             const response = await vehicle_owner_services.showVehicles()
             if (response) {
                 if (response.status === 200)
-                    setVehicles(response.data.vehicles)
+                    setVehicles(response.data)
                 else if (response.status === 400)
                     setError("Internal server error")
             } else
                 setError("Unkonown error occured.")
+            console.log(response.data)
         } catch (error) {
-
+            console.log(error)
         }
     }
 
     const [clickedVehicles, setClickedVehicles] = useState(false)
-    const [vehicleDetails, setVehicleDetails] = useState(null)
+    const [vehicleDetails, setVehicleDetails] = useState()
     const handleClickVehicles = (event) => {
+        // console.log(event.target.id)
         vehicles.map(v => {
-            if (v.id === event.target.id) {
+            if (v._id === event.target.id) {
                 setVehicleDetails(v)
                 // console.log(v);
             }
@@ -80,8 +82,15 @@ const VODashboard = () => {
     }
 
     const [clickedRemove, setClickedRemove] = useState(false)
-    const handleRemoveVehicle = () => {
-        setVehicleDetails({ regNo: 'CAA - 1234', chassisNo: 123456789, type: 'Car', fuel: 'Petrol' })   // Get from database
+    const handleRemoveVehicle = (event) => {
+        // setVehicleDetails({ regNo: 'CAA - 1234', chassisNo: 123456789, type: 'Car', fuel: 'Petrol' })   // Get from database
+        // console.log(event.target.id)
+        vehicles.map(v => {
+            if (v._id === event.target.id) {
+                setVehicleDetails(v)
+                // console.log(v);
+            }
+        })
         setClickedRemove(true)
     }
 
