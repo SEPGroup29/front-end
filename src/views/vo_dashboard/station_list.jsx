@@ -37,7 +37,7 @@ const StationList = ({ handleClick, stations }) => {
                                 <TableCell align="center">{row.city}</TableCell>
                                 <TableCell align="center">{row.petrol}</TableCell>
                                 <TableCell align="center">{row.diesel}</TableCell>
-                                <TableCell align="center"><Button variant="contained" onClick={handleClick}><FollowTheSigns />Add to queue</Button></TableCell>
+                                <TableCell align="center"><Button variant="contained" onClick={handleClick}><FollowTheSigns />Join</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
