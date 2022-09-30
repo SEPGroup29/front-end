@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { deepPurple } from '@mui/material/colors';
 import { LocalGasStation } from '@mui/icons-material';
-import {useLogout} from '../../hooks/use_logout';
 
 
 
@@ -21,7 +20,6 @@ const pages = ['About Us', 'How to Use'];
 const settings = ['Dashboard', 'Logout', 'Login'];
 
 const Navbar = () => {
-    const { logout } = useLogout();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,10 +37,6 @@ const Navbar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
-    const handleOnClick = (page) => {
-        logout();
-    }
 
     return (
         <AppBar position="static">
@@ -131,8 +125,6 @@ const Navbar = () => {
                             </Button>
                         ))}
                     </Box>
-                    <Button variant="outlined" onClick={handleOnClick}>Logout</Button>
-                    
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
