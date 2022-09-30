@@ -12,10 +12,12 @@ import auth_services from "../../services/auth_services";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ErrorAlert from "../../alerts/errorAlert";
+import { useLogin } from '../../hooks/use_login';
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const {login, err, isLoading} = useLogin();
   const navigation = useNavigate();
   const [email,setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +25,8 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await auth_services.adminLogin(email,password);
+    await login(email, password)
+    const response = await auth_services.fsLogin(email,password);
     console.log(response);
     if(response.status === 200 ){
        //chnage page to dashboard
@@ -55,6 +58,7 @@ export default function SignIn() {
             Sign in
           </Typography>
           {error && <ErrorAlert custom_message={error}></ErrorAlert>}
+          {err && <div className="error">{err}</div>}
           <Box component="form"  noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -84,6 +88,7 @@ export default function SignIn() {
               variant="contained"
               onClick={handleSubmit}
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
               Sign In
             </Button>
