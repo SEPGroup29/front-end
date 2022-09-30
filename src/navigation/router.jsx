@@ -12,6 +12,7 @@ import RegisterVehicle from "../views/register_vehicle/register_vehicle";
 import RegisterFuelStation from "../views/register_fuel_station/register_fuel_station";
 import UpdateFuelStock from '../views/update_fuel_stock/update_fuel_stock';
 import FuelStations from "../views/fuel_stations/fuel_stations";
+import FuelStationLogin from "../views/fs_login/fs_login";
 
 import NotFound from "../views/errors/404";
 
@@ -31,10 +32,9 @@ const Router = () => {
                 <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
                 <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
                 <Route path="/fuel-stations" element={<FuelStations/>} />
-                <Route path="/admin-login" element={<SignIn/>}>
-                    
-                </Route>
-
+                <Route path="/admin-login" element={<SignIn/>}/>
+                <Route path="/fs-login" element={<FuelStationLogin/>} />    
+                
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />
             </Routes>

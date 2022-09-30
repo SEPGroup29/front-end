@@ -25,6 +25,17 @@ const adminLogin = (email, password) => {
     });
 }
 
+const fsLogin = (email, password) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/login-manager',//backend route
+        data: {
+            email: email,
+            password: password
+        }
+    });
+}
+
 const registerUser = (NIC, email, otp, firstName, lastName) => {
     return axois({
         method: 'post',
@@ -43,7 +54,8 @@ const registerUser = (NIC, email, otp, firstName, lastName) => {
 export default {
     emailExistance,
     adminLogin,
-    registerUser
+    registerUser,
+    fsLogin
 }
 
 
