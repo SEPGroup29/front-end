@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import ProgressBar from "./fs_pbar";
 import PropTypes from 'prop-types';
+import Sidebar from "../../components/sidebar";
 
 function Item({ name, value }) {
 
@@ -36,6 +37,7 @@ const fs_dashboard = () => {
     return (
         <div className="fs_dashboard">
             <Container>
+                <Sidebar/>
                 <h1 align="center">Fuel Station Dashboard</h1>
                     <Card sx={{ maxwidth: 'lg' }}>
                         <Box>
