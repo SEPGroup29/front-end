@@ -55,6 +55,9 @@ const Navbar = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            "&:hover": {
+                                color: 'white',
+                              },
                         }}
                     >
                         <LocalGasStation />FuelQ

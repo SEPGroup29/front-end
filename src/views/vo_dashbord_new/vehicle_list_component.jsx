@@ -19,18 +19,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from '@mui/icons-material/Info';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
-const VehicleListComponent = ({vehicles}) => {
+const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) => {
 
-    const [openVehDetail , setOpenVehDetail] = React.useState(false);
-    const [vehicleDetails , setVehicleDetails] = React.useState();
+    const [openVehDetail, setOpenVehDetail] = React.useState(false);
+    const [vehicleDetails, setVehicleDetails] = React.useState();
 
     const seeVehDetail = (event) => {
         vehicles.map(v => {
-            if (v._id === event.target.id){
+            if (v._id === event.target.id) {
                 setVehicleDetails(v)
             }
         })
@@ -50,23 +50,23 @@ const VehicleListComponent = ({vehicles}) => {
         navigate('/register-vehicle')
     }
 
-    return(
+    return (
         <Card
             sx={{
-                alignSelf : 'center' ,
-                borderRadius : 5 ,
-                height : {xs:'none' , md:'430px'},
+                alignSelf: 'center',
+                borderRadius: 5,
+                height: { xs: 'none', md: '430px' },
                 overflow: "auto",
             }}
             variant={"outlined"}
         >
             <CardHeader
-                sx={{backgroundColor : '#E1E5F2'}}
+                sx={{ backgroundColor: '#E1E5F2' }}
                 title={
                     <Typography
                         variant="h5"
                         sx={{
-                            textAlign : "center",
+                            textAlign: "center",
                             fontWeight: "medium"
                         }}
                     >
@@ -75,11 +75,11 @@ const VehicleListComponent = ({vehicles}) => {
                 }
             />
 
-            <CardContent sx={{ alignContent : 'center' }}>
+            <CardContent sx={{ alignContent: 'center' }}>
 
                 {
                     vehicles.length <= 3 ?
-                        <TableContainer component={Paper} sx={{boxShadow: 0}}>
+                        <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
                             <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
@@ -94,49 +94,54 @@ const VehicleListComponent = ({vehicles}) => {
                                     {vehicles.map((vehicle) => (
                                         <TableRow
                                             key={vehicle._id}
-                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell>
                                                 {vehicle.regNo}
                                             </TableCell>
                                             <TableCell>{vehicle.vehicleType.type}</TableCell>
                                             <TableCell>{vehicle.fuelType}</TableCell>
-                                            <TableCell align="right" sx={{paddingLeft: 1, paddingRight: 1}}>
+                                            <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                                 <Button
+                                                    id={vehicle._id}
                                                     variant="contained"
                                                     color="primary"
-                                                    id={vehicle._id}
-                                                    onClick={seeVehDetail}
-                                                    endIcon={<InfoOutlinedIcon/>}
-                                                    sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                    // id={vehicle._id}
+                                                    onClick={handleClick}
+                                                    endIcon={<InfoOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
                                                 >
                                                     More Info
                                                 </Button>
-                                                <IconButton
+                                                {/* <IconButton
                                                     aria-label="info"
-                                                    id={vehicle._id}
+                                                    // id={vehicle._id}
+                                                    onClick={handleClick}
                                                     sx={{display: {xs: 'block', sm: 'none'}}}
                                                     color="primary"
                                                 >
                                                     <InfoIcon/>
-                                                </IconButton>
+                                                </IconButton> */}
                                             </TableCell>
-                                            <TableCell align="left" sx={{paddingLeft: 1, paddingRight: 1}}>
+                                            <TableCell align="left" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                                 <Button
+                                                    id={vehicle._id}
                                                     variant="contained"
                                                     color="error"
-                                                    endIcon={<DeleteOutlineOutlinedIcon/>}
-                                                    sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                    onClick={handleRemoveVehicle}
+                                                    endIcon={<DeleteOutlineOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
                                                 >
                                                     Remove
                                                 </Button>
-                                                <IconButton
+                                                {/* <IconButton
                                                     aria-label="delete"
                                                     color="error"
+                                                    onClick={handleRemoveVehicle}
                                                     sx={{display: {xs: 'block', sm: 'none'}}}
                                                 >
                                                     <DeleteIcon/>
-                                                </IconButton>
+                                                </IconButton> */}
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -155,7 +160,7 @@ const VehicleListComponent = ({vehicles}) => {
                         color="secondary"
                         disabled={!fullVehicles}
                         onClick={addVehicleButtonClick}
-                        sx={{marginTop : 3 , alignSelf : 'center' , paddingRight : 5 , paddingLeft : 5}}
+                        sx={{ marginTop: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5 }}
                         startIcon={<AddCircleOutlineIcon />}
                     >
                         Add Vehicle
@@ -163,18 +168,6 @@ const VehicleListComponent = ({vehicles}) => {
                 </Typography>
 
             </CardContent>
-
-            <Dialog
-                open={openVehDetail}
-                onClose={handleClose}
-            >
-                <DialogTitle>
-                    <Typography>
-                        AAAAA
-                    </Typography>
-
-                </DialogTitle>
-            </Dialog>
 
         </Card>
     )
