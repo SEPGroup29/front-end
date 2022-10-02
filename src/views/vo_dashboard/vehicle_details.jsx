@@ -12,8 +12,9 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: '#fff',
-    border: '5px solid #1976d2',
+    border: '5px solid #1F7A8C',
     boxShadow: 24,
+    borderRadius: 5,
     p: 4,
 };
 
@@ -34,7 +35,7 @@ const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     {vehicleDetails.regNo}
-                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1976d2', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuelType}</span>
+                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuelType}</span>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     <b>Chassis No:</b> {vehicleDetails.chassisNo}

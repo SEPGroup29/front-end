@@ -129,7 +129,7 @@ const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar sx={{ bgcolor: deepPurple[500] }}>DL</Avatar>
+                                <Avatar sx={{ bgcolor: '#022B3A' }}>DL</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
