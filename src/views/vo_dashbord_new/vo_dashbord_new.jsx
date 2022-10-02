@@ -9,7 +9,7 @@ import QueueDetailComponent from "./queue_details_component";
 const Vo_Dashboard_new = () => {
     return (
         <div className="vo-dashboard">
-            <Typography variant="h3">
+            <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
                 Welcome, Yasiru,
             </Typography>
         <Grid container maxWidth="xl" spacing={2} paddingTop={3} alignItems="center">

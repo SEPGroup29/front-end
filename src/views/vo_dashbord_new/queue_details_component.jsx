@@ -30,7 +30,7 @@ const QueueDetailComponent = () => {
             variant={"outlined"}
         >
             <CardHeader
-                sx={{backgroundColor : '#e7e7e7'}}
+                sx={{backgroundColor : '#E1E5F2'}}
                 title={
                     <Typography
                         variant="h5"
@@ -45,7 +45,7 @@ const QueueDetailComponent = () => {
             />
 
             <CardContent sx={{ alignContent : 'center' }}>
-                <TableContainer component={Paper} sx={{boxShadow : 0}} >
+                <TableContainer component={Paper} sx={{boxShadow : 0}}>
                     <TableHead>
                         <TableRow>
                             <TableCell> Vehicle Number</TableCell>
@@ -68,7 +68,7 @@ const QueueDetailComponent = () => {
                                 <TableCell align="right" sx={{paddingLeft : 1 , paddingRight:1}}>
                                     <Button
                                         variant="contained"
-                                        color = "success"
+                                        color = "primary"
                                     >
                                         <InfoOutlinedIcon />
                                     </Button>

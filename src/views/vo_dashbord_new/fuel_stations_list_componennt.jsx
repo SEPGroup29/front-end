@@ -34,7 +34,7 @@ const FuelStationListComponent = () => {
             variant={"outlined"}
         >
             <CardHeader
-                sx={{backgroundColor : '#e7e7e7'}}
+                sx={{backgroundColor : '#E1E5F2'}}
                 title={
                     <Typography
                         variant="h5"
@@ -77,7 +77,7 @@ const FuelStationListComponent = () => {
                                     <TableCell align="right" sx={{paddingLeft : 1 , paddingRight:1}}>
                                         <Button
                                             variant="contained"
-                                            color = "success"
+                                            color = "primary"
                                             sx={{display:{xs:'none' , sm:'inline'}}}
                                         >
                                             <InfoOutlinedIcon />
@@ -100,7 +100,7 @@ const FuelStationListComponent = () => {
                 <Typography align='center'>
                     <Button
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         sx={{marginTop : 3 , alignSelf : 'center' , paddingRight : 5 , paddingLeft : 5}}
                         startIcon={<SearchIcon />}
                     >

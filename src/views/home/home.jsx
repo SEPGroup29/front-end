@@ -77,7 +77,7 @@ const Home = () => {
                           display: { md: 'block', xs: 'none' }
                       }}
                 >
-                    <Card sx={{backgroundColor : "#1976d2" , boxShadow : 0}} >
+                    <Card sx={{backgroundColor : "#1F7A8C" , boxShadow : 0}} >
                         <CardMedia
                             component="img"
                             image="img/main_image.png"

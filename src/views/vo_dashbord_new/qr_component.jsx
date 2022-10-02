@@ -23,7 +23,7 @@ const QRComponent = () => {
                     marginTop : 'auto'
                 }}
             />
-            <CardContent sx={{backgroundColor :'#e7e7e7' , alignSelf : 'bottom' , marginTop: 'auto' }}>
+            <CardContent sx={{backgroundColor :'#E1E5F2' , alignSelf : 'bottom' , marginTop: 'auto' }}>
                 <Grid container spacing={2} justifyContent="center" alignItems="center"  >
                     <Grid item xs={6}>
                         <Typography variant='h6' align='center' color='#2e7d32'>
