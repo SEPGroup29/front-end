@@ -14,6 +14,7 @@ const Vo_Dashboard_new = () => {
 
     useEffect( () =>{
         getVoName()
+        getVehicles()
     }, [])
 
     const getVoName = async () => {
@@ -34,6 +35,23 @@ const Vo_Dashboard_new = () => {
       }
     }
 
+    const getVehicles = async () => {
+      try {
+          const response = await vehicle_owner_services.showVehicles()
+          if (response){
+              if (response.status === 200)
+                  setVehicles(response.data)
+              else if (response.status === 400)
+                  setError("Internal Server Error")
+          }
+          else
+              setError("Unknown Error Occured")
+      }
+      catch (error){
+          console.log(error)
+      }
+    }
+
     return (
         <div className="vo-dashboard">
             <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
@@ -41,7 +59,7 @@ const Vo_Dashboard_new = () => {
             </Typography>
         <Grid container maxWidth="xl" spacing={2} paddingTop={3} alignItems="center">
             <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                <VehicleListComponent />
+                <VehicleListComponent vehicles={vehicles} />
             </Grid>
             <Grid item xs={12} md={4} lg={5} paddingTop={2}>
                 <QRComponent />
