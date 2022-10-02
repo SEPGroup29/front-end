@@ -20,26 +20,27 @@ export default function Register_user() {
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState()
 
-    const countdown = () => {
-        var seconds = 59;
-        function tick() {
-            var counter = document.getElementById("counter");
-            seconds--;
-            counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
-            if (seconds > 0) {
-                setTimeout(tick, 1000);
-            } else {
-                // document.getElementById("timer").style.color = "#d32f2f";
-                // document.getElementById("timer").innerHTML = "OTP expired!";
-            }
-        }
-        tick();
-    }
+    // const countdown = () => {
+    //     var seconds = 59;
+    //     function tick() {
+    //         var counter = document.getElementById("counter");
+    //         seconds--;
+    //         counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+    //         if (seconds > 0) {
+    //             setTimeout(tick, 1000);
+    //         } else {
+    //             // document.getElementById("timer").style.color = "#d32f2f";
+    //             // document.getElementById("timer").innerHTML = "OTP expired!";
+    //         }
+    //     }
+    //     tick();
+    // }
 
     const [otpContent, setOtpContent] = useState()
     const [exists, setExists] = useState()
     const [allowed, setAllowed] = useState(true)
     const [disabled, setDisabled] = useState(false)
+    
     const sendOTP = async (e) => {
         e.preventDefault()
 
@@ -53,14 +54,16 @@ export default function Register_user() {
             if (response.data.result === 'Sent') {
                 setDisabled(true)
                 setAllowed(false)
-                setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
-                countdown()
+                setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute')
                 setTimeout(() => {
                     setDisabled(false)
                 }, 60000)
             } else if (response.data.result === 'Email already exists') {
                 setEmail('')
                 setExists('Email you entered already exists')
+            } else if (response.data.result === 'OTP generation error') {
+                setEmail('')
+                setExists('OTP generation error. Please try again')
             }
         }
         console.log("Error", error)
@@ -113,11 +116,6 @@ export default function Register_user() {
                                 disabled={disabled}
                             >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
                             {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
-                            {otpContent ? <span class="timer" id="timer" style={{ color: '#ed6c02' }}>
-                                OTP Will expire in <span id="counter"></span> seconds
-                            </span> : <span class="timer" id="timer" style={{ color: '#ed6c02' }}>
-                                <span id="counter"></span>
-                            </span>}
                             <MuiOtpInput length={6} value={otp} onChange={handleChange} />
                             <FormInput label="First Name" setValue={setFirstName} />
                             <FormInput label="Last Name" setValue={setLastName} />
