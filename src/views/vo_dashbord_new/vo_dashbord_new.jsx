@@ -6,6 +6,8 @@ import QRComponent from "./qr_component";
 import FuelStationListComponent from "./fuel_stations_list_componennt";
 import QueueDetailComponent from "./queue_details_component";
 import vehicle_owner_services from "../../services/api/vehicle_owner_services";
+import ErrorAlert from "../../alerts/errorAlert";
+import {Container} from "@mui/system";
 
 const Vo_Dashboard_new = () => {
     const [vehicles , setVehicles] = useState([])
@@ -54,23 +56,27 @@ const Vo_Dashboard_new = () => {
 
     return (
         <div className="vo-dashboard">
-            <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
-                Welcome , {voName},
-            </Typography>
-        <Grid container maxWidth="xl" spacing={2} paddingTop={3} alignItems="center">
-            <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                <VehicleListComponent vehicles={vehicles} />
-            </Grid>
-            <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                <QRComponent />
-            </Grid>
-            <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                <FuelStationListComponent />
-            </Grid>
-            <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                <QueueDetailComponent />
-            </Grid>
-        </Grid>
+            <Container  maxWidth="xl">
+                <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
+                    Welcome , {voName},
+                </Typography>
+                {error && <ErrorAlert custom_message={error} />}
+                <Grid container spacing={2} paddingTop={3} justifyContent="center" alignItems="center">
+                    <Grid item xs={12} md={8} lg={7} paddingTop={2}>
+                        <VehicleListComponent vehicles={vehicles} />
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={5} paddingTop={2}>
+                        <QRComponent />
+                    </Grid>
+                    <Grid item xs={12} md={8} lg={7} paddingTop={2}>
+                        <FuelStationListComponent />
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={5} paddingTop={2}>
+                        <QueueDetailComponent />
+                    </Grid>
+                </Grid>
+            </Container>
+
 
         </div>
     )
