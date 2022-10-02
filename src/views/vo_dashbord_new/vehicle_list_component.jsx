@@ -28,7 +28,15 @@ const rows = [
 
 const VehicleListComponent = () => {
     return(
-            <Card sx={{ alignSelf : 'center' , borderRadius : 5 }} variant={"outlined"}>
+            <Card
+                sx={{
+                    alignSelf : 'center' ,
+                    borderRadius : 5 ,
+                    height : {xs:'none' , md:'430px'},
+                    overflow: "auto",
+                }}
+                variant={"outlined"}
+            >
                 <CardHeader
                     sx={{backgroundColor : '#e7e7e7'}}
                     title={

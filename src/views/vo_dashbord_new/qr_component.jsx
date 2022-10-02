@@ -7,7 +7,10 @@ const QRComponent = () => {
             sx={{
                 alignSelf : 'center' ,
                 borderRadius : 5 ,
-                maxHeight : {xs:'none' , lg:'430px'}
+                height : {xs:'none' , md:'430px'},
+                display : 'flex',
+                flexDirection : 'column'
+
             }}
             variant={"outlined"}
         >
@@ -16,11 +19,12 @@ const QRComponent = () => {
                 image="img/QR_sample.png"
                 sx={{
                     paddingLeft : {xs:'10%' , lg:'25%'} ,
-                    paddingRight : {xs:'10%' , lg:'25%'}
+                    paddingRight : {xs:'10%' , lg:'25%'},
+                    marginTop : 'auto'
                 }}
             />
-            <CardContent sx={{backgroundColor :'#e7e7e7' }}>
-                <Grid container spacing={2} justifyContent="center" alignItems="center">
+            <CardContent sx={{backgroundColor :'#e7e7e7' , alignSelf : 'bottom' , marginTop: 'auto' }}>
+                <Grid container spacing={2} justifyContent="center" alignItems="center"  >
                     <Grid item xs={6}>
                         <Typography variant='h6' align='center' color='#2e7d32'>
                             Remaining Petrol Quota
@@ -38,8 +42,6 @@ const QRComponent = () => {
                             12.5L
                         </Typography>
                     </Grid>
-
-
                 </Grid>
             </CardContent>
         </Card>
