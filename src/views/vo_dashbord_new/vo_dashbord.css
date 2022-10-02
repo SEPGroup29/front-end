@@ -1,0 +1,8 @@
+.vo-dashboard{
+    background-color: #F9FAFB;
+    padding: 20px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
