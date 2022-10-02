@@ -4,6 +4,7 @@ import VehicleListComponent from "./vehicle_list_component";
 import "../vo_dashbord_new/vo_dashbord.css"
 import QRComponent from "./qr_component";
 import FuelStationListComponent from "./fuel_stations_list_componennt";
+import QueueDetailComponent from "./queue_details_component";
 
 const Vo_Dashboard_new = () => {
     return (
@@ -22,7 +23,7 @@ const Vo_Dashboard_new = () => {
                 <FuelStationListComponent />
             </Grid>
             <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                <QRComponent />
+                <QueueDetailComponent />
             </Grid>
         </Grid>
 
