@@ -17,6 +17,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 const VehicleListComponent = ({vehicles}) => {
+
+    const fullVehicles = vehicles.length < 3
+    console.log(vehicles.length)
+
     return(
             <Card
                 sx={{
@@ -45,7 +49,7 @@ const VehicleListComponent = ({vehicles}) => {
                 <CardContent sx={{ alignContent : 'center' }}>
 
                     {
-                        vehicles.length > 0 ?
+                        vehicles.length <= 3 ?
                             <TableContainer component={Paper} sx={{boxShadow: 0}}>
                                 <Table aria-label="simple table">
                                     <TableHead>
@@ -117,6 +121,7 @@ const VehicleListComponent = ({vehicles}) => {
                         <Button
                             variant="contained"
                             color="secondary"
+                            disabled={!fullVehicles}
                             sx={{marginTop : 3 , alignSelf : 'center' , paddingRight : 5 , paddingLeft : 5}}
                             startIcon={<AddCircleOutlineIcon />}
                         >
