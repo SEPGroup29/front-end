@@ -44,7 +44,7 @@ const Login = () => {
                             </Typography>
                             <FormInput label="Email" name="Email" value={email}  onChange = {handleEmailChange} onBlur = {handleEmailChange} helperText = {helperTextMail} isValid={isValidEmail} />
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth onClick={handleSubmit} >PROCEED</Button>
-                            <Link to="/register-user">Register</Link>
+                            <Link sx={{textDecoration: 'none'}} href="/register-user">Register</Link>
                         </CardContent>
                     </Card>
                 </Grid>

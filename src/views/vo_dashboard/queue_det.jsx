@@ -12,8 +12,9 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: '#fff',
-    border: '5px solid #1976d2',
+    border: '5px solid #1F7A8C',
     boxShadow: 24,
+    borderRadius: 5,
     p: 4,
 };
 
@@ -37,7 +38,7 @@ const QueueDet = ({ clicked, setClicked, queueDetails }) => {
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     Vehicle No: {queueDetails.regNo}
-                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1976d2', borderRadius: '5px' }}><LocalGasStation />&ensp;{queueDetails.type} Queue</span>
+                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{queueDetails.type} Queue</span>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     Token No: {queueDetails.tokenNo}

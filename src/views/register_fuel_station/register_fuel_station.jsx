@@ -1,11 +1,19 @@
 import React from "react";
-import {Button, Card, CardContent, Grid, MenuItem, TextField, Typography} from "@mui/material";
+import { Autocomplete, Button, Card, CardContent, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
 
 const towns = [
     {
         value: 'Colombo 1',
         label: 'Colombo 1',
+    },
+    {
+        value: 'Colombo 2',
+        label: 'Colombo 2',
+    },
+    {
+        value: 'Colombo 3',
+        label: 'Colombo 3',
     },
     {
         value: 'Weeraketiya',
@@ -21,7 +29,7 @@ const towns = [
     },
 ];
 
-export default function RegisterFuelStation(){
+export default function RegisterFuelStation() {
 
     const [town, setTown] = React.useState('Colombo 1');
 
@@ -29,11 +37,11 @@ export default function RegisterFuelStation(){
         setTown(event.target.value);
     };
 
-    return(
+    return (
         <dev>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
                 <Grid item xs={10} md={5} paddingTop={2}>
-                    <Card sx={{alignSelf : 'center' , boxShadow: 12}} variant={"outlined"}>
+                    <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
                                 Register Fuel Station
@@ -42,7 +50,7 @@ export default function RegisterFuelStation(){
                                 FuelQ Management System
                             </Typography>
                             <FormInput label="Owner Name" />
-                            <TextField
+                            {/* <TextField
                                 id="select_tow"
                                 select
                                 label="Select Town Nearby"
@@ -56,9 +64,18 @@ export default function RegisterFuelStation(){
                                         {option.label}
                                     </MenuItem>
                                 ))}
-                            </TextField>
+                            </TextField> */}
+                            <Autocomplete
+                                disablePortal
+                                id="select_tow"
+                                options={towns}
+                                onChange={handleChange}
+                                sx={{ mt: 2, mb: 2 }}
+                                fullWidth
+                                renderInput={(params) => <TextField {...params} label="Select Town Nearby" />}
+                            />
                             <FormInput label="Display Name" />
-                            <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>REGISTER</Button>
+                            <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth>REGISTER</Button>
                         </CardContent>
                     </Card>
                 </Grid>

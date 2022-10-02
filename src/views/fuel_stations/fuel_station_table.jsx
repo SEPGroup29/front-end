@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Button } from '@mui/material';
+import { Button, Card } from '@mui/material';
 import { FollowTheSigns, LocationOn } from '@mui/icons-material';
 
 const columns = [
@@ -66,81 +66,78 @@ export default function FuelStationTable({ fuelStations }) {
     };
 
     return (
-        <Container maxWidth="lg">
-            <Box sx={{ height: '100vh', mt: 5 }}>
-                <Paper sx={{ width: '100%' }} elevation={4} >
-                    <h1 align="center">Fuel Stations</h1>
+        <Box sx={{ height: '100vh', mt: 3}}>
+            <Card sx={{ width: '100%', borderRadius: 5 }} elevation={4} >
+                {/* <h1 align="center">Fuel Stations</h1> */}
 
-                    <Box
-                        component="form"
-                        sx={{
-                            '& .MuiTextField-root': { m: 1, width: '25ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
+                <Box
+                    component="form"
+                    sx={{
+                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
 
-                    </Box>
+                </Box>
 
-                    <TableContainer >
-                        <Table stickyHeader aria-label="sticky table" >
-                            <TableHead sx={{ "& .MuiTableCell-stickyHeader": { backgroundColor: "primary.main" } }}>
-                                <TableRow >
-                                    {columns.map((column) => (
-                                        <TableCell
-                                            sx={{ color: "rgb(255,255,255)", fontSize: "1rem" }}
-                                            key={column.id}
-                                            align={'center'}
-                                            style={{ minWidth: column.minWidth }}
-                                        >
-                                            {column.label === 'Near City' && <span><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;</span>}
-                                            {column.label}
-                                        </TableCell>
-                                    ))}
-                                    <TableCell align="center"></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row}>
-                                                {columns.map((column) => {
-                                                    const value = row[column.id];
-                                                    return (
-                                                        <TableCell
-                                                            key={column.id}
-                                                            align={'center'}
-                                                            sx={column.id === 'rpstock' || column.id === 'rdstock'  ? {fontSize: '20px', color: '#673ab7'} : {}}
-                                                        >
-                                                            {column.format && typeof value === 'number'
-                                                                ? column.format(value)
-                                                                : value}
-                                                        </TableCell>
-                                                    );
-                                                })}
-                                                <TableCell><Button variant="contained" color='success'><FollowTheSigns />Join</Button></TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                            </TableBody>
-                        </Table>
+                <TableContainer>
+                    <Table stickyHeader aria-label="sticky table" >
+                        <TableHead sx={{ "& .MuiTableCell-stickyHeader": { backgroundColor: "primary.main" }, borderRadius: 5  }}>
+                            <TableRow >
+                                {columns.map((column) => (
+                                    <TableCell
+                                        sx={{ color: "rgb(255,255,255)", fontSize: "1rem" }}
+                                        key={column.id}
+                                        align={'center'}
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label === 'Near City' && <span><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;</span>}
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                                <TableCell align="center"></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row}>
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={'center'}
+                                                        sx={column.id === 'rpstock' || column.id === 'rdstock' ? { fontSize: '20px', color: '#673ab7' } : {}}
+                                                    >
+                                                        {column.format && typeof value === 'number'
+                                                            ? column.format(value)
+                                                            : value}
+                                                    </TableCell>
+                                                );
+                                            })}
+                                            <TableCell><Button variant="contained" color='secondary' ><FollowTheSigns />Join</Button></TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                        </TableBody>
+                    </Table>
 
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[10, 25, 100]}
-                        component="div"
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
-            </Box>
-
-        </Container>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Card>
+        </Box>
 
     );
 }

@@ -36,7 +36,7 @@ const Home = () => {
                         sx={{
                             textAlign : "center" ,
                             fontSize : {
-                                xs:"7rem",
+                                xs:"5rem",
                                 lg: "9rem"
                             } ,
                             color : "white" ,
@@ -49,10 +49,12 @@ const Home = () => {
                     <Typography
                         sx={{
                             textAlign : "center" ,
-                            fontSize : "1.8rem"    ,
+                            fontSize : "1.5rem"    ,
                             color : "white" ,
                             fontWeight : "lighter",
                             paddingTop : 1,
+                            paddingLeft : 2,
+                            paddingRight : 2,
                             lineHeight: 1.1
                         }}>
                         Fuel Queue Management System  developed to manage fuel queues in

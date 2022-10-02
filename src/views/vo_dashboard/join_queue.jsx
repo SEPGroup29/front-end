@@ -10,8 +10,9 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: '#fff',
-    border: '5px solid #1976d2',
+    border: '5px solid #1F7A8C',
     boxShadow: 24,
+    borderRadius: 5,
     p: 4,
 };
 
@@ -37,7 +38,7 @@ const JoinQueue = ({ clicked, setClicked }) => {
             <Box sx={style} >
                 <Box textAlign={'center'}>
                     <FormControl>
-                        <FormLabel id="demo-row-radio-buttons-group-label"><p  style={{color: '#1976d2'}}>Select queue type</p></FormLabel>
+                        <FormLabel id="demo-row-radio-buttons-group-label"><p  style={{color: '#1F7A8C'}}>Select queue type</p></FormLabel>
                         <RadioGroup
                             row
                             aria-labelledby="demo-row-radio-buttons-group-label"
