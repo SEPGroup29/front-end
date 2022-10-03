@@ -76,7 +76,7 @@ const Home = () => {
 
                             </Grid>
                         </Grid>
-                        <Link href="/register-user" style={{ textDecoration: 'none' }}><RoundedButton text="Register" /></Link>
+                        <Link href="/register-user" style={{ textDecoration: 'none' }}><RoundedButton text="Register Vehicle Owner" /></Link>
                     </Grid>
                 
                 <Grid item
