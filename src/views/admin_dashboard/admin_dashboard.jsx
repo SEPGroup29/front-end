@@ -10,8 +10,8 @@ import ButtonCard from "./button_card";
 
 export default function AdminDashboard() {
     return(
-        <Container maxWidth="xl">
-            <Grid container spacing={2} paddingTop={2}>
+        <Container maxWidth="xl" >
+            <Grid container spacing={2} paddingTop={10}>
                 <Grid item xs={3}>
                     <InfoCard
                         image={DriverImage}
