@@ -1,15 +1,16 @@
 import React from "react";
-import {Card, CardContent, CardMedia, Grid, Typography} from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Download } from "@mui/icons-material";
 
 const QRComponent = () => {
-    return(
+    return (
         <Card
             sx={{
-                alignSelf : 'center' ,
-                borderRadius : 5 ,
-                height : {xs:'none' , md:'430px'},
-                display : 'flex',
-                flexDirection : 'column'
+                alignSelf: 'center',
+                borderRadius: 5,
+                height: { xs: 'none', md: '430px' },
+                display: 'flex',
+                flexDirection: 'column'
 
             }}
             variant={"outlined"}
@@ -18,12 +19,19 @@ const QRComponent = () => {
                 component="img"
                 image="img/QR_sample.png"
                 sx={{
-                    paddingLeft : {xs:'10%' , lg:'25%'} ,
-                    paddingRight : {xs:'10%' , lg:'25%'},
-                    marginTop : 'auto'
+                    paddingLeft: { xs: '10%', lg: '30%' },
+                    paddingRight: { xs: '10%', lg: '30%' },
+                    marginTop: 'auto'
                 }}
             />
-            <CardContent sx={{backgroundColor :'#E1E5F2' , alignSelf : 'bottom' , marginTop: 'auto' }}>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ marginTop: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": { color: 'white' } }}
+                >
+                    <Download />&ensp;Download QR
+                </Button>
+            <CardContent sx={{ backgroundColor: '#E1E5F2', alignSelf: 'bottom', marginTop: 'auto' }}>
                 <Grid container spacing={2} justifyContent="center" alignItems="center"  >
                     <Grid item xs={6}>
                         <Typography variant='h6' align='center' color='#2e7d32'>

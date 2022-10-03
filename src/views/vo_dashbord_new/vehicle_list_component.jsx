@@ -95,12 +95,13 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                         <TableRow
                                             key={vehicle._id}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            align="center"
                                         >
                                             <TableCell>
                                                 {vehicle.regNo}
                                             </TableCell>
-                                            <TableCell>{vehicle.vehicleType.type}</TableCell>
-                                            <TableCell>{vehicle.fuelType}</TableCell>
+                                            <TableCell>{(vehicle.vehicleType.type).charAt(0).toUpperCase() + (vehicle.vehicleType.type).slice(1)}</TableCell>
+                                            <TableCell>{(vehicle.fuelType).charAt(0).toUpperCase() + (vehicle.fuelType).slice(1)}</TableCell>
                                             <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                                 <Button
                                                     id={vehicle._id}
