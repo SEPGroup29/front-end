@@ -52,7 +52,8 @@ const QueueDetailComponent = ({ handleClick, handleWithdrawQueues, queues }) => 
                             <TableCell> Vehicle Number</TableCell>
                             <TableCell> Token Number</TableCell>
                             <TableCell> On Going Number </TableCell>
-                            {/* <TableCell></TableCell> */}
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
