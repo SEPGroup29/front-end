@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, CardContent, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 export default function InfoCard({image , cardTitle , amount}){
     return(
@@ -23,10 +24,19 @@ export default function InfoCard({image , cardTitle , amount}){
                 }}
             >
                 <CardContent>
+
                     <Typography
                         variant="h6"
                         align='center'
                     >
+                        <InfoRoundedIcon fontSize="large" />
+                    </Typography>
+
+                    <Typography
+                        variant="h6"
+                        align='center'
+                    >
+
                         {cardTitle}
                     </Typography>
                     <Typography
