@@ -20,9 +20,9 @@ const Vo_Dashboard_new = () => {
     const [voName, setVoName] = useState('')
 
     const stations = [
-        { name: 'AK Filling Station', city: 'Walasmulla', petrol: 60549, diesel: 24769 },
-        { name: 'EDS Holdings', city: 'Walasmulla', petrol: 600, diesel: 14000 },
-        { name: 'Abeysekara Filling Station', city: 'Galle', petrol: 600, diesel: 12567 },
+        { name: 'AK Filling Station', city: 'Walasmulla', petrol: 60549, diesel: 24769, petrolQueue: 110, dieselQueue: 100 },
+        { name: 'EDS Holdings', city: 'Walasmulla', petrol: 600, diesel: 14000, petrolQueue: 200, dieselQueue: 189 },
+        { name: 'Abeysekara Filling Station', city: 'Galle', petrol: 600, diesel: 12567, petrolQueue: 96, dieselQueue: 90 },
     ];
 
     const queues = [
