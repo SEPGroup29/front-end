@@ -22,11 +22,11 @@ export default function Login_enterOTP(){
                                 FuelQ 
                             </Typography>
                             <Typography variant="subtitle1" sx={{paddingTop:2}}>
-                                Enter OTP sent to 077*******2
+                                Enter OTP sent to th*****89@*****.com
                             </Typography>
                             <MuiOtpInput length={6} value={value} onChange={handleChange}/>
                             <Button variant="contained" sx={{marginTop : 2 , marginBottom : 2}} fullWidth>PROCEED</Button>
-                            <Link to="/register-user">Register</Link>
+                            <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link>
                         </CardContent>
                     </Card>
                 </Grid>

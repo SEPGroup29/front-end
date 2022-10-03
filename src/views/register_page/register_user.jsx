@@ -94,7 +94,7 @@ export default function Register_user() {
         <dev>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
                 <Grid item xs={10} md={5} paddingTop={1}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
+                    <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius:5 }} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
                                 Register Vehicle Owner
@@ -128,7 +128,7 @@ export default function Register_user() {
                             >
                                 PROCEED
                             </Button>
-                            <Link to="/login">Log in</Link>
+                            <Link sx={{textDecoration: 'none'}} href="/login" color="secondary">Log in</Link>
 
                         </CardContent>
                     </Card>

@@ -1,21 +1,10 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import ProgressBar from "@ramonak/react-progress-bar";
 import Typography from '@mui/material/Typography';
 
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
-  },
-}));
 
 
 export default function LinearWithValueLabel() {
@@ -25,11 +14,11 @@ export default function LinearWithValueLabel() {
       <Typography mt={2} variant="h6" gutterBottom>
         Petrol
       </Typography>
-      <BorderLinearProgress variant="determinate" value={50} />
+      <ProgressBar completed={40} bgColor= '#00897b'/>
       <Typography mt={2} variant="h6" gutterBottom>
         Diesel
       </Typography>
-      <BorderLinearProgress variant="determinate" value={80} />
+      <ProgressBar completed={60} bgColor= '#00897b'/>
     </Box>
   );
 }

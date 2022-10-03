@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -68,7 +66,6 @@ export default function FuelStationTable({ fuelStations }) {
     return (
         <Box sx={{ height: '100vh', mt: 3}}>
             <Card sx={{ width: '100%', borderRadius: 5 }} elevation={4} >
-                {/* <h1 align="center">Fuel Stations</h1> */}
 
                 <Box
                     component="form"
