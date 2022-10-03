@@ -1,6 +1,6 @@
 import React from "react";
 import {Container} from "@mui/system";
-import {Grid} from "@mui/material";
+import {Grid, Link} from "@mui/material";
 import InfoCard from "./info_card";
 import DriverImage from "./images/Driver.jpg";
 import FuelStationImage from "./images/FuelStation.jpg";
@@ -41,16 +41,16 @@ export default function AdminDashboard() {
                     />
                 </Grid>
                 <Grid item xs={3}>
-                    <ButtonCard text="Register Fuel Station"/>
+                    <Link href="/register-fuel-station" sx={{textDecoration: 'none'}}><ButtonCard text="Register Fuel Station"/></Link>
                 </Grid>
                 <Grid item xs={3}>
-                    <ButtonCard text="Register Manager"/>
+                    <Link href="#" sx={{textDecoration: 'none'}}><ButtonCard text="Register Manager"/></Link>
                 </Grid>
                 <Grid item xs={3}>
-                    <ButtonCard text="View Vehicle Owners" />
+                    <Link href="/vo-list" sx={{textDecoration: 'none'}}><ButtonCard text="View Vehicle Owners" /></Link>
                 </Grid>
                 <Grid item xs={3}>
-                    <ButtonCard text="View Fuel Stations"/>
+                    <Link href="/fs-list" sx={{textDecoration: 'none'}}><ButtonCard text="View Fuel Stations"/></Link>
                 </Grid>
             </Grid>
         </Container>
