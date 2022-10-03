@@ -12,7 +12,7 @@ function Item({ name, value }) {
     return (
         <Box>
             <h5 align="center">{name}</h5>
-            <h1 align="center">{value}</h1>
+            <h1 align="center" style={{color:'#00897b'}}>{value} </h1>
         </Box>
 
     );
@@ -42,11 +42,10 @@ const fs_dashboard = () => {
                     Fuel Stations
                 </Typography>
                 <Card
-                    sx={{mt:3,
+                    sx={{
+                        mt: 3,
                         alignSelf: 'center',
                         borderRadius: 5,
-                        height: { xs: 'none', md: '460px' },
-                        //overflow: "auto",
                     }}
                     variant={"outlined"}
                 >
@@ -64,51 +63,54 @@ const fs_dashboard = () => {
                             </Typography>
                         }
                     />
-                    <ProgressBar/>
+                    <ProgressBar />
+                </Card>
+
+
                     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderRadius: 5 }} mt={2}>
 
-                        <Card style={{ marginRight: "5px" }}>
-                        <CardHeader
-                        sx={{ backgroundColor: 'primary.main', color: 'white' }}
-                        title={
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    textAlign: "center",
-                                    fontWeight: "medium"
-                                }}
-                            >
-                                Petrol Queue
-                            </Typography>
-                        }
-                    />
+                        <Card sx={{mr: 3, borderRadius:5}}>
+                            <CardHeader
+                                sx={{ backgroundColor: 'primary.main', color: 'white', mb:3}}
+                                title={
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            textAlign: "center",
+                                            fontWeight: "medium"
+                                        }}
+                                    >
+                                        Petrol Queue
+                                    </Typography>
+                                }
+                            />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
                                 <Item name={"Tokens Given"} value={500}></Item>
                                 <Item name={"Ongoing Number"} value={197}></Item>
                             </Box>
                         </Card>
-                        <Card style={{ marginLeft: "5px" }}>
-                        <CardHeader
-                        sx={{ backgroundColor: 'primary.main', color: 'white' }}
-                        title={
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    textAlign: "center",
-                                    fontWeight: "medium"
-                                }}
-                            >
-                                Diesel Queue
-                            </Typography>
-                        }
-                    />
+                        <Card sx={{ml: 3, borderRadius:5}}>
+                            <CardHeader
+                                sx={{ backgroundColor: 'primary.main', color: 'white', mb:3 }}
+                                title={
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            textAlign: "center",
+                                            fontWeight: "medium"
+                                        }}
+                                    >
+                                        Diesel Queue
+                                    </Typography>
+                                }
+                            />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={500}></Item>
+                                <Item name={"Tokens Given"} value={500} ></Item>
                                 <Item name={"Ongoing Number"} value={197}></Item>
                             </Box>
                         </Card>
                     </Box>
-                </Card>
+               
 
             </Container>
         </div>
