@@ -57,7 +57,7 @@ const Home = () => {
                             paddingRight : 2,
                             lineHeight: 1.1
                         }}>
-                        Fuel Queue Management System  developed to manage fuel queues in
+                        The all new fuel queue management and token issuer system in
                         Sri Lanka.
                     </Typography>
 
@@ -67,7 +67,7 @@ const Home = () => {
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            <Link href="/" style={{textDecoration: 'none'}}><RoundedButton text="Fuel Station Login" color="white" /></Link>
+                            <Link href="/fs-login" style={{textDecoration: 'none'}}><RoundedButton text="Fuel Station Login" color="white" /></Link>
                             
                         </Grid>
                     </Grid>
