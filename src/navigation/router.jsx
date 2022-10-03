@@ -5,7 +5,6 @@ import Login from '../views/login/login';
 import VehicleOwnersList from '../views/vo_list/vo_list';
 import FSDashboard from '../views/fs_dashboard/fs_dashboard';
 import FuelStationList from '../views/fs_list/fs_list';
-import VODashboard from '../views/vo_dashboard/vo_dashboard';
 import LoginEnterOTP from '../views/login-enterOTP/login-enterOTP';
 import RegisterUser from '../views/register_page/register_user';
 import RegisterVehicle from "../views/register_vehicle/register_vehicle";
@@ -27,14 +26,14 @@ const Router = () => {
                 <Route path='/vo-list' element={<VehicleOwnersList />} />
                 <Route path="/fs-dashboard" element={<FSDashboard />} />
                 <Route path="/fs-list" element={<FuelStationList />} />
-                <Route path="/vo-dashboard" element={<VODashboard />} />
+                <Route path="/vo-dashboard" element={<VoDashboardNew />} />
                 <Route path="/login-enter-otp" element={<LoginEnterOTP />} />
                 <Route path="/register-user" element={<RegisterUser />} />
                 <Route path="/register-vehicle" element={<RegisterVehicle />} />
                 <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
                 <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
                 <Route path="/fuel-stations" element={<FuelStations/>} />
-                <Route path="/vo-dashboard-new" element={<VoDashboardNew />} />
+                {/* <Route path="/vo-dashboard-new" element={<VoDashboardNew />} /> */}
                 <Route path="/admin-login" element={<SignIn/>}/>
                 <Route path="/fs-login" element={<FuelStationLogin/>} />    
                 {/* 404 Error Page */}

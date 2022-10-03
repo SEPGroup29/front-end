@@ -41,7 +41,7 @@ export default function RegisterFuelStation() {
         <dev>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
                 <Grid item xs={10} md={5} paddingTop={2}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
+                    <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius:5 }} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
                                 Register Fuel Station

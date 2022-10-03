@@ -130,8 +130,9 @@ export default function RegisterVehicle() {
                                 </ToggleButtonGroup>
 
                             </Grid>
+                            
                             <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
-                            <Button variant="contained"  sx={{ marginTop: 2 , color: "#00e676"}} fullWidth onClick={handleAddVehicle}>Done</Button>
+                            <Button variant="contained"  sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
                         </CardContent>
                     </Card>
                 </Grid>
