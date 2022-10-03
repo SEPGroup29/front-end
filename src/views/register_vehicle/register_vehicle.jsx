@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -77,7 +77,7 @@ export default function RegisterVehicle() {
         <dev>
             <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
                 <Grid item xs={10} md={5} paddingTop={2}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
+                    <Card sx={{ alignSelf: 'center', boxShadow: 12 , borderRadius: 5}} variant={"outlined"}>
                         <CardContent>
                             <Typography variant="h4">
                                 Register Vehicle
@@ -125,13 +125,14 @@ export default function RegisterVehicle() {
                                     variant="contained"
                                     fullWidth
                                 >
-                                    <ToggleButton value="petrol" selectedColor="orange">Petrol</ToggleButton>
-                                    <ToggleButton value="diesel" selectedColor="orange">Diesel</ToggleButton>
+                                    <ToggleButton value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                    <ToggleButton value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
                                 </ToggleButtonGroup>
 
                             </Grid>
+                            
                             <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
-                            <Button variant="contained" color="success" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
+                            <Button variant="contained"  sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
                         </CardContent>
                     </Card>
                 </Grid>

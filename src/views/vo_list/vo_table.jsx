@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { Card } from '@mui/material';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 50 },
@@ -62,10 +62,8 @@ export default function OwnersTable() {
   };
 
   return(
-    <Container maxWidth="lg">
-    <Box sx={{ height: '100vh'}}>
-    <Paper sx={{ width: '100%'}} elevation={4} >
-      <h1 align= "center" style={{marginTop: '20px'}}>Vehicle Owners</h1>
+    <Box sx={{ height: '100vh', mt: 3}}>
+    <Card sx={{ width: '100%', borderRadius: 5}} elevation={4} >
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" >
           <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"}}}>
@@ -114,10 +112,9 @@ export default function OwnersTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </Card>
     </Box>
     
-  </Container>
 
   );
 }
