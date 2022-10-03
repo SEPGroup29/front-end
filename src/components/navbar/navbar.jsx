@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { deepPurple } from '@mui/material/colors';
 import { LocalGasStation } from '@mui/icons-material';
 
 
@@ -55,6 +54,9 @@ const Navbar = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            "&:hover": {
+                                color: 'white',
+                              },
                         }}
                     >
                         <LocalGasStation />FuelQ
@@ -129,7 +131,7 @@ const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar sx={{ bgcolor: deepPurple[500] }}>DL</Avatar>
+                                <Avatar sx={{ bgcolor: '#022B3A' }}>DL</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -149,8 +151,8 @@ const Navbar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             <div className="info">
-                                <h6 style={{ padding: '5px', textAlign: 'center', color: '#0d6efd' }}>Deshan Lakshitha</h6>
-                                <p style={{ padding: '5px', textAlign: 'center', color: '#d32f2f' }}>NIC No: 123456789V</p>
+                                <h6 style={{ padding: '5px', textAlign: 'center' }}>Deshan Lakshitha</h6>
+                                <p style={{ padding: '5px', textAlign: 'center' }}>NIC No: 123456789V</p>
                             </div>
                             {settings.map((setting) => (
                                 <MenuItem style={{textAlign: 'center'}} key={setting} onClick={handleCloseUserMenu}>

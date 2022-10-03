@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, CardContent, CardHeader, Typography} from "@mui/material";
+import { Button, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -11,35 +11,36 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import TableContainer from "@mui/material/TableContainer";
 import SearchIcon from '@mui/icons-material/Search';
+import { FollowTheSigns } from "@mui/icons-material";
 
-function createData(fuelStation , petrolStock , dieselStock , petrolQueue , dieselQueue){
-    return {fuelStation, petrolStock, dieselStock , petrolQueue , dieselQueue};
-}
+// function createData(fuelStation , petrolStock , dieselStock , petrolQueue , dieselQueue){
+//     return {fuelStation, petrolStock, dieselStock , petrolQueue , dieselQueue};
+// }
 
-const rows = [
-    createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
-    createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
-    createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
-]
+// const rows = [
+//     createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
+//     createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
+//     createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
+// ]
 
-const FuelStationListComponent = () => {
-    return(
+const FuelStationListComponent = ({ handleClick, stations }) => {
+    return (
         <Card
             sx={{
-                alignSelf : 'center' ,
-                borderRadius : 5 ,
-                height : {xs:'none' , md:'430px'},
+                alignSelf: 'center',
+                borderRadius: 5,
+                height: { xs: 'none', md: '430px' },
                 overflow: "auto",
             }}
             variant={"outlined"}
         >
             <CardHeader
-                sx={{backgroundColor : '#E1E5F2'}}
+                sx={{ backgroundColor: '#E1E5F2' }}
                 title={
                     <Typography
                         variant="h5"
                         sx={{
-                            textAlign : "center",
+                            textAlign: "center",
                             fontWeight: "medium"
                         }}
                     >
@@ -48,8 +49,8 @@ const FuelStationListComponent = () => {
                 }
             />
 
-            <CardContent sx={{alignContent:'center'}}>
-                <TableContainer component={Paper} sx={{boxShadow : 0}}>
+            <CardContent sx={{ alignContent: 'center' }}>
+                <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -62,29 +63,31 @@ const FuelStationListComponent = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {stations.map((row) => (
                                 <TableRow
-                                    key = {row.number}
+                                    key={row.number}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell>
-                                        {row.fuelStation}
+                                        {row.name}, {row.city}
                                     </TableCell>
-                                    <TableCell>{row.petrolStock}</TableCell>
-                                    <TableCell>{row.dieselStock}</TableCell>
+                                    <TableCell>{row.petrol}</TableCell>
+                                    <TableCell>{row.diesel}</TableCell>
                                     <TableCell>{row.petrolQueue}</TableCell>
                                     <TableCell>{row.dieselQueue}</TableCell>
-                                    <TableCell align="right" sx={{paddingLeft : 1 , paddingRight:1}}>
+                                    <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                         <Button
                                             variant="contained"
-                                            color = "primary"
-                                            sx={{display:{xs:'none' , sm:'inline'}}}
+                                            color="primary"
+                                            sx={{ display: { xs: 'none', sm: 'inline' } }}
+                                            onClick={handleClick}
                                         >
-                                            <InfoOutlinedIcon />
+                                            <FollowTheSigns /> Join
                                         </Button>
                                         <IconButton
+                                            onClick={handleClick}
                                             aria-label="info"
-                                            sx={{display:{xs:'block' , sm:'none'}}}
+                                            sx={{ display: { xs: 'block', sm: 'none' } }}
                                             color="primary"
                                         >
                                             <InfoIcon />
@@ -100,8 +103,9 @@ const FuelStationListComponent = () => {
                 <Typography align='center'>
                     <Button
                         variant="contained"
+                        href="/fuel-stations"
                         color="secondary"
-                        sx={{marginTop : 3 , alignSelf : 'center' , paddingRight : 5 , paddingLeft : 5}}
+                        sx={{ marginTop: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": {color: 'white' }}}
                         startIcon={<SearchIcon />}
                     >
                         Search Fuel Station

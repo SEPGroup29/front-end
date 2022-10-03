@@ -14,6 +14,7 @@ const style = {
     bgcolor: '#fff',
     border: '5px solid #d32f2f',
     boxShadow: 24,
+    borderRadius: 5,
     p: 4,
 };
 

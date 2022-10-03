@@ -15,14 +15,15 @@ import FuelStations from "../views/fuel_stations/fuel_stations";
 import VoDashboardNew from "../views/vo_dashbord_new/vo_dashbord_new"
 import FuelStationLogin from "../views/fs_login/fs_login";
 import AdminDashboard from "../views/admin_dashboard/admin_dashboard";
-
 import NotFound from "../views/errors/404";
+import About from "../views/about/about";
 
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/login" element={<Login />} />
                 <Route path='/vo-list' element={<VehicleOwnersList />} />
                 <Route path="/fs-dashboard" element={<FSDashboard />} />

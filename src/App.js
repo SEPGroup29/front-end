@@ -22,7 +22,7 @@ function App() {
           <div className="app">
               <Navbar />
               <Router />
-              <Footer />
+              {/* <Footer /> */}
           </div>
       </ThemeProvider>
 

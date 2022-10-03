@@ -10,7 +10,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: '#fff',
-    border: '5px solid #1F7A8C',
+    border: '3px solid #1F7A8C',
     boxShadow: 24,
     borderRadius: 5,
     p: 4,
@@ -44,12 +44,12 @@ const JoinQueue = ({ clicked, setClicked }) => {
                             aria-labelledby="demo-row-radio-buttons-group-label"
                             name="row-radio-buttons-group"
                         >
-                            <FormControlLabel value="petrol" control={<Radio color="secondary" />} label="Petrol" onChange={(e) => setQueuetype(e.target.value)} />
-                            <FormControlLabel value="diesel" control={<Radio color="success" />} label="Diesel" onChange={(e) => setQueuetype(e.target.value)} />
+                            <FormControlLabel value="petrol" control={<Radio color="primary" />} label="Petrol" onChange={(e) => setQueuetype(e.target.value)} />
+                            <FormControlLabel value="diesel" control={<Radio color="primary" />} label="Diesel" onChange={(e) => setQueuetype(e.target.value)} />
                         </RadioGroup>
 
                         <div style={{ float: 'right' }}>
-                            <Button variant="contained" color="primary" onClick={handleSubmit}>Confirm</Button>
+                            <Button variant="contained" color="secondary" onClick={handleSubmit}>Confirm</Button>
                         </div>
                     </FormControl>
                 </Box>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Box } from "@mui/material";
-import { LocalGasStation } from "@mui/icons-material";
+import { LocalGasStation, LocationOn } from "@mui/icons-material";
 
 const style = {
     position: 'absolute',
@@ -12,14 +12,14 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: '#fff',
-    border: '5px solid #1F7A8C',
+    border: '3px solid #1F7A8C',
     boxShadow: 24,
     borderRadius: 5,
     p: 4,
 };
 
-const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
-    const [open, setOpen] =  useState(clicked);
+const QueueDet = ({ clicked, setClicked, queueDetails }) => {
+    const [open, setOpen] = useState(clicked);
     const handleClose = () => {
         setOpen(false)
         setClicked(false);
@@ -28,24 +28,27 @@ const VehicleDetails = ({clicked, setClicked, vehicleDetails}) => {
     return (
         <Modal
             open={open}
-            onClose={handleClose} //kakulu was here
+            onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {vehicleDetails.regNo}
-                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{vehicleDetails.fuelType}</span>
+                    <LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;{queueDetails.fsName} - {queueDetails.city}
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    <b>Chassis No:</b> {vehicleDetails.chassisNo}
+                    Vehicle No: {queueDetails.regNo}
+                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{queueDetails.type} Queue</span>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    <b>Vehicle category:</b> {(vehicleDetails.vehicleType.type).charAt(0).toUpperCase() + (vehicleDetails.vehicleType.type).slice(1)} ({vehicleDetails.vehicleType.description})
+                    Token No: {queueDetails.tokenNo}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    Total Tokens: {queueDetails.totalTokens}
                 </Typography>
             </Box>
         </Modal>
     );
 }
 
-export default VehicleDetails;
+export default QueueDet;

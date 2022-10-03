@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardContent, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -12,7 +12,7 @@ import ErrorAlert from "../../alerts/errorAlert";
 const vehicle_types = [
     {
         value: 'bike',
-        label: 'Motor Bike', 
+        label: 'Motor Bike',
     },
     {
         value: 'car',
@@ -34,42 +34,42 @@ export default function RegisterVehicle() {
     const [vehicleNo, setVehicleNo] = React.useState('')
     let regNo = ''
     const [chassisNo, setChassisNo] = React.useState('')
-    const [vehicle, setVehicle] = React.useState('Motor Bike');
+    const [vehicle, setVehicle] = React.useState('');
 
     const handleChangeVehicle = (event) => {
         setVehicle(event.target.value);
     };
 
-    const [fuel, setFuel]= React.useState('petrol')
+    const [fuel, setFuel] = React.useState('petrol')
     const [error, setError] = React.useState('')
     const navigate = useNavigate();
 
     const handleChange = (event, newFuel) => {
-      setFuel(newFuel);
+        setFuel(newFuel);
     };
 
     const ToggleButton = styled(MuiToggleButton)(({ selectedColor }) => ({
         '&.Mui-selected, &.Mui-selected:hover': {
-          color: 'white',
-          backgroundColor: selectedColor,
+            color: 'white',
+            backgroundColor: selectedColor,
         },
-      }));
+    }));
 
     const handleAddVehicle = async (e) => {
         e.preventDefault()
         console.log(letters, vehicleNo)
         regNo = letters + ' ' + vehicleNo
         try {
-            console.log([regNo,chassisNo,vehicle,fuel])
-            const response = await vehicle_owner_services.registerVehicle(regNo,chassisNo,vehicle,fuel)
+            console.log([regNo, chassisNo, vehicle, fuel])
+            const response = await vehicle_owner_services.registerVehicle(regNo, chassisNo, vehicle, fuel)
             console.log(response)
-            if(response.data.error){
+            if (response.data.error) {
                 setError(response.data.error)
-            } else{
+            } else {
                 navigate('/vo-dashboard')
             }
         } catch (error) {
-            console.log(error) 
+            console.log(error)
         }
     }
 
@@ -98,23 +98,23 @@ export default function RegisterVehicle() {
                                     <FormInput label="1234" setValue={setVehicleNo} />
                                 </Grid>
                             </Grid>
-                            <FormInput label="Chassis Number" setValue={setChassisNo}/>
-                            <TextField
-                                id="select_vehicle"
-                                select
-                                label="Select vehicle type"
-                                value={vehicle}
-                                onChange={handleChangeVehicle}
-                                helperText="Please select vehicle fuel type"
-                                sx={{ marginTop: 2 }}
-                                fullWidth
-                            >
-                                {vehicle_types.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            <FormInput label="Chassis Number" setValue={setChassisNo} />
+                            <FormControl sx={{mt: 2, mb: 2}} fullWidth>
+                                <InputLabel id="demo-simple-select-label">Select vehicle type</InputLabel>
+                                <Select
+                                    labelId="select_vehicle"
+                                    id="select_vehicle"
+                                    value={vehicle}
+                                    label="Select vehicle type"
+                                    onChange={handleChangeVehicle}
+                                >
+                                    {vehicle_types.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                             <Grid container>
                                 <ToggleButtonGroup
                                     color="primary"
@@ -126,7 +126,7 @@ export default function RegisterVehicle() {
                                     fullWidth
                                 >
                                     <ToggleButton value="petrol" selectedColor="orange">Petrol</ToggleButton>
-                                    <ToggleButton value="diesel"selectedColor="orange">Diesel</ToggleButton>
+                                    <ToggleButton value="diesel" selectedColor="orange">Diesel</ToggleButton>
                                 </ToggleButtonGroup>
 
                             </Grid>
