@@ -12,7 +12,7 @@ const FormInput = (props) => {
                 variant="outlined"
                 value={value}
                 fullWidth
-                error = {isValid}
+                error = {props.isValid}
                 helperText={helperText}
                 onBlur={onBlur}
                 onChange={(e)=>props.setValue(e.target.value)}

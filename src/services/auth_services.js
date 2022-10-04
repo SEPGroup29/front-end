@@ -50,12 +50,35 @@ const registerUser = (NIC, email, otp, firstName, lastName) => {
     })
 }
 
+const voLoginBeforeOtp = (email) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/login-vehicle-owner',
+        data: {
+            email
+        }
+    })
+}
+
+const voLoginAfterOtp = (email, entered_otp) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/login-otp',
+        data: {
+            email,
+            entered_otp
+        }
+    })
+}
+
 // eslint-disable-next-line
 export default {
     emailExistance,
     adminLogin,
     registerUser,
-    fsLogin
+    fsLogin,
+    voLoginBeforeOtp,
+    voLoginAfterOtp,
 }
 
 
