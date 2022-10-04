@@ -1,56 +1,92 @@
-import { React } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { Facebook, LinkedIn, YouTube } from '@mui/icons-material';
-import { CssBaseline } from '@mui/material';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary">
-            {'Copyright © '}
-            <Link color="inherit" href="/">
-                FuelQ
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import { Email, FacebookRounded, GitHub, Instagram, LinkedIn } from "@mui/icons-material";
+import { Grid, Link, Typography } from "@mui/material";
+import { Box, Container } from "@mui/system";
 
 export default function Footer() {
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '80vh',
-            }}
-        >
-
+        <footer style={{textDecoration: 'none'}}>
             <Box
-                component="footer"
-                sx={{
-                    py: 3,
-                    px: 2,
-                    mt: 'auto',
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[200]
-                            : theme.palette.grey[800],
-                }}
+                px={{ xs: 3, sm: 10 }}
+                py={{ xs: 5, sm: 10 }}
+                bgcolor="#1F7A8C"
+                color="white"
             >
-                <CssBaseline />
-                <Container maxWidth="sm">
-                    <Copyright />
-                    <div className="social_media display-inline">
-                        <Link href=""><Facebook style={{ color: '#4267B2' }} /></Link>
-                        <Link href=""><LinkedIn style={{ color: '#0072b1' }} /></Link>
-                        <Link href=""><YouTube style={{ color: '#ff0000' }} /></Link>
-                    </div>
+                <Container maxWidth="lg">
+                    <Grid textAlign="center" container spacing={5}>
+                        <Grid item xs={12} sm={4}>
+                            <Box sx={{mb: 3}} ><Typography>Help</Typography></Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Contact
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Support
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Privacy
+                                </Link>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Box sx={{mb: 3}} ><Typography>Account</Typography></Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/login" color="inherit">
+                                    Vehicle owner login
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/login" color="inherit">
+                                    Fuel Station Login
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Vehicle owner registration
+                                </Link>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Box sx={{mb: 3}} ><Typography>Messages</Typography></Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Backup
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    History
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link style={{textDecoration: 'none'}} href="/" color="inherit">
+                                    Roll
+                                </Link>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                    <Box textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
+                        <Typography variant="body2" color="#fff">
+                            {'Copyright © '}
+                            <Link underline="none" sx={{ "&:hover": { color: "none" }} }  color="inherit" href="/">
+                                FuelQ
+                            </Link>{' '}
+                            {new Date().getFullYear()}
+                            {'.'}
+                        </Typography>
+                    </Box>
+                    <Box textAlign="center" pt={{ xs: 1, sm: 2 }}>
+                        <Link href="#"><GitHub fontSize="large" /></Link>
+                        <Link href="#"><LinkedIn fontSize="large" /></Link>
+                        <Link href="#"><FacebookRounded fontSize="large" /></Link>
+                        <Link href="#"><Instagram fontSize="large" /></Link>
+                        <Link href="#"><Email fontSize="large" /></Link>
+                    </Box>
                 </Container>
             </Box>
-        </Box>
+        </footer>
     );
 }
