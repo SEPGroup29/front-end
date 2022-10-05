@@ -5,6 +5,7 @@ import AuthValidation from "../../utils/auth_validation";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthServices from "../../services/auth_services";
 import ErrorAlert from "../../alerts/errorAlert";
+import Loader from '../../components/loader/loader';
 
 const Login = () => {
 
@@ -12,6 +13,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState('')
     const navigate = useNavigate()
     const [loginError, setLoginError] = useState('')
+    const [loader, setLoader] = useState(false)
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -23,7 +25,8 @@ const Login = () => {
         if (error) {
             setEmailError(error.details[0].message)
         } else {
-            setEmailError()
+            setLoader(true)
+            setEmailError('')
             try {
                 const response = await AuthServices.voLoginBeforeOtp(email)
                 console.log(response.data)
@@ -36,13 +39,16 @@ const Login = () => {
                     }
                 }
             } catch (error) {
-
+                setLoginError("Unknown error occured. Login failed")
             }
         }
+        setLoader(false)
     }
 
-        return (
-            <div className="login">
+    return (
+        <div className="login">
+            {loader && <Loader />}
+            {!loader &&
                 <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
                     <Grid item xs={10} md={5} paddingTop={2}>
                         <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius: 5 }} variant={"outlined"}>
@@ -62,8 +68,9 @@ const Login = () => {
                         </Card>
                     </Grid>
                 </Grid>
-            </div>
-        );
-    }
+            }
+        </div>
+    );
+}
 
-    export default Login;
+export default Login;

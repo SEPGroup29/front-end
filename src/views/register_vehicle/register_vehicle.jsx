@@ -8,6 +8,8 @@ import vehicle_owner_services from '../../services/api/vehicle_owner_services'
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../../alerts/errorAlert";
 // import SuccessAlert from "../../alerts/successAlert";
+import Loader from "../../components/loader/loader";
+import { useState } from "react";
 
 const vehicle_types = [
     {
@@ -30,11 +32,13 @@ const vehicle_types = [
 
 export default function RegisterVehicle() {
 
-    const [letters, setLetters] = React.useState('')
-    const [vehicleNo, setVehicleNo] = React.useState('')
+    const [letters, setLetters] = useState('')
+    const [vehicleNo, setVehicleNo] = useState('')
     let regNo = ''
-    const [chassisNo, setChassisNo] = React.useState('')
-    const [vehicle, setVehicle] = React.useState('');
+    const [chassisNo, setChassisNo] = useState('')
+    const [vehicle, setVehicle] = useState('');
+
+    const [loader, setLoader] = useState(false)
 
     const handleChangeVehicle = (event) => {
         setVehicle(event.target.value);
@@ -57,9 +61,11 @@ export default function RegisterVehicle() {
 
     const handleAddVehicle = async (e) => {
         e.preventDefault()
+        
         console.log(letters, vehicleNo)
         regNo = letters + ' ' + vehicleNo
         try {
+            setLoader(true)
             console.log([regNo, chassisNo, vehicle, fuel])
             const response = await vehicle_owner_services.registerVehicle(regNo, chassisNo, vehicle, fuel)
             console.log(response)
@@ -70,73 +76,78 @@ export default function RegisterVehicle() {
             }
         } catch (error) {
             console.log(error)
+            navigate('/503-error')
         }
+        setLoader(false)
     }
 
     return (
         <dev>
-            <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={10} md={5} paddingTop={2}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12 , borderRadius: 5}} variant={"outlined"}>
-                        <CardContent>
-                            <Typography variant="h4">
-                                Register Vehicle
-                            </Typography>
-                            <Typography variant="subtitle1">
-                                FuelQ Management System
-                            </Typography>
-                            {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                            {/* {success && <SuccessAlert custom_message={success}></SuccessAlert>} */}
-                            <Typography sx={{ paddingTop: 2 }}>
-                                Vehicle Number
-                            </Typography>
-                            <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-                                <Grid item xs={4}>
-                                    <FormInput label="ABC" setValue={setLetters} />
+            {loader && <Loader />}
+            {!loader &&
+                <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
+                    <Grid item xs={10} md={5} paddingTop={2}>
+                        <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius: 5 }} variant={"outlined"}>
+                            <CardContent>
+                                <Typography variant="h4">
+                                    Register Vehicle
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    FuelQ Management System
+                                </Typography>
+                                {error && <ErrorAlert custom_message={error}></ErrorAlert>}
+                                {/* {success && <SuccessAlert custom_message={success}></SuccessAlert>} */}
+                                <Typography sx={{ paddingTop: 2 }}>
+                                    Vehicle Number
+                                </Typography>
+                                <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+                                    <Grid item xs={4}>
+                                        <FormInput label="ABC" setValue={setLetters} />
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <FormInput label="1234" setValue={setVehicleNo} />
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={8}>
-                                    <FormInput label="1234" setValue={setVehicleNo} />
-                                </Grid>
-                            </Grid>
-                            <FormInput label="Chassis Number" setValue={setChassisNo} />
-                            <FormControl sx={{mt: 2, mb: 2}} fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select vehicle type</InputLabel>
-                                <Select
-                                    labelId="select_vehicle"
-                                    id="select_vehicle"
-                                    value={vehicle}
-                                    label="Select vehicle type"
-                                    onChange={handleChangeVehicle}
-                                >
-                                    {vehicle_types.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <Grid container>
-                                <ToggleButtonGroup
-                                    color="primary"
-                                    value={fuel}
-                                    exclusive
-                                    onChange={handleChange}
-                                    aria-label="Platform"
-                                    variant="contained"
-                                    fullWidth
-                                >
-                                    <ToggleButton value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
-                                    <ToggleButton value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
-                                </ToggleButtonGroup>
+                                <FormInput label="Chassis Number" setValue={setChassisNo} />
+                                <FormControl sx={{ mt: 2, mb: 2 }} fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select vehicle type</InputLabel>
+                                    <Select
+                                        labelId="select_vehicle"
+                                        id="select_vehicle"
+                                        value={vehicle}
+                                        label="Select vehicle type"
+                                        onChange={handleChangeVehicle}
+                                    >
+                                        {vehicle_types.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <Grid container>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={fuel}
+                                        exclusive
+                                        onChange={handleChange}
+                                        aria-label="Platform"
+                                        variant="contained"
+                                        fullWidth
+                                    >
+                                        <ToggleButton value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                        <ToggleButton value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                                    </ToggleButtonGroup>
 
-                            </Grid>
-                            
-                            <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
-                            <Button variant="contained"  sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
-                        </CardContent>
-                    </Card>
+                                </Grid>
+
+                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
+                                <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+            }
         </dev>
     )
 }

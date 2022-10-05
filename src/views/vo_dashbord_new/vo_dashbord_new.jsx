@@ -13,11 +13,15 @@ import QueueDet from "./queue_det";
 import WithdrawAlertBox from "./withdraw_alertbox"
 import RemoveAlertBox from "./remove_alertbox";
 import JoinQueue from "./join_queue";
+import Loader from "../../components/loader/loader";
+import { useNavigate } from "react-router-dom";
 
 const Vo_Dashboard_new = () => {
     const [vehicles, setVehicles] = useState([])
     const [error, setError] = useState()
     const [voName, setVoName] = useState('')
+    const [loader, setLoader] = useState(false)
+    const navigate = useNavigate()
 
     const stations = [
         { name: 'AK Filling Station', city: 'Walasmulla', petrol: 60549, diesel: 24769, petrolQueue: 110, dieselQueue: 100 },
@@ -36,39 +40,41 @@ const Vo_Dashboard_new = () => {
     }, [])
 
     const getVoName = async () => {
+        setLoader(true)
         try {
             const response = await vehicle_owner_services.getVehicleOwnerName()
             console.log(response.data.firstName)
             if (response) {
                 if (response.status === 200)
                     setVoName(response.data.name)
-                else if (response.status === 400)
-                    setError("Internal Server Error")
             }
             else {
                 setError("Unknown Error Occured")
             }
         }
         catch (error) {
-            console.log(error)
+            // setError("Unknown Error Occured")
+            navigate('/503-error')
         }
+        setLoader(false)
     }
 
     const getVehicles = async () => {
+        setLoader(true)
         try {
             const response = await vehicle_owner_services.showVehicles()
             if (response) {
                 if (response.status === 200)
                     setVehicles(response.data)
-                else if (response.status === 400)
-                    setError("Internal Server Error")
             }
             else
                 setError("Unknown Error Occured")
         }
         catch (error) {
-            console.log(error)
+            // setError("Unknown Error Occured")
+            navigate('/503-error')
         }
+        setLoader(false)
     }
 
     const [clickedVehicles, setClickedVehicles] = useState(false)
@@ -117,33 +123,36 @@ const Vo_Dashboard_new = () => {
 
     return (
         <div className="vo-dashboard">
-            <Container maxWidth="xl">
-                <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
-                    Welcome, {voName}
-                </Typography>
-                {error && <ErrorAlert custom_message={error} />}
-                <Grid container spacing={2} paddingTop={3} justifyContent="center" alignItems="center">
-                    <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                        <VehicleListComponent handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
+            {loader && <Loader />}
+            {!loader &&
+                <Container maxWidth="xl">
+                    <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
+                        Welcome, {voName}
+                    </Typography>
+                    {error && <ErrorAlert custom_message={error} />}
+                    <Grid container spacing={2} paddingTop={3} justifyContent="center" alignItems="center">
+                        <Grid item xs={12} md={8} lg={7} paddingTop={2}>
+                            <VehicleListComponent handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
+                        </Grid>
+                        <Grid item xs={12} md={4} lg={5} paddingTop={2}>
+                            <QRComponent />
+                        </Grid>
+                        <Grid item xs={12} md={8} lg={7} paddingTop={2}>
+                            <FuelStationListComponent handleClick={handleAddQueue} stations={stations} />
+                        </Grid>
+                        <Grid item xs={12} md={4} lg={5} paddingTop={2}>
+                            <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                        <QRComponent />
-                    </Grid>
-                    <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                        <FuelStationListComponent handleClick={handleAddQueue} stations={stations} />
-                    </Grid>
-                    <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                        <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
-                    </Grid>
-                </Grid>
-            </Container>
 
-            {/* Popup components */}
-            {clickedVehicles && <VehicleDetails clicked={clickedVehicles} setClicked={setClickedVehicles} vehicleDetails={vehicleDetails} />}
-            {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
-            {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
-            {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
-            {clickedAdd && <JoinQueue clicked={clickedAdd} setClicked={setClickAdd} />}
+                    {/* Popup components */}
+                    {clickedVehicles && <VehicleDetails clicked={clickedVehicles} setClicked={setClickedVehicles} vehicleDetails={vehicleDetails} />}
+                    {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
+                    {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
+                    {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
+                    {clickedAdd && <JoinQueue clicked={clickedAdd} setClicked={setClickAdd} />}
+                </Container>
+            }
         </div>
     )
 }

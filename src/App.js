@@ -1,7 +1,7 @@
 import './App.css';
 
 import Navbar from './components/navbar/navbar';
-import Footer from './components/footer/footer';
+// import Footer from './components/footer/footer';
 import Router from './navigation/router';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
