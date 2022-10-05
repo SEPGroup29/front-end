@@ -6,6 +6,7 @@ import auth_services from "../../services/auth_services";
 import ErrorAlert from "../../alerts/errorAlert";
 import { useNavigate } from "react-router-dom";
 import InfoAlert from "../../alerts/infoAlert";
+import Loader from '../../components/loader/loader'
 
 export default function Register_user() {
     const [otp, setOtp] = useState('')
@@ -19,6 +20,7 @@ export default function Register_user() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState()
+    const [loader, setLoader] = useState(false)
 
     // const countdown = () => {
     //     var seconds = 59;
@@ -40,7 +42,7 @@ export default function Register_user() {
     const [exists, setExists] = useState()
     const [allowed, setAllowed] = useState(true)
     const [disabled, setDisabled] = useState(false)
-    
+
     const sendOTP = async (e) => {
         e.preventDefault()
 
@@ -48,25 +50,30 @@ export default function Register_user() {
 
         setOtpContent(null)
         setExists(null)
-        const response = await auth_services.emailExistance(email)
-        console.log(response.data)
-        if (response.status === 200) {
-            if (response.data.result === 'Sent') {
-                setDisabled(true)
-                setAllowed(false)
-                setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute')
-                setTimeout(() => {
-                    setDisabled(false)
-                }, 60000)
-            } else if (response.data.result === 'Email already exists') {
-                setEmail('')
-                setExists('Email you entered already exists')
-            } else if (response.data.result === 'OTP generation error') {
-                setEmail('')
-                setExists('OTP generation error. Please try again')
+        try {
+            setLoader(true)
+            const response = await auth_services.emailExistance(email)
+            console.log(response.data)
+            if (response.status === 200) {
+                if (response.data.result === 'Sent') {
+                    setDisabled(true)
+                    setAllowed(false)
+                    setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute')
+                    setTimeout(() => {
+                        setDisabled(false)
+                    }, 60000)
+                } else if (response.data.result === 'Email already exists') {
+                    setEmail('')
+                    setExists('Email you entered already exists')
+                } else if (response.data.result === 'OTP generation error') {
+                    setEmail('')
+                    setExists('OTP generation error. Please try again')
+                }
             }
+        } catch (error) {
+            navigate('/503-error')
         }
-        console.log("Error", error)
+        setLoader(false)
     }
 
     const handleRegister = async (e) => {
@@ -75,6 +82,7 @@ export default function Register_user() {
         // Handle validations here
 
         try {
+            setLoader(true)
             const response = await auth_services.registerUser(NIC, email, otp, firstName, lastName)
             console.log(response)
             if (response.data.error) {
@@ -83,57 +91,58 @@ export default function Register_user() {
                 navigate('/register-vehicle')
             }
         } catch (error) {
-            console.log(error)
+            navigate('/503-error')
         }
-
-
+        setLoader(false)
     }
-
 
     return (
         <dev>
-            <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={10} md={5} paddingTop={1}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius:5 }} variant={"outlined"}>
-                        <CardContent>
-                            <Typography variant="h4">
-                                Register Vehicle Owner
-                            </Typography>
-                            <Typography variant="subtitle1">
-                                FuelQ
-                            </Typography>
-                            {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
-                            {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                            <FormInput label="NIC Number" setValue={setNIC} />
-                            <FormInput label="E-mail" setValue={setEmail} />
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                sx={{ marginTop: 2, marginBottom: 2 }}
-                                fullWidth
-                                onClick={sendOTP}
-                                id="send"
-                                disabled={disabled}
-                            >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
-                            {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
-                            <MuiOtpInput length={6} value={otp} onChange={handleChange} />
-                            <FormInput label="First Name" setValue={setFirstName} />
-                            <FormInput label="Last Name" setValue={setLastName} />
-                            <Button
-                                variant="contained"
-                                sx={{ marginTop: 2, marginBottom: 2 }}
-                                fullWidth
-                                onClick={handleRegister}
-                                disabled={allowed}
-                            >
-                                PROCEED
-                            </Button>
-                            <Link sx={{textDecoration: 'none'}} href="/login" color="secondary">Log in</Link>
+            {loader && <Loader />}
+            {!loader &&
+                <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
+                    <Grid item xs={10} md={5} paddingTop={1}>
+                        <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius: 5 }} variant={"outlined"}>
+                            <CardContent>
+                                <Typography variant="h4">
+                                    Register Vehicle Owner
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    FuelQ
+                                </Typography>
+                                {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
+                                {error && <ErrorAlert custom_message={error}></ErrorAlert>}
+                                <FormInput label="NIC Number" setValue={setNIC} />
+                                <FormInput label="E-mail" setValue={setEmail} />
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    sx={{ marginTop: 2, marginBottom: 2 }}
+                                    fullWidth
+                                    onClick={sendOTP}
+                                    id="send"
+                                    disabled={disabled}
+                                >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
+                                {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
+                                <MuiOtpInput length={6} value={otp} onChange={handleChange} />
+                                <FormInput label="First Name" setValue={setFirstName} />
+                                <FormInput label="Last Name" setValue={setLastName} />
+                                <Button
+                                    variant="contained"
+                                    sx={{ marginTop: 2, marginBottom: 2 }}
+                                    fullWidth
+                                    onClick={handleRegister}
+                                    disabled={allowed}
+                                >
+                                    PROCEED
+                                </Button>
+                                <Link sx={{ textDecoration: 'none' }} href="/login" color="secondary">Log in</Link>
 
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+            }
         </dev>
     )
 

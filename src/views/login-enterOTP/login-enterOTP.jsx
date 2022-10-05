@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import InfoAlert from "../../alerts/infoAlert";
 import AuthServices from "../../services/auth_services";
 import ErrorAlert from "../../alerts/errorAlert";
+import Loader from "../../components/loader/loader";
 
 export default function Login_enterOTP() {
     const location = useLocation()
@@ -15,6 +16,7 @@ export default function Login_enterOTP() {
     const [email, setEmail] = useState('')
     const [loginError, setLoginError] = useState('')
     const [emptyError, setEmptyError] = useState('')
+    const [loader, setLoader] = useState(false)
 
     useEffect(() => {
         setEmail(location.state)
@@ -34,6 +36,7 @@ export default function Login_enterOTP() {
             setEmptyError('OTP is required')
         }
         else {
+            setLoader(true)
             try {
                 const response = await AuthServices.voLoginAfterOtp(email, value)
                 if (response.status === 200) {
@@ -45,35 +48,39 @@ export default function Login_enterOTP() {
                     }
                 }
             } catch (error) {
-
+                setLoginError("Unknown error occured. Login failed")
             }
         }
+        setLoader(false)
     }
 
     return (
         <div>
-            <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
-                <Grid item xs={10} md={5} paddingTop={2}>
-                    <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
-                        <CardContent>
-                            <Typography variant="h4">
-                                Log in
-                            </Typography>
-                            <Typography variant="subtitle1">
-                                FuelQ
-                            </Typography>
-                            {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
-                            <Typography variant="subtitle1" sx={{ paddingTop: 2 }}>
-                                {!loginError && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute'} />}
-                            </Typography>
-                            <MuiOtpInput style={{outlineColor: 'blue'}} length={6} value={value} onChange={handleChange} />
-                            {emptyError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emptyError}</Typography>}
-                            <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleLogin}>PROCEED</Button>
-                            <Link sx={{ textDecoration: 'none' }} href="/register-user" color="secondary">Register</Link>
-                        </CardContent>
-                    </Card>
+            {loader && <Loader />}
+            {!loader &&
+                <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
+                    <Grid item xs={10} md={5} paddingTop={2}>
+                        <Card sx={{ alignSelf: 'center', boxShadow: 12 }} variant={"outlined"}>
+                            <CardContent>
+                                <Typography variant="h4">
+                                    Log in
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    FuelQ
+                                </Typography>
+                                {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
+                                <Typography variant="subtitle1" sx={{ paddingTop: 2 }}>
+                                    {!loginError && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute'} />}
+                                </Typography>
+                                <MuiOtpInput style={{ outlineColor: 'blue' }} length={6} value={value} onChange={handleChange} />
+                                {emptyError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emptyError}</Typography>}
+                                <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleLogin}>PROCEED</Button>
+                                <Link sx={{ textDecoration: 'none' }} href="/register-user" color="secondary">Register</Link>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+            }
         </div>
     )
 
