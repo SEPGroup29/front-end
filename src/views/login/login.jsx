@@ -42,6 +42,7 @@ const Login = () => {
                 setLoginError("Unknown error occured. Login failed")
             }
         }
+        setEmail('')
         setLoader(false)
     }
 
