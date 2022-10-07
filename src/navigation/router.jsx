@@ -9,6 +9,7 @@ import LoginEnterOTP from '../views/login-enterOTP/login-enterOTP';
 import RegisterUser from '../views/register_page/register_user';
 import RegisterVehicle from "../views/register_vehicle/register_vehicle";
 import RegisterFuelStation from "../views/register_fuel_station/register_fuel_station";
+import RegisterPumpOperator from "../views/register_pump_operator/register_pump_operator";
 import UpdateFuelStock from '../views/update_fuel_stock/update_fuel_stock';
 import FuelStations from "../views/fuel_stations/fuel_stations";
 import VoDashboardNew from "../views/vo_dashbord_new/vo_dashbord_new"
@@ -31,6 +32,7 @@ const Router = () => {
                 <Route path="/vo-dashboard" element={<VoDashboardNew />} />
                 <Route path="/login-enter-otp" element={<LoginEnterOTP />} />
                 <Route path="/register-user" element={<RegisterUser />} />
+                <Route path="/register-po" element={<RegisterPumpOperator />} />
                 <Route path="/register-vehicle" element={<RegisterVehicle />} />
                 <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
                 <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
