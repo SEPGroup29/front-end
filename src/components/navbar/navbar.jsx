@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { LocalGasStation } from '@mui/icons-material';
+import { Link } from '@mui/material';
 
 
 
@@ -38,7 +39,7 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="static" sx={{backgroundColor : '#1F7A8C'}}>
+        <AppBar position="static" sx={{ backgroundColor: '#1F7A8C' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -56,7 +57,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                             "&:hover": {
                                 color: 'white',
-                              },
+                            },
                         }}
                     >
                         <LocalGasStation />FuelQ
@@ -91,11 +92,17 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {/* {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='/about'><Typography textAlign="center">About Us</Typography></Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='#'><Typography textAlign="center">How to use</Typography></Link>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Typography
@@ -112,12 +119,15 @@ const Navbar = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            "&:hover": {
+                                color: 'white',
+                            },
                         }}
                     >
                         <LocalGasStation />FuelQ
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {/* {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
@@ -125,7 +135,31 @@ const Navbar = () => {
                             >
                                 {page}
                             </Button>
-                        ))}
+                        ))} */}
+                        <Button
+                            // key={page}
+                            onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2, color: 'white', display: 'block', "&:hover": {
+                                    color: 'white',
+                                },
+                            }}
+                            href="/about"
+                        >
+                            About Us
+                        </Button>
+                        <Button
+                            // key={page}
+                            onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2, color: 'white', display: 'block', "&:hover": {
+                                    color: 'white',
+                                },
+                            }}
+                            href="#"
+                        >
+                            How to use
+                        </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -154,11 +188,17 @@ const Navbar = () => {
                                 <h6 style={{ padding: '5px', textAlign: 'center' }}>Deshan Lakshitha</h6>
                                 <p style={{ padding: '5px', textAlign: 'center' }}>NIC No: 123456789V</p>
                             </div>
-                            {settings.map((setting) => (
-                                <MenuItem style={{textAlign: 'center'}} key={setting} onClick={handleCloseUserMenu}>
+                            {/* {settings.map((setting) => (
+                                <MenuItem style={{ textAlign: 'center' }} key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+                            <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
+                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} href='#'><Typography textAlign="center">Dashboard</Typography></Link>
+                            </MenuItem>
+                            <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
+                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} href='/vo-dashboard'><Typography textAlign="center">Logout</Typography></Link>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>
