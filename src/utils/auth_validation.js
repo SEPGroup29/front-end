@@ -14,7 +14,25 @@ const passwordValidation = (password) => {
     const pass_val_schema = Joi.object({
         password: password_validation_joi_object()
     })
-    const {error, value} = pass_val_schema.validate(password, { abortEarly: false })
+    const { error, value } = pass_val_schema.validate(password, { abortEarly: false })
+    return ({ error, value })
+}
+
+const registerPovalidation = (data) => {
+    const register_po_schema = Joi.object({
+        email: email_validation_joi_object(),
+        firstName: name_validation_joi_object(),
+        lastName: name_validation_joi_object(),
+        contactNo: contact_number_validation_joi_object(),
+        password: password_validation_joi_object(),
+        rePassword: Joi.custom((value, helper) => {
+            if (value != data.password) {
+                return helper.message("Two passwords does not match");
+            }
+            return true;
+        }),
+    })
+    const { error, value } = register_po_schema.validate(data, { abortEarly: true })
     return ({ error, value })
 }
 
@@ -57,6 +75,24 @@ const custom_password = (value, helper) => {
     }
 }
 
+const name_validation_joi_object = () => {
+    return Joi.string().required().pattern(new RegExp('^[A-Z][a-z0-9_-]{2,}$'))
+        .messages({
+            "string.empty": "Field should not be empty!",
+            "string.pattern.base": "First letter must be a Capital"
+        });
+}
+
+const contact_number_validation_joi_object = () => {
+    return Joi.string().required().pattern(new RegExp('^(?:7|0|(?:\\+94))[0-9]{9,10}$'))
+        .messages({
+            "string.empty": "Field should not be empty!",
+            "string.required": "Field is required!",
+            "string.pattern.base": "Invalid format"
+        });
+}
+
 export default {
     emailValidation,
+    registerPovalidation,
 }

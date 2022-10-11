@@ -3,9 +3,9 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { OutlinedInput, InputLabel, FormControl } from "@mui/material";
+import { OutlinedInput, InputLabel, FormControl, Typography } from "@mui/material";
 
-export default function Password({ name, label, value, values, setValues, handleChange }) {
+export default function Password({ name, label, value, values, setValues, handleChange, error }) {
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -27,7 +27,7 @@ export default function Password({ name, label, value, values, setValues, handle
                 variant="outlined"
                 value={value}
                 fullWidth
-                // error={props.isValid}
+                error={error !== ''}
                 onChange={handleChange(name)}
                 endAdornment={
                     <InputAdornment position="end">
@@ -42,6 +42,8 @@ export default function Password({ name, label, value, values, setValues, handle
                     </InputAdornment>
                 }
             />
+            {error !== '' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{error}</Typography>}
+
         </FormControl>
     )
 }
