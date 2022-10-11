@@ -70,7 +70,7 @@ export default function Login_enterOTP() {
                                 </Typography>
                                 {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
                                 <Typography variant="subtitle1" sx={{ paddingTop: 2 }}>
-                                    {!loginError && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute'} />}
+                                    {!loginError && email && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute'} />}
                                 </Typography>
                                 <MuiOtpInput style={{ outlineColor: 'blue' }} length={6} value={value} onChange={handleChange} />
                                 {emptyError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emptyError}</Typography>}
