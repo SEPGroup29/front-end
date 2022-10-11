@@ -61,7 +61,7 @@ const Login = () => {
                                     FuelQ
                                 </Typography>
                                 {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
-                                <FormInput label="Email" name="Email" setValue={setEmail} isValid={emailError} />
+                                <FormInput label="Email" name="Email" setValue={setEmail} isValid={emailError ? true : false} />
                                 {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
                                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleLogin} >PROCEED</Button>
                                 <Link sx={{ textDecoration: 'none' }} href="/register-user" color="secondary">Register</Link>

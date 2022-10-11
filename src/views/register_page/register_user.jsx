@@ -97,7 +97,7 @@ export default function Register_user() {
     }
 
     return (
-        <dev>
+        <div className="register-user">
             {loader && <Loader />}
             {!loader &&
                 <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
@@ -143,7 +143,7 @@ export default function Register_user() {
                     </Grid>
                 </Grid>
             }
-        </dev>
+        </div>
     )
 
 }
