@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Card, CardContent, Grid, Link, TextField, Typography } from "@mui/material";
 import auth_services from "../../services/auth_services";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loader from '../../components/loader/loader'
 import Password from './password'
 import AuthValidation from "../../utils/auth_validation";
+import ErrorAlert from "../../alerts/errorAlert";
 
 export default function RegisterPumpOperator() {
     const [values, setValues] = useState({
@@ -24,18 +25,23 @@ export default function RegisterPumpOperator() {
         password: '',
         rePassword: '',
     })
-    console.log(errors)
 
     const navigate = useNavigate();
+    const location = useLocation()
     const [loader, setLoader] = useState(false)
+
+    const {fs_name, fs_id} = location.state
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
         setErrors({ ...errors, [prop]: '' });
     };
 
+    const [regError, setRegError] = useState('')
+
     const handleRegister = async (e) => {
         e.preventDefault()
+        setRegError('')
 
         // Handle validations here
         const { error, value } = AuthValidation.registerPovalidation({
@@ -46,37 +52,28 @@ export default function RegisterPumpOperator() {
             password: values.password,
             rePassword: values.rePassword
         })
-
-        let err = {}
-        error.details.map((det) => {
-            err[det.context.label] = det.message
-        })
-        setErrors({ ...errors, ...err })
-
-        // try {
-        //     setLoader(true)
-        //     const response = await auth_services.registerUser(values.email, values.firstName, values.lastName, values.contactNo, values.password)
-        //     console.log(response)
-        //     if (response.data.error) {
-        //         setError(response.data.error)
-        //     } else {
-        //         navigate('/register-vehicle')
-        //     }
-        // } catch (error) {
-        //     navigate('/503-error')
-        // }
-        // setLoader(false)
-
-        // setValues({
-        //     ...values,
-        //     email: '',
-        //     firstName: '',
-        //     lastName: '',
-        //     contactNo: '',
-        //     password: '',
-        //     rePassword: '',
-        // });
-        // console.log(values);
+        if (error) {
+            let err = {}
+            error.details.map((det) => {
+                err[det.context.label] = det.message
+            })
+            setErrors({ ...errors, ...err })
+        } else {
+            setLoader(true)
+            try {
+                const fuelStationId = fs_id
+                const response = await auth_services.registerPo(values.email, values.firstName, values.lastName, values.contactNo, values.password, fuelStationId)
+                console.log(response)
+                if (response.data.error) {
+                    setRegError(response.data.error)
+                } else {
+                    navigate('/fs-dashboard')
+                }
+            } catch (error) {
+                navigate('/503-error')
+            }
+            setLoader(false)
+        }
     }
 
     return (
@@ -91,16 +88,15 @@ export default function RegisterPumpOperator() {
                                     Register Pump Operator
                                 </Typography>
                                 <Typography variant="h5" color="#022B3A" fontWeight='lighter' sx={{ mb: 3 }}>
-                                    Maco Filling Station, Kalegana
+                                   {fs_name}
                                 </Typography>
-                                {/* {exists && <ErrorAlert custom_message={exists}></ErrorAlert>} */}
-                                {/* {error && <ErrorAlert custom_message={error}></ErrorAlert>} */}
+                                {regError && <ErrorAlert custom_message={regError}></ErrorAlert>}
 
                                 <TextField sx={{ marginTop: 1 }}
                                     name='email'
                                     label='Email'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.email}
                                     fullWidth
                                     error={errors.email !== ''}
                                     onChange={handleChange('email')}
@@ -111,7 +107,7 @@ export default function RegisterPumpOperator() {
                                     name='firstName'
                                     label='First Name'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.firstName}
                                     fullWidth
                                     error={errors.firstName !== ''}
                                     onChange={handleChange('firstName')}
@@ -122,7 +118,7 @@ export default function RegisterPumpOperator() {
                                     name='lastName'
                                     label='Last Name'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.lastName}
                                     fullWidth
                                     error={errors.lastName !== ''}
                                     onChange={handleChange('lastName')}
@@ -133,7 +129,7 @@ export default function RegisterPumpOperator() {
                                     name='contactNo'
                                     label='Contact Number (Type 07X or +947X)'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.contactNo}
                                     fullWidth
                                     error={errors.contactNo !== ''}
                                     onChange={handleChange('contactNo')}

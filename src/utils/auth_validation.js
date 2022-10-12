@@ -76,7 +76,7 @@ const custom_password = (value, helper) => {
 }
 
 const name_validation_joi_object = () => {
-    return Joi.string().required().pattern(new RegExp('^[A-Z][a-z0-9_-]{2,}$'))
+    return Joi.string().required().pattern(new RegExp('^[A-Z][a-z0-9_-]{0,}$'))
         .messages({
             "string.empty": "Field should not be empty!",
             "string.pattern.base": "First letter must be a Capital"

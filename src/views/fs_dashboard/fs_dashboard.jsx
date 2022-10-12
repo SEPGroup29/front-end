@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import { Button, CardContent, Link } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function Item({ name, value }) {
 
@@ -35,13 +36,19 @@ Item.propTypes = {
 
 
 
-const fs_dashboard = () => {
+const FsDashboard = () => {
+
+    const navigate = useNavigate()
+
+    const handleAddPo = () => {
+        navigate('/register-po', { state: {fs_name: 'Maco Filling Station, Kalegana', fs_id: '6335ddd0bf09b4881f0d5bb5'} }) // Should send actual fuel station id and name
+    }
 
     return (
         <div className="fs_dashboard">
             <Container sx={{ mt: 3, mb: 15 }}>
                 <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
-                    Fuel Stations
+                    Maco Filling Station, Kalegana
                 </Typography>
                 <Card
                     sx={{
@@ -142,7 +149,7 @@ const fs_dashboard = () => {
 
                     </CardContent>
                     <Typography sx={{ textAlign: 'center', mt: 3, mb: 3 }}>
-                        <Link href="#" style={{ textDecoration: 'none' }}><Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary"><Add /> Add Pump Operator </Button></Link>
+                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleAddPo}><Add /> Add Pump Operator </Button>
                     </Typography>
                 </Card>
 
@@ -151,4 +158,4 @@ const fs_dashboard = () => {
     );
 }
 
-export default fs_dashboard;
+export default FsDashboard;
