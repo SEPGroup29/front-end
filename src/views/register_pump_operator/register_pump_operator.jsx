@@ -7,7 +7,6 @@ import Password from './password'
 import AuthValidation from "../../utils/auth_validation";
 
 export default function RegisterPumpOperator() {
-
     const [values, setValues] = useState({
         email: '',
         firstName: '',
@@ -25,12 +24,14 @@ export default function RegisterPumpOperator() {
         password: '',
         rePassword: '',
     })
+    console.log(errors)
 
     const navigate = useNavigate();
     const [loader, setLoader] = useState(false)
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+        setErrors({ ...errors, [prop]: '' });
     };
 
     const handleRegister = async (e) => {
@@ -49,12 +50,8 @@ export default function RegisterPumpOperator() {
         let err = {}
         error.details.map((det) => {
             err[det.context.label] = det.message
-            // console.log(det.path[0])
-            // console.log(det.message)
-            // console.log(errors)
         })
         setErrors({ ...errors, ...err })
-        console.log(errors)
 
         // try {
         //     setLoader(true)
@@ -69,10 +66,21 @@ export default function RegisterPumpOperator() {
         //     navigate('/503-error')
         // }
         // setLoader(false)
+
+        // setValues({
+        //     ...values,
+        //     email: '',
+        //     firstName: '',
+        //     lastName: '',
+        //     contactNo: '',
+        //     password: '',
+        //     rePassword: '',
+        // });
+        // console.log(values);
     }
 
     return (
-        <dev>
+        <div>
             {loader && <Loader />}
             {!loader &&
                 <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
@@ -123,7 +131,7 @@ export default function RegisterPumpOperator() {
 
                                 <TextField sx={{ marginTop: 1 }}
                                     name='contactNo'
-                                    label='Contact Number'
+                                    label='Contact Number (Type 07X or +947X)'
                                     variant="outlined"
                                     // value={value}
                                     fullWidth
@@ -136,12 +144,9 @@ export default function RegisterPumpOperator() {
                                     <Grid item xs={6}>
                                         <Password name={'password'} label={'Password'} value={values.password} values={values} setValues={setValues} handleChange={handleChange} error={errors.password} />
                                     </Grid>
-
                                     <Grid item xs={6}>
                                         <Password name={'rePassword'} label={'Re-enter password'} value={values.rePassword} values={values} setValues={setValues} handleChange={handleChange} error={errors.rePassword} />
                                     </Grid>
-                                    {errors.rePassword !== '' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{errors.rePassword}</Typography>}
-
                                 </Grid>
                                 <Button
                                     variant="contained"
@@ -158,7 +163,7 @@ export default function RegisterPumpOperator() {
                     </Grid>
                 </Grid>
             }
-        </dev>
+        </div>
     )
 
 }

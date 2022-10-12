@@ -32,7 +32,7 @@ const registerPovalidation = (data) => {
             return true;
         }),
     })
-    const { error, value } = register_po_schema.validate(data, { abortEarly: true })
+    const { error, value } = register_po_schema.validate(data, { abortEarly: false })
     return ({ error, value })
 }
 
