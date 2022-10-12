@@ -71,6 +71,21 @@ const voLoginAfterOtp = (email, entered_otp) => {
     })
 }
 
+const registerPo = (email, firstName, lastName, contactNumber, password, fuelStationId) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/register-po',
+        data: {
+            email,
+            firstName,
+            lastName,
+            contactNumber,
+            password,
+            fuelStationId   
+        }
+    })
+}
+
 // eslint-disable-next-line
 export default {
     emailExistance,
@@ -79,6 +94,7 @@ export default {
     fsLogin,
     voLoginBeforeOtp,
     voLoginAfterOtp,
+    registerPo,
 }
 
 

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, CardContent, Grid, Link, TextField, Typography } from "@mui/material";
 import auth_services from "../../services/auth_services";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loader from '../../components/loader/loader'
 import Password from './password'
 import AuthValidation from "../../utils/auth_validation";
+import ErrorAlert from "../../alerts/errorAlert";
 
 export default function RegisterPumpOperator() {
-
     const [values, setValues] = useState({
         email: '',
         firstName: '',
@@ -27,14 +27,21 @@ export default function RegisterPumpOperator() {
     })
 
     const navigate = useNavigate();
+    const location = useLocation()
     const [loader, setLoader] = useState(false)
+
+    const {fs_name, fs_id} = location.state
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+        setErrors({ ...errors, [prop]: '' });
     };
+
+    const [regError, setRegError] = useState('')
 
     const handleRegister = async (e) => {
         e.preventDefault()
+        setRegError('')
 
         // Handle validations here
         const { error, value } = AuthValidation.registerPovalidation({
@@ -45,34 +52,32 @@ export default function RegisterPumpOperator() {
             password: values.password,
             rePassword: values.rePassword
         })
-
-        let err = {}
-        error.details.map((det) => {
-            err[det.context.label] = det.message
-            // console.log(det.path[0])
-            // console.log(det.message)
-            // console.log(errors)
-        })
-        setErrors({ ...errors, ...err })
-        console.log(errors)
-
-        // try {
-        //     setLoader(true)
-        //     const response = await auth_services.registerUser(values.email, values.firstName, values.lastName, values.contactNo, values.password)
-        //     console.log(response)
-        //     if (response.data.error) {
-        //         setError(response.data.error)
-        //     } else {
-        //         navigate('/register-vehicle')
-        //     }
-        // } catch (error) {
-        //     navigate('/503-error')
-        // }
-        // setLoader(false)
+        if (error) {
+            let err = {}
+            error.details.map((det) => {
+                err[det.context.label] = det.message
+            })
+            setErrors({ ...errors, ...err })
+        } else {
+            setLoader(true)
+            try {
+                const fuelStationId = fs_id
+                const response = await auth_services.registerPo(values.email, values.firstName, values.lastName, values.contactNo, values.password, fuelStationId)
+                console.log(response)
+                if (response.data.error) {
+                    setRegError(response.data.error)
+                } else {
+                    navigate('/fs-dashboard')
+                }
+            } catch (error) {
+                navigate('/503-error')
+            }
+            setLoader(false)
+        }
     }
 
     return (
-        <dev>
+        <div>
             {loader && <Loader />}
             {!loader &&
                 <Grid container minHeight="100vh" justifyContent="center" alignItems="center">
@@ -83,16 +88,15 @@ export default function RegisterPumpOperator() {
                                     Register Pump Operator
                                 </Typography>
                                 <Typography variant="h5" color="#022B3A" fontWeight='lighter' sx={{ mb: 3 }}>
-                                    Maco Filling Station, Kalegana
+                                   {fs_name}
                                 </Typography>
-                                {/* {exists && <ErrorAlert custom_message={exists}></ErrorAlert>} */}
-                                {/* {error && <ErrorAlert custom_message={error}></ErrorAlert>} */}
+                                {regError && <ErrorAlert custom_message={regError}></ErrorAlert>}
 
                                 <TextField sx={{ marginTop: 1 }}
                                     name='email'
                                     label='Email'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.email}
                                     fullWidth
                                     error={errors.email !== ''}
                                     onChange={handleChange('email')}
@@ -103,7 +107,7 @@ export default function RegisterPumpOperator() {
                                     name='firstName'
                                     label='First Name'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.firstName}
                                     fullWidth
                                     error={errors.firstName !== ''}
                                     onChange={handleChange('firstName')}
@@ -114,7 +118,7 @@ export default function RegisterPumpOperator() {
                                     name='lastName'
                                     label='Last Name'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.lastName}
                                     fullWidth
                                     error={errors.lastName !== ''}
                                     onChange={handleChange('lastName')}
@@ -123,9 +127,9 @@ export default function RegisterPumpOperator() {
 
                                 <TextField sx={{ marginTop: 1 }}
                                     name='contactNo'
-                                    label='Contact Number'
+                                    label='Contact Number (Type 07X or +947X)'
                                     variant="outlined"
-                                    // value={value}
+                                    value={values.contactNo}
                                     fullWidth
                                     error={errors.contactNo !== ''}
                                     onChange={handleChange('contactNo')}
@@ -136,12 +140,9 @@ export default function RegisterPumpOperator() {
                                     <Grid item xs={6}>
                                         <Password name={'password'} label={'Password'} value={values.password} values={values} setValues={setValues} handleChange={handleChange} error={errors.password} />
                                     </Grid>
-
                                     <Grid item xs={6}>
                                         <Password name={'rePassword'} label={'Re-enter password'} value={values.rePassword} values={values} setValues={setValues} handleChange={handleChange} error={errors.rePassword} />
                                     </Grid>
-                                    {errors.rePassword !== '' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{errors.rePassword}</Typography>}
-
                                 </Grid>
                                 <Button
                                     variant="contained"
@@ -158,7 +159,7 @@ export default function RegisterPumpOperator() {
                     </Grid>
                 </Grid>
             }
-        </dev>
+        </div>
     )
 
 }
