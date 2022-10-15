@@ -1,5 +1,6 @@
 import axois from 'axios';
 import config from '../config';
+import token from './token'
 
 const API_URL = config.DOMAIN_NAME + '/auth';
 
@@ -14,8 +15,8 @@ const emailExistance = (email) => {
     });
 }
 
-const adminLogin = (email, password) => {
-    return axois({
+const adminLogin = async (email, password) => {
+    const response = await axois({
         method: 'post',
         url: API_URL + '/login-admin',
         data: {
@@ -23,10 +24,12 @@ const adminLogin = (email, password) => {
             password: password
         }
     });
+    token.setAccessToken(response.data.access_token);
+    return response
 }
 
-const fsLogin = (email, password) => {
-    return axois({
+const fsLogin = async (email, password) => {
+    const response = await axois({
         method: 'post',
         url: API_URL + '/login-manager',//backend route
         data: {
@@ -34,6 +37,8 @@ const fsLogin = (email, password) => {
             password: password
         }
     });
+    token.setAccessToken(response.data.access_token);
+    return response
 }
 
 const registerUser = (NIC, email, otp, firstName, lastName) => {
@@ -60,8 +65,8 @@ const voLoginBeforeOtp = (email) => {
     })
 }
 
-const voLoginAfterOtp = (email, entered_otp) => {
-    return axois({
+const voLoginAfterOtp = async (email, entered_otp) => {
+    const response = await axois({
         method: 'post',
         url: API_URL + '/login-otp',
         data: {
@@ -69,6 +74,8 @@ const voLoginAfterOtp = (email, entered_otp) => {
             entered_otp
         }
     })
+    token.setAccessToken(response.data.access_token);
+    return response
 }
 
 const registerPo = (email, firstName, lastName, contactNumber, password, fuelStationId) => {
