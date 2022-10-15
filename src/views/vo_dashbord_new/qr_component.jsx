@@ -1,8 +1,37 @@
 import React from "react";
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { Download } from "@mui/icons-material";
+import { useState, useRef } from "react";
+import { QRCodeSVG, QRCodeCanvas } from "qrcode.react";
 
 const QRComponent = () => {
+    const [qrData, setQrData] = useState({a: 5, b: 10});
+    const qrRef = useRef()
+
+    const downloadQRCode = (e) => {
+        e.preventDefault();
+        let canvas = qrRef.current.querySelector("canvas");
+        let image = canvas.toDataURL("image/jpeg");
+        let anchor = document.createElement("a");
+        anchor.href = image;
+        anchor.download = `qr-code.jpeg`;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+    }
+
+    const qrcode = (
+        <QRCodeCanvas
+            id="qrCode"
+            value={JSON.stringify(qrData)}
+            includeMargin
+            level="L"
+            size={300}
+        // bgColor={"#00ff00"}
+        // level={"H"}
+        />
+    )
+
     return (
         <Card
             sx={{
@@ -16,21 +45,24 @@ const QRComponent = () => {
             variant={"outlined"}
         >
             <CardMedia
-                component="img"
-                image="img/QR_sample.png"
+                // component="img"
+                // image="img/QR_sample.png"
                 sx={{
                     paddingLeft: { xs: '10%', lg: '30%' },
                     paddingRight: { xs: '10%', lg: '30%' },
                     marginTop: 'auto'
                 }}
-            />
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ marginTop: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": { color: 'white' } }}
-                >
-                    <Download />&ensp;Download QR
-                </Button>
+            >
+            <div ref={qrRef}>{qrcode}</div>
+            </CardMedia>
+            {/* <Button
+                variant="contained"
+                color="secondary"
+                sx={{ mt: 3, mb: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": { color: 'white' } }}
+                onClick={downloadQRCode}
+            >
+                <Download />&ensp;Download QR
+            </Button> */}
             <CardContent sx={{ backgroundColor: '#E1E5F2', alignSelf: 'bottom', marginTop: 'auto' }}>
                 <Grid container spacing={2} justifyContent="center" alignItems="center"  >
                     <Grid item xs={6}>
