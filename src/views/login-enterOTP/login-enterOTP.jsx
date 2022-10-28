@@ -12,7 +12,7 @@ import Loader from "../../components/loader/loader";
 export default function Login_enterOTP() {
     const location = useLocation()
     const navigate = useNavigate()
-    const [value, setValue] = React.useState('')
+    const [value, setValue] = useState('')
     const [email, setEmail] = useState('')
     const [loginError, setLoginError] = useState('')
     const [emptyError, setEmptyError] = useState('')

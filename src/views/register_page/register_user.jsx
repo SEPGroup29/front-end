@@ -7,6 +7,7 @@ import ErrorAlert from "../../alerts/errorAlert";
 import { useNavigate } from "react-router-dom";
 import InfoAlert from "../../alerts/infoAlert";
 import Loader from '../../components/loader/loader'
+import auth_validation from "../../utils/auth_validation";
 
 export default function Register_user() {
     const [otp, setOtp] = useState('')
@@ -22,31 +23,32 @@ export default function Register_user() {
     const [error, setError] = useState()
     const [loader, setLoader] = useState(false)
 
-    // const countdown = () => {
-    //     var seconds = 59;
-    //     function tick() {
-    //         var counter = document.getElementById("counter");
-    //         seconds--;
-    //         counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
-    //         if (seconds > 0) {
-    //             setTimeout(tick, 1000);
-    //         } else {
-    //             // document.getElementById("timer").style.color = "#d32f2f";
-    //             // document.getElementById("timer").innerHTML = "OTP expired!";
-    //         }
-    //     }
-    //     tick();
-    // }
-
     const [otpContent, setOtpContent] = useState()
     const [exists, setExists] = useState()
     const [allowed, setAllowed] = useState(true)
     const [disabled, setDisabled] = useState(false)
 
+    const [emailError, setEmailError] = useState('')
+    const [nicError, setNICError] = useState('')
+    const [otpError, setOtpError] = useState('')
+    const [firstNameError, setFirstNameError] = useState('')
+    const [lastNameError, setLastNameError] = useState('')
+
     const sendOTP = async (e) => {
         e.preventDefault()
 
         // Handle validations here
+        setEmailError('')
+        setNICError('')
+        var { error, value } = auth_validation.emailValidation({ email })
+        if (error) {
+            setEmailError(error.details[0].message)
+        }
+        var { error, value } = auth_validation.nicValidation({ NIC })
+        if (error) {
+            setNICError(error.details[0].message)
+            return
+        }
 
         setOtpContent(null)
         setExists(null)
@@ -63,10 +65,8 @@ export default function Register_user() {
                         setDisabled(false)
                     }, 60000)
                 } else if (response.data.result === 'Email already exists') {
-                    setEmail('')
                     setExists('Email you entered already exists')
                 } else if (response.data.result === 'OTP generation error') {
-                    setEmail('')
                     setExists('OTP generation error. Please try again')
                 }
             }
@@ -80,6 +80,18 @@ export default function Register_user() {
         e.preventDefault()
 
         // Handle validations here
+        setOtpError('')
+        setFirstNameError('')
+        setLastNameError('')
+        if (otp === '') {
+            setOtpError('OTP is required')
+        }
+        const {error, value} = auth_validation.nameValidation({firstName, lastName})
+        if (error) {
+            setFirstNameError(error.details[0].message)
+            error.details[1] && setLastNameError(error.details[1].message)
+            return
+        }
 
         try {
             setLoader(true)
@@ -110,10 +122,15 @@ export default function Register_user() {
                                 <Typography variant="subtitle1">
                                     FuelQ
                                 </Typography>
+
                                 {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
                                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                                <FormInput label="NIC Number" setValue={setNIC} />
-                                <FormInput label="E-mail" setValue={setEmail} />
+
+                                <FormInput label="E-mail" value={email} setValue={setEmail} isValid={emailError ? true : false} />
+                                {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
+                                <FormInput label="NIC Number" value={NIC} setValue={setNIC} isValid={nicError ? true : false} />
+                                {nicError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{nicError}</Typography>}
+
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -124,9 +141,13 @@ export default function Register_user() {
                                     disabled={disabled}
                                 >{otpContent ? 'RESEND OTP' : 'SEND OTP'}</Button>
                                 {otpContent && <InfoAlert custom_message={otpContent}></InfoAlert>}
+
                                 <MuiOtpInput length={6} value={otp} onChange={handleChange} />
-                                <FormInput label="First Name" setValue={setFirstName} />
-                                <FormInput label="Last Name" setValue={setLastName} />
+                                {otpError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{otpError}</Typography>}
+                                <FormInput label="First Name" value={firstName} setValue={setFirstName} isValid={firstNameError ? true : false} />
+                                {firstNameError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{firstNameError}</Typography>}
+                                <FormInput label="Last Name" value={lastName} setValue={setLastName} isValid={lastNameError ? true : false} />
+                                {lastNameError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{lastNameError}</Typography>}
                                 <Button
                                     variant="contained"
                                     sx={{ marginTop: 2, marginBottom: 2 }}

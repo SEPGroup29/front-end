@@ -5,7 +5,6 @@ import token from './token'
 const API_URL = config.DOMAIN_NAME + '/auth';
 
 const emailExistance = (email) => {
-    console.log(email);
     return axois({
         method: 'post',
         url: API_URL + '/register-email-existance',

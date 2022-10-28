@@ -10,7 +10,7 @@ const FormInput = (props) => {
                 name = {name}
                 label={label}
                 variant="outlined"
-                value={value}
+                value={props.value}
                 fullWidth
                 error = {props.isValid}
                 helperText={helperText}
