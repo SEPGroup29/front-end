@@ -39,8 +39,9 @@ export default function Login_enterOTP() {
             setLoader(true)
             try {
                 const response = await AuthServices.voLoginAfterOtp(email, value)
+                console.log(response)
                 if (response.status === 200) {
-                    if (response.data.user) {
+                    if (response.data.message === "Login successful") {
                         navigate('/vo-dashboard')
                     }
                     if (response.data.error) {
