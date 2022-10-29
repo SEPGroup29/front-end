@@ -10,18 +10,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import fuel_station_services from "../../services/api/fuel_station_services";
 import { useEffect } from "react";
 import ErrorAlert from "../../alerts/errorAlert";
+import SuccessAlert from "../../alerts/successAlert";
 
 export default function Update_fuel_stock() {
+    const [petrolStock, setPetrolStock] = useState('---')
+    const [dieselStock, setDieselStock] = useState('---')
     
     useEffect(() => {
         getStock()
-    }, [])
+    }, [petrolStock, dieselStock])
 
     const location = useLocation()
     const { fs_name, fs_id } = location.state
 
-    const [petrolStock, setPetrolStock] = useState('---')
-    const [dieselStock, setDieselStock] = useState('---')
     const getStock = async () => {
         const response = await fuel_station_services.getStock(fs_id)
         setPetrolStock(response.data.petrol)
@@ -44,6 +45,7 @@ export default function Update_fuel_stock() {
 
     const [amountError, setAmountError] = useState('')
     const [updateError, setUpdateError] = useState('')
+    const [updateSuccess, setUpdateSuccess] = useState('')
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
 
@@ -64,7 +66,9 @@ export default function Update_fuel_stock() {
             setLoader(true)
             const response = await fuel_station_services.updateStock(fuel, parseInt(amount), fs_id)
             if(response.data.updatedStation) {
-                navigate('/fs-dashboard')
+                // navigate('/fs-dashboard')
+                setUpdateSuccess('Fuel stock updated successfully')
+                getStock()
             } 
             if (response.data.error) {
                 setUpdateError(response.data.error)
@@ -90,6 +94,7 @@ export default function Update_fuel_stock() {
                                     {fs_name}
                                 </Typography>
                                 {updateError && <ErrorAlert custom_message={updateError}></ErrorAlert>}
+                                {updateSuccess && <SuccessAlert custom_message={updateSuccess}></SuccessAlert>}
                                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
                                     Select fuel type
                                 </Typography>
