@@ -30,7 +30,7 @@ const adminLogin = async (email, password) => {
 const fsLogin = async (email, password) => {
     const response = await axois({
         method: 'post',
-        url: API_URL + '/login-manager',//backend route
+        url: API_URL + '/fs-login',//backend route
         data: {
             email: email,
             password: password
