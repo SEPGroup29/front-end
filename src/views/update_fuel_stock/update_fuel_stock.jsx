@@ -53,6 +53,8 @@ export default function Update_fuel_stock() {
         e.preventDefault();
 
         setAmountError('')
+        setUpdateSuccess('')
+        setUpdateError('')
         console.log("Fuel Type: ", fuel);
         console.log("Amount: ", amount);
         const { error, value } = api_validations.fuelAmountValidation({ amount })
