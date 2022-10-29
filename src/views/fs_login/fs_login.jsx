@@ -31,10 +31,9 @@ export default function SignIn() {
     const { error, value } = auth_validation.emailValidation({ email })
     if (error) {
       setEmailError(error.details[0].message)
-      return
-    }
-    if (password === '') {
-      setPasswordError('Field should not be empty!')
+      if (password === '') {
+        setPasswordError('Field should not be empty!')
+      }
       return
     }
 
