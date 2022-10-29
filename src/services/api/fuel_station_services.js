@@ -10,6 +10,27 @@ const showAllFuelStations = () => {
     })
 }
 
+const getStock = (fs_id) => {
+    return axios ({
+        method: 'GET',
+        url: API_URL + `/get-stock/${fs_id}`
+    })
+}
+
+const updateStock = (fuel, amount, fuelStationId) => {
+    return axios({
+        method: 'post',
+        url: API_URL + '/update-stock',
+        data: {
+            fuel,
+            amount,
+            fuelStationId   
+        }
+    })
+}
+
 export default {
     showAllFuelStations,
+    getStock,
+    updateStock,
 }

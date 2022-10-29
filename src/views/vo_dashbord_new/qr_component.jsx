@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Grid, IconButton, Typography } from "@mui/material";
 import { Download } from "@mui/icons-material";
 import { useState, useRef } from "react";
 import { QRCodeSVG, QRCodeCanvas } from "qrcode.react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const QRComponent = () => {
-    const [qrData, setQrData] = useState({a: 5, b: 10});
+    const [qrData, setQrData] = useState({ a: 5, b: 10 });
     const qrRef = useRef()
 
     const downloadQRCode = (e) => {
@@ -53,20 +54,25 @@ const QRComponent = () => {
                     marginTop: 'auto'
                 }}
             >
-            <div ref={qrRef}>{qrcode}</div>
+                <div ref={qrRef}>{qrcode}</div>
+                <div>
+                    <IconButton aria-label="delete" size="large" sx={{ float: 'right' }} color='secondary' onClick={downloadQRCode}>
+                        <Download />
+                    </IconButton>
+                </div>
             </CardMedia>
-            {/* <Button
+            {/* <IconButton
                 variant="contained"
-                color="secondary"
-                sx={{ mt: 3, mb: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": { color: 'white' } }}
+                sx={{ mt: 3, mb: 3 }}
                 onClick={downloadQRCode}
             >
-                <Download />&ensp;Download QR
-            </Button> */}
+                <Download />
+            </IconButton> */}
+
             <CardContent sx={{ backgroundColor: '#E1E5F2', alignSelf: 'bottom', marginTop: 'auto' }}>
                 <Grid container spacing={2} justifyContent="center" alignItems="center"  >
                     <Grid item xs={6}>
-                        <Typography variant='h6' align='center' color='#2e7d32'>
+                        <Typography variant='h6' align='center' color='#1F7A8C'>
                             Remaining Petrol Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >
@@ -75,7 +81,7 @@ const QRComponent = () => {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <Typography variant='h6' align='center' color='#2e7d32'>
+                        <Typography variant='h6' align='center' color='#1F7A8C'>
                             Remaining Diesel Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >

@@ -10,6 +10,7 @@ import { Card, CardContent } from '@mui/material';
 import { Link } from '@mui/material';
 import FormInput from "../../components/form_input/FormInput";
 import Loader from "../../components/loader/loader";
+import auth_validation from "../../utils/auth_validation";
 
 export default function SignIn() {
   // const {login, err, isLoading} = useLogin();
@@ -19,9 +20,23 @@ export default function SignIn() {
   const [error, setError] = useState();
   const [loader, setLoader] = useState(false)
 
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // await login(email, password)
+
+    setEmailError('')
+    setPasswordError('')
+    const { error, value } = auth_validation.emailValidation({ email })
+    if (error) {
+      setEmailError(error.details[0].message)
+      if (password === '') {
+        setPasswordError('Field should not be empty!')
+      }
+      return
+    }
+
     try {
       setLoader(true)
       const response = await auth_services.fsLogin(email, password);
@@ -57,8 +72,10 @@ export default function SignIn() {
                   FuelQ Management System
                 </Typography>
                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                <FormInput label="Email" name="Email" setValue={email} />
-                <FormInput label="Password" name="Password" setValue={password} />
+                <FormInput label="Email" name="Email" value={email} setValue={setEmail} isValid={emailError ? true : false} />
+                {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
+                <FormInput label="Password" name="Password" value={password} setValue={setPassword} isValid={passwordError ? true : false} />
+                {passwordError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{passwordError}</Typography>}
                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} >PROCEED</Button>
                 {/* <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link> */}
               </CardContent>

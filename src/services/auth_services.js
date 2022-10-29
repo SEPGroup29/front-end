@@ -5,7 +5,6 @@ import token from './token'
 const API_URL = config.DOMAIN_NAME + '/auth';
 
 const emailExistance = (email) => {
-    console.log(email);
     return axois({
         method: 'post',
         url: API_URL + '/register-email-existance',
@@ -31,7 +30,7 @@ const adminLogin = async (email, password) => {
 const fsLogin = async (email, password) => {
     const response = await axois({
         method: 'post',
-        url: API_URL + '/login-manager',//backend route
+        url: API_URL + '/fs-login',//backend route
         data: {
             email: email,
             password: password

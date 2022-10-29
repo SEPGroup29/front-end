@@ -41,7 +41,11 @@ const FsDashboard = () => {
     const navigate = useNavigate()
 
     const handleAddPo = () => {
-        navigate('/register-po', { state: {fs_name: 'Maco Filling Station, Kalegana', fs_id: '6335ddd0bf09b4881f0d5bb5'} }) // Should send actual fuel station id and name
+        navigate('/register-po', { state: { fs_name: 'Maco Filling Station, Kalegana', fs_id: '6335ddd0bf09b4881f0d5bb5' } }) // Should send actual fuel station id and name
+    }
+
+    const handleUpdateStock = () => {
+        navigate('/update-fuel-stock', { state: { fs_name: 'Abeysekara Filling Station, Galle', fs_id: '6335ddd0bf09b4881f0d5bb2' } }) // Should send actual fuel station id and name
     }
 
     return (
@@ -74,7 +78,7 @@ const FsDashboard = () => {
                     />
                     <ProgressBar />
                     <Typography sx={{ textAlign: 'center', mb: 3 }}>
-                        <Link href="/update-fuel-stock" style={{ textDecoration: 'none' }}><Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary"><Add /> Update Fuel Stock</Button></Link>
+                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
                     </Typography>
                 </Card>
 

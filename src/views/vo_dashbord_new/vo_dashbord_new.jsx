@@ -63,12 +63,13 @@ const Vo_Dashboard_new = () => {
         setLoader(true)
         try {
             const response = await vehicle_owner_services.showVehicles()
-            if (response) {
-                if (response.status === 200)
-                    setVehicles(response.data)
+            console.log(response)
+            if (response.data.error) {
+                setError(response.data.error)
+            } 
+            if (response.data.vehicles) {
+                setVehicles(response.data.vehicles)
             }
-            else
-                setError("Unknown Error Occured")
         }
         catch (error) {
             // setError("Unknown Error Occured")

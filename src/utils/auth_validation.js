@@ -36,6 +36,23 @@ const registerPovalidation = (data) => {
     return ({ error, value })
 }
 
+const nicValidation = (data) => {
+    const nic_val_schema = Joi.object({
+        NIC: nic_validation_joi_object()
+    })
+    const { error, value } = nic_val_schema.validate(data, { abortEarly: false })
+    return ({ error, value })
+}
+
+const nameValidation = (data) => {
+    const name_val_schema = Joi.object({
+        firstName: name_validation_joi_object(),
+        lastName: name_validation_joi_object()
+    })
+    const { error, value } = name_val_schema.validate(data, { abortEarly: false })
+    return ({ error, value })
+}
+
 // ..................JOI Validate Objects...........................
 
 const email_validation_joi_object = () => {
@@ -92,7 +109,17 @@ const contact_number_validation_joi_object = () => {
         });
 }
 
+const nic_validation_joi_object = () => {
+    return Joi.string().required().pattern(new RegExp('^([0-9]{9}[v|V]|[0-9]{12})$'))
+    .messages({
+        "string.empty": "Field should not be empty!",
+        "string.pattern.base": "Invalid NIC format"
+    });
+}
+
 export default {
     emailValidation,
     registerPovalidation,
+    nicValidation,
+    nameValidation,
 }
