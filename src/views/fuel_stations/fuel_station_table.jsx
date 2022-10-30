@@ -9,6 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Button, Card } from '@mui/material';
 import { FollowTheSigns, LocationOn } from '@mui/icons-material';
+import NoStations from './no_stations';
+import SearchBar from './searchbar';
 
 const columns = [
     // { id: '_id', label: "ID", minWidth: 150 },
@@ -47,10 +49,9 @@ const columns = [
 // ]
 
 
-export default function FuelStationTable({ fuelStations }) {
+export default function FuelStationTable({ fuelStations, search }) {
 
     const rows = fuelStations
-    console.log(fuelStations)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -64,7 +65,7 @@ export default function FuelStationTable({ fuelStations }) {
     };
 
     return (
-        <Box sx={{ height: '100vh', mt: 3}}>
+        <Box sx={{ height: '100vh', mt: 3 }}>
             <Card sx={{ width: '100%', borderRadius: 5 }} elevation={4} >
 
                 <Box
@@ -77,53 +78,53 @@ export default function FuelStationTable({ fuelStations }) {
                 >
 
                 </Box>
-
-                <TableContainer>
-                    <Table stickyHeader aria-label="sticky table" >
-                        <TableHead sx={{ "& .MuiTableCell-stickyHeader": { backgroundColor: "primary.main" }, borderRadius: 5  }}>
-                            <TableRow >
-                                {columns.map((column) => (
-                                    <TableCell
-                                        sx={{ color: "rgb(255,255,255)", fontSize: "1rem" }}
-                                        key={column.id}
-                                        align={'center'}
-                                        style={{ minWidth: column.minWidth }}
-                                    >
-                                        {column.label === 'Near City' && <span><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;</span>}
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                                <TableCell align="center"></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <TableCell
-                                                        key={column.id}
-                                                        align={'center'}
-                                                        sx={column.id === 'rpstock' || column.id === 'rdstock' ? { fontSize: '20px', color: '#673ab7' } : {}}
-                                                    >
-                                                        {column.format && typeof value === 'number'
-                                                            ? column.format(value)
-                                                            : value}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                            <TableCell><Button variant="contained" color='secondary' ><FollowTheSigns />Join</Button></TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-
-                </TableContainer>
+                {fuelStations.length === 0 ? <NoStations search={search} /> :
+                    <TableContainer>
+                        <Table stickyHeader aria-label="sticky table" >
+                            <TableHead sx={{ "& .MuiTableCell-stickyHeader": { backgroundColor: "primary.main" }, borderRadius: 5 }}>
+                                <TableRow >
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            sx={{ color: "rgb(255,255,255)", fontSize: "1rem" }}
+                                            key={column.id}
+                                            align={'center'}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label === 'Near City' && <span><LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;</span>}
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                    <TableCell align="center"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => {
+                                        return (
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={row}>
+                                                {columns.map((column) => {
+                                                    const value = row[column.id];
+                                                    return (
+                                                        <TableCell
+                                                            key={column.id}
+                                                            align={'center'}
+                                                            sx={column.id === 'rpstock' || column.id === 'rdstock' ? { fontSize: '20px', color: '#673ab7' } : {}}
+                                                        >
+                                                            {column.format && typeof value === 'number'
+                                                                ? column.format(value)
+                                                                : value}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                                <TableCell><Button variant="contained" color='secondary' ><FollowTheSigns />Join</Button></TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                }
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"

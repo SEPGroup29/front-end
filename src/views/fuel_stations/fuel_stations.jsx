@@ -1,12 +1,15 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import fuel_station_services from "../../services/api/fuel_station_services";
 import FuelStationTable from "./fuel_station_table";
 import Loader from "../../components/loader/loader";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "./searchbar"
 
 const FuelStations = () => {
+
+    const [search, setSearch] = useState()
 
     useEffect(() => {
         getFuelStations()
@@ -16,17 +19,24 @@ const FuelStations = () => {
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
 
-    const getFuelStations = async () => {
-        console.log("Inside getFuelStations")
+    const handleSearch = () => {
+        getFuelStations(search)
+    }
+
+    const getFuelStations = async (search = null) => {
+        console.log(search)
+        if (search === '') {
+            console.log("IF")
+            search = null
+        }
         try {
             setLoader(true)
-            const response = await fuel_station_services.showAllFuelStations()
+            const response = await fuel_station_services.showAllFuelStations(search)
             if (response.status === 200) {
                 setFuelStations(response.data.stations)
-                console.log(response)
-                // console.log('fs', fuelStations);
             }
         } catch (error) {
+            console.log(error)
             navigate('/503-error')
         }
         setLoader(false)
@@ -40,7 +50,12 @@ const FuelStations = () => {
                     <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
                         Fuel Stations
                     </Typography>
-                    <FuelStationTable fuelStations={fuelStations} />
+                    <Grid container>
+                        <Grid item xs={12} sm={6} >
+                            <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
+                        </Grid>
+                    </Grid>
+                    <FuelStationTable fuelStations={fuelStations} search={search} />
                 </Container>
             }
         </div>

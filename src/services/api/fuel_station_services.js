@@ -3,10 +3,10 @@ import config from '../../config.json';
 
 const API_URL = config.DOMAIN_NAME + '/api/fuel-station';
 
-const showAllFuelStations = () => {
+const showAllFuelStations = (search) => {
     return axios ({
         method: 'GET',
-        url: API_URL + '/show-all-fuel-stations'
+        url: API_URL + `/show-all-fuel-stations/${search}`
     })
 }
 
