@@ -23,7 +23,7 @@ export default function SignIn() {
   const [loader, setLoader] = useState(false);
 
 
-  const emailOnChange = (e) => {
+  const checkEmail = (e) => {
     setEmailError('')
     const {error,value} = Auth_validation.emailValidation({email})
     if (error){
@@ -31,6 +31,17 @@ export default function SignIn() {
     }
     else {
       setEmailError('')
+    }
+  }
+
+  const checkPassword = (e) => {
+    setPasswordError('')
+    const {error,value} = Auth_validation.passwordValidation({password})
+    if (error){
+      setPasswordError(error.details[0].message)
+    }
+    else {
+      setPasswordError('')
     }
   }
 
@@ -79,9 +90,10 @@ export default function SignIn() {
                   FuelQ Management System
                 </Typography>
                 {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
-                <FormInput label="Email" name="Email" setValue={setEmail} onBlur = {emailOnChange} isValid={!!emailError}/>
+                <FormInput label="Email" name="Email" setValue={setEmail} onBlur = {checkEmail} isValid={!!emailError}/>
                 {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
-                <FormInput label="Password" name="Password" type="password" setValue={setPassword} />
+                <FormInput label="Password" name="Password" type="password" setValue={setPassword} onBlur = {checkPassword} isValid={!!passwordError} />
+                {passwordError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{passwordError}</Typography>}
                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} >PROCEED</Button>
                 {/* <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link> */}
               </CardContent>
