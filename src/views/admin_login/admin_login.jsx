@@ -10,16 +10,40 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ErrorAlert from "../../alerts/errorAlert";
 import Loader from "../../components/loader/loader"
+import Auth_validation from "../../utils/auth_validation";
+import {TextField} from "@mui/material";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState();
-  const [loader, setLoader] = useState(false)
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [loader, setLoader] = useState(false);
+
+
+  const emailOnChange = (e) => {
+    setEmailError('')
+    const {error,value} = Auth_validation.emailValidation({email})
+    if (error){
+      setEmailError(error.details[0].message)
+    }
+    else {
+      setEmailError('')
+    }
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setLoginError('')
+    setEmailError('')
+    setPasswordError('')
+
+    const {error,value} = Auth_validation.emailValidation({email})
+
 
     try {
       setLoader(true)
@@ -31,7 +55,7 @@ export default function SignIn() {
           navigate('/fs-dashboard');
         }
         else if (response.data.error) {
-          setError(response.data.error);
+          setLoginError(response.data.error);
         }
       }
     } catch (error) {
@@ -54,9 +78,10 @@ export default function SignIn() {
                 <Typography variant="subtitle1">
                   FuelQ Management System
                 </Typography>
-                {error && <ErrorAlert custom_message={error}></ErrorAlert>}
-                <FormInput label="Email" name="Email" setValue={email} />
-                <FormInput label="Password" name="Password" setValue={password} />
+                {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
+                <FormInput label="Email" name="Email" setValue={setEmail} onBlur = {emailOnChange} isValid={!!emailError}/>
+                {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
+                <FormInput label="Password" name="Password" type="password" setValue={setPassword} />
                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} >PROCEED</Button>
                 {/* <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link> */}
               </CardContent>
