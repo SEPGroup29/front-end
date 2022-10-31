@@ -102,10 +102,10 @@ export default function RegisterVehicle() {
                                 </Typography>
                                 <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                     <Grid item xs={4}>
-                                        <FormInput label="ABC" setValue={setLetters} />
+                                        <FormInput label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} />
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <FormInput label="1234" setValue={setVehicleNo} />
+                                        <FormInput label="1234" setValue={setVehicleNo} maxLength ="4" type = "number"/>
                                     </Grid>
                                 </Grid>
                                 <FormInput label="Chassis Number" setValue={setChassisNo} />

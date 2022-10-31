@@ -3,7 +3,7 @@ import React from "react";
 
 const FormInput = (props) => {
 
-    const {name , label ,  value , isValid , helperText , onBlur,type } = props;
+    const {name , label ,  value , isValid , helperText , onBlur,type,maxLength,isUpper=false } = props;
     return(
         <div className="form_input">
             <TextField sx={{marginTop:1}}
@@ -16,7 +16,9 @@ const FormInput = (props) => {
                 helperText={helperText}
                 onBlur={onBlur}
                 onChange={(e)=>props.setValue(e.target.value)}
-               type={props.type ? "password":""}
+                type={props.type ? props.type:""}
+                inputProps={{style: {textTransform: isUpper ? 'uppercase' : 'none'}, maxLength: props.maxLength ? props.maxLength : 100}}
+
             />
         </div>
     )
