@@ -3,7 +3,7 @@ import React from "react";
 
 const FormInput = (props) => {
 
-    const {name , label ,  value , isValid , helperText , onBlur } = props;
+    const {name , label ,  value , isValid , helperText , onBlur,type } = props;
     return(
         <div className="form_input">
             <TextField sx={{marginTop:1}}
@@ -16,6 +16,7 @@ const FormInput = (props) => {
                 helperText={helperText}
                 onBlur={onBlur}
                 onChange={(e)=>props.setValue(e.target.value)}
+               type={props.type ? "password":""}
             />
         </div>
     )
