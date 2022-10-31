@@ -44,6 +44,20 @@ export default function RegisterVehicle() {
         setVehicle(event.target.value);
     };
 
+    const handleVehicleNumber = (value) => {
+        console.log(value)
+        if(parseInt(value) > 9999){
+            setVehicleNo("9999")
+        }
+        else if (parseInt(value) < 0){
+            setVehicleNo("0")
+        }
+        else{
+            setVehicleNo(value)
+        }
+        console.log(vehicleNo)
+    }
+
     const [fuel, setFuel] = React.useState('petrol')
     const [error, setError] = React.useState('')
     const navigate = useNavigate();
@@ -105,7 +119,7 @@ export default function RegisterVehicle() {
                                         <FormInput label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} />
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <FormInput label="1234" setValue={setVehicleNo} maxLength ="4" type = "number"/>
+                                        <FormInput label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
                                     </Grid>
                                 </Grid>
                                 <FormInput label="Chassis Number" setValue={setChassisNo} />
