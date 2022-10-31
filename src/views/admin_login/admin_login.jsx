@@ -11,7 +11,6 @@ import { useState } from 'react';
 import ErrorAlert from "../../alerts/errorAlert";
 import Loader from "../../components/loader/loader"
 import Auth_validation from "../../utils/auth_validation";
-import {TextField} from "@mui/material";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -23,9 +22,9 @@ export default function SignIn() {
   const [loader, setLoader] = useState(false);
 
 
-  const checkEmail = (e) => {
+  const checkEmail = () => {
     setEmailError('')
-    const {error,value} = Auth_validation.emailValidation({email})
+    const {error} = Auth_validation.emailValidation({email})
     if (error){
       setEmailError(error.details[0].message)
     }
@@ -34,9 +33,9 @@ export default function SignIn() {
     }
   }
 
-  const checkPassword = (e) => {
+  const checkPassword = () => {
     setPasswordError('')
-    const {error,value} = Auth_validation.passwordValidation({password})
+    const {error} = Auth_validation.passwordValidation({password})
     if (error){
       setPasswordError(error.details[0].message)
     }
@@ -53,17 +52,14 @@ export default function SignIn() {
     setEmailError('')
     setPasswordError('')
 
-    const {error,value} = Auth_validation.emailValidation({email})
-
-
     try {
       setLoader(true)
       const response = await auth_services.adminLogin(email, password);
       console.log(response);
       if (response.status === 200) {
         //chnage page to dashboard
-        if (response.data.result === "Logged in") {
-          navigate('/fs-dashboard');
+        if (response.data.user) {
+          navigate('/admin-dashboard');
         }
         else if (response.data.error) {
           setLoginError(response.data.error);
@@ -94,7 +90,7 @@ export default function SignIn() {
                 {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
                 <FormInput label="Password" name="Password" type="password" setValue={setPassword} onBlur = {checkPassword} isValid={!!passwordError} />
                 {passwordError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{passwordError}</Typography>}
-                <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} >PROCEED</Button>
+                <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} disabled={!!passwordError || !!emailError}>PROCEED</Button>
                 {/* <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link> */}
               </CardContent>
             </Card>
