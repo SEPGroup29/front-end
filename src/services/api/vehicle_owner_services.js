@@ -37,10 +37,18 @@ const getVehicleOwnerName = () => {
     })
 }
 
+const getVehicleTypes = () => {
+    return axios({
+        method : 'get',
+        url: API_URL + '/get-vehicle-types'
+    })
+}
+
 export default{
     registerVehicle,
     showVehicles,
     deleteVehicle,
-    getVehicleOwnerName
+    getVehicleOwnerName,
+    getVehicleTypes
 }
 
