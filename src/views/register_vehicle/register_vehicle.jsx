@@ -56,7 +56,6 @@ export default function RegisterVehicle() {
             else {
                 setError("Unknown Error Occurred")
             }
-            console.log(response.data.vehicleTypes)
         }
         catch (error) {
             console.log(error)
@@ -163,7 +162,7 @@ export default function RegisterVehicle() {
                                     >
                                         {vehicleTypes.map((option) => (
                                             <MenuItem key={option.id} value={option.type}>
-                                                {option.type}
+                                                {option.type.toUpperCase()}
                                             </MenuItem>
                                         ))}
                                     </Select>
