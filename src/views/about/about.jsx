@@ -10,7 +10,7 @@ const About = () => {
 
         <Container sx={{ textAlign: 'center' }}>
           <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
-            FuelQ - Team
+            FuelQ - Teamzzzzzzzzzzzzzzzzzzzzz
           </Typography>
         </Container>
 
