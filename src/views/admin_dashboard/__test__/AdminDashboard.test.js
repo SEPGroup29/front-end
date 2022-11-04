@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import AdminDashboard from "../admin_dashboard";
 import {BrowserRouter} from "react-router-dom";
 import '@testing-library/jest-dom'
+import AdminDashboard from "../admin_dashboard";
 
 const MockAdminDashboard = () => {
   return(
