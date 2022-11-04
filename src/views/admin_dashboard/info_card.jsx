@@ -11,6 +11,7 @@ export default function InfoCard({image , cardTitle , amount}){
                 backgroundImage : `url(${image})` ,
                 backgroundSize : 'cover'
             }}
+            data-testid="info-card"
         >
             <Card
                 sx={{
