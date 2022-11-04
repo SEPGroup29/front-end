@@ -54,7 +54,7 @@ const QRComponent = () => {
                     marginTop: 'auto'
                 }}
             >
-                <div ref={qrRef}>{qrcode}</div>
+                <div data-testId="qr-canvas" ref={qrRef}>{qrcode}</div>
                 <div>
                     <IconButton aria-label="delete" size="large" sx={{ float: 'right' }} color='secondary' onClick={downloadQRCode}>
                         <Download />
