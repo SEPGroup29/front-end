@@ -62,7 +62,7 @@ export default function OwnersTable() {
   };
 
   return(
-    <Box sx={{ height: '100vh', mt: 3}}>
+    <Box sx={{ height: '100vh', mt: 3}} data-testid = "table">
     <Card sx={{ width: '100%', borderRadius: 5}} elevation={4} >
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" >

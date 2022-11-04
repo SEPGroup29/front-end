@@ -2,7 +2,7 @@ import React from "react";
 import OwnersTable from "./vo_table";
 import { Container, Typography } from "@mui/material";
 
-const vehicleOwnersList = () => {
+const VehicleOwnersList = () => {
 
     //fetch vehicle owners from the backend
 
@@ -12,11 +12,11 @@ const vehicleOwnersList = () => {
                 <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
                     Vehicle Owners
                 </Typography>
-                <OwnersTable />
+                <OwnersTable key="table"/>
             </Container>
             
         </div>
     );
 }
 
-export default vehicleOwnersList;
+export default VehicleOwnersList;
