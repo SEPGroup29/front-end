@@ -6,7 +6,11 @@ const FormInput = (props) => {
     const {name , label ,  value , isValid , helperText , onBlur,type } = props;
     return(
         <div className="form_input">
-            <TextField sx={{marginTop:1}}
+            <TextField 
+                inputProps={{
+                    'id': `${name}`
+                  }}
+                sx={{marginTop:1}}
                 name = {name}
                 label={label}
                 variant="outlined"

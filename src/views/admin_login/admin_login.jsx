@@ -58,7 +58,7 @@ export default function SignIn() {
       console.log(response);
       if (response.status === 200) {
         //chnage page to dashboard
-        if (response.data.user) {
+        if (response.data.message === "Login successful") {
           navigate('/admin-dashboard');
         }
         else if (response.data.error) {
