@@ -110,8 +110,8 @@ export default function Update_fuel_stock() {
                                         variant="contained"
                                         fullWidth
                                     >
-                                        <ToggleButton value="Petrol" selectedColor="#26a69a">Petrol</ToggleButton>
-                                        <ToggleButton value="Diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                                        <ToggleButton data-testId="select-fuel-type-petrol"  value="Petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                        <ToggleButton data-testId="select-fuel-type-diesel"  value="Diesel" selectedColor="#26a69a">Diesel</ToggleButton>
                                     </ToggleButtonGroup>
 
                                 </Grid>
