@@ -6,4 +6,8 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+    admin_password: 'Admin@123',
+    vo_email: 'norealuserhere@gmail.com',
+  }
 });
