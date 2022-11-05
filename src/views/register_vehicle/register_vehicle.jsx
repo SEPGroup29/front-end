@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button, Card, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
 import MuiToggleButton from '@mui/material/ToggleButton';
@@ -11,26 +11,56 @@ import ErrorAlert from "../../alerts/errorAlert";
 import Loader from "../../components/loader/loader";
 import { useState } from "react";
 
-const vehicle_types = [
-    {
-        value: 'bike',
-        label: 'Motor Bike',
-    },
-    {
-        value: 'car',
-        label: 'Car',
-    },
-    {
-        value: 'van',
-        label: 'Van',
-    },
-    {
-        value: 'lorry',
-        label: 'Lorry',
-    },
-];
+// const vehicle_types = [
+//     {
+//         value: 'bike',
+//         label: 'Motor Bike',
+//     },
+//     {
+//         value: 'car',
+//         label: 'Car',
+//     },
+//     {
+//         value: 'van',
+//         label: 'Van',
+//     },
+//     {
+//         value: 'lorry',
+//         label: 'Lorry',
+//     },
+// ];
+//
+// const vehicle_brands = vehicle_owner_services.getVehicleTypes()
+//
+// console.log(vehicle_brands)
 
 export default function RegisterVehicle() {
+
+    const [vehicleTypes, setVehicleTypes] = useState([]);
+
+    useEffect(() => {
+        getVehicleTypes()
+    }, [])
+
+    const getVehicleTypes = async () => {
+        try {
+            const response = await vehicle_owner_services.getVehicleTypes()
+            if (response) {
+                if (response.status === 200) {
+                    setVehicleTypes(response.data.vehicleTypes)
+                }
+                else if (response.status === 400) {
+                    setError("Internal Server Error")
+                }
+            }
+            else {
+                setError("Unknown Error Occurred")
+            }
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     const [letters, setLetters] = useState('')
     const [vehicleNo, setVehicleNo] = useState('')
@@ -43,6 +73,18 @@ export default function RegisterVehicle() {
     const handleChangeVehicle = (event) => {
         setVehicle(event.target.value);
     };
+
+    const handleVehicleNumber = (value) => {
+        if(parseInt(value) > 9999){
+            setVehicleNo("9999")
+        }
+        else if (parseInt(value) < 0){
+            setVehicleNo("0")
+        }
+        else{
+            setVehicleNo(value)
+        }
+    }
 
     const [fuel, setFuel] = React.useState('petrol')
     const [error, setError] = React.useState('')
@@ -102,10 +144,10 @@ export default function RegisterVehicle() {
                                 </Typography>
                                 <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                     <Grid item xs={4}>
-                                        <FormInput label="ABC" setValue={setLetters} />
+                                        <FormInput label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} />
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <FormInput label="1234" setValue={setVehicleNo} />
+                                        <FormInput label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
                                     </Grid>
                                 </Grid>
                                 <FormInput label="Chassis Number" setValue={setChassisNo} />
@@ -118,9 +160,9 @@ export default function RegisterVehicle() {
                                         label="Select vehicle type"
                                         onChange={handleChangeVehicle}
                                     >
-                                        {vehicle_types.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
+                                        {vehicleTypes.map((option) => (
+                                            <MenuItem key={option.id} value={option.type}>
+                                                {option.type.toUpperCase()}
                                             </MenuItem>
                                         ))}
                                     </Select>

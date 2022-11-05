@@ -3,8 +3,10 @@ import React from "react";
 
 const FormInput = (props) => {
 
-    const {name , label ,  value , isValid , helperText , onBlur,type } = props;
-    return(
+
+
+    const {name, label, setValue, helperText, onBlur, type, isUpper = false } = props;
+    return (
         <div className="form_input">
             <TextField 
                 inputProps={{
