@@ -23,7 +23,7 @@ test('Email textbox', () => {
     render(
         <MockLogin />
     );
-    const emailTextBox = screen.getByRole('textbox', { name: 'Email' });
+    const emailTextBox = screen.getByRole('textbox', { id: 'Email' });
     expect(emailTextBox).toBeInTheDocument();
 });
 

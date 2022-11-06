@@ -13,7 +13,7 @@ const MockAdminLogin = () => {
 
 test('Render email input', () => {
     render(<MockAdminLogin />)
-    const emailInput = screen.getByRole('textbox', {name:/Email/i})
+    const emailInput = screen.getByRole('textbox', { id: 'Email' })
     expect(emailInput).toBeInTheDocument()
 })
 

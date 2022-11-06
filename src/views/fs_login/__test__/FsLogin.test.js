@@ -23,17 +23,12 @@ test('Should render a "FuelQ Management System" text', () => {
     expect(linkElement).toBeInTheDocument();
 });
 
-test('Should render a email input field', () => {
+test('Should render two input field', () => {
     render(<MockSignIn />);
-    const linkElement = screen.getByLabelText(/Email/i);
-    expect(linkElement).toBeInTheDocument();
+    const linkElement = screen.getAllByRole('textbox');
+    expect(linkElement).toHaveLength(2);
 });
 
-test('Should render a password field', () => {
-    render(<MockSignIn />);
-    const linkElement = screen.getByLabelText(/Password/i);
-    expect(linkElement).toBeInTheDocument();
-});
 
 test('Should render a "Proceed Button"', () => {
     render(<MockSignIn />);
