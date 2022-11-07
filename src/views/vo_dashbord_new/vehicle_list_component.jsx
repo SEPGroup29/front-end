@@ -109,7 +109,7 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                     endIcon={<InfoOutlinedIcon />}
                                                 // sx={{display: {xs: 'none', sm: 'inline'}}}
                                                 >
-                                                    More Info
+                                                    Info
                                                 </Button>
                                                 {/* <IconButton
                                                 aria-label="info"
