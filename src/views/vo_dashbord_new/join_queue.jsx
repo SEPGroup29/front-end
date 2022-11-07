@@ -1,7 +1,9 @@
 
 import React, { useState } from "react";
 import Modal from '@mui/material/Modal';
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { Box, Button, Grid, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import Loader from "../../components/loader/loader";
+
 
 const style = {
     position: 'absolute',
@@ -16,45 +18,94 @@ const style = {
     p: 4,
 };
 
-const JoinQueue = ({ clicked, setClicked }) => {
+const JoinQueue = ({ vehicles, clicked, setClicked }) => {
     const [open, setOpen] = useState(clicked);
+    const [loader, setLoader] = useState(false)
     const handleClose = () => {
         setOpen(false)
         setClicked(false);
     }
-    
-    const [queueType, setQueuetype] = useState(null)
-    const handleSubmit = () => {
-        
+
+    const [fuel, setFuel] = useState('petrol')
+    const [vehicle, setVehicle] = useState(vehicles[0].regNo)
+    const handleChange = (event, newFuel) => {
+        setFuel(newFuel);
+    };
+    const handleChangeTwo = (event, newVehicle) => {
+        setFuel(newVehicle);
+    };
+
+    const [confirmError, setConfirmError] = useState()
+    const handleConfirm = () => {
+        if (fuel) {
+            if (vehicle) {
+                
+            } else {
+                setConfirmError('Vehicle is required')
+            }
+        } else {
+            setConfirmError('Fuel type is required')
+        }
     }
 
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style} >
-                <Box textAlign={'center'}>
-                    <FormControl>
-                        <FormLabel id="demo-row-radio-buttons-group-label"><p  style={{color: '#1F7A8C'}}>Select queue type</p></FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
-                        >
-                            <FormControlLabel value="petrol" control={<Radio color="primary" />} label="Petrol" onChange={(e) => setQueuetype(e.target.value)} />
-                            <FormControlLabel value="diesel" control={<Radio color="primary" />} label="Diesel" onChange={(e) => setQueuetype(e.target.value)} />
-                        </RadioGroup>
+        <div className="Join-queue">
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
 
-                        <div style={{ float: 'right' }}>
-                            <Button variant="contained" color="secondary" onClick={handleSubmit}>Confirm</Button>
-                        </div>
-                    </FormControl>
+                <Box sx={style} >
+                    <Box textAlign={'center'}>
+                        <Typography variant="h4">
+                            Join Queue
+                        </Typography>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Select fuel type
+                        </Typography>
+                        <Grid container>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={fuel}
+                                exclusive
+                                onChange={handleChange}
+                                aria-label="Platform"
+                                variant="contained"
+                                fullWidth
+                            >
+                                <ToggleButton data-testId="select-fuel-type-petrol" value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                <ToggleButton data-testId="select-fuel-type-diesel" value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                        {confirmError === 'Fuel type is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Select vehicle
+                        </Typography>
+                        <Grid container>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={vehicle}
+                                exclusive
+                                onChange={handleChangeTwo}
+                                aria-label="Platform"
+                                variant="contained"
+                                fullWidth
+                            >
+                                {
+                                    vehicles.map(vehicle => (
+                                        <ToggleButton data-testId={`select-vehicle-${vehicle.regNo}`} value={vehicle.regNo} selectedColor="#26a69a">{vehicle.regNo}</ToggleButton>
+                                    ))
+                                }
+                            </ToggleButtonGroup>
+                        </Grid>
+                        {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+                        <Button sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Modal >
+            </Modal >
+        </div>
     );
 }
 
