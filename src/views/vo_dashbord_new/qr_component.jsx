@@ -4,6 +4,7 @@ import { Download } from "@mui/icons-material";
 import { useState, useRef } from "react";
 import { QRCodeSVG, QRCodeCanvas } from "qrcode.react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {Container} from "@mui/system";
 
 const QRComponent = () => {
     const [qrData, setQrData] = useState({ a: 5, b: 10 });
@@ -25,9 +26,8 @@ const QRComponent = () => {
         <QRCodeCanvas
             id="qrCode"
             value={JSON.stringify(qrData)}
-            includeMargin
             level="L"
-            size={300}
+            size={250}
         // bgColor={"#00ff00"}
         // level={"H"}
         />
@@ -49,18 +49,18 @@ const QRComponent = () => {
                 // component="img"
                 // image="img/QR_sample.png"
                 sx={{
-                    paddingLeft: { xs: '10%', lg: '30%' },
-                    paddingRight: { xs: '10%', lg: '30%' },
-                    marginTop: 'auto'
+                    alignSelf: 'center',
+                    marginTop: 2,
                 }}
             >
-                <div data-testId="qr-canvas" ref={qrRef}>{qrcode}</div>
-                <div>
-                    <IconButton aria-label="delete" size="large" sx={{ float: 'right' }} color='secondary' onClick={downloadQRCode}>
-                        <Download />
-                    </IconButton>
-                </div>
+                {qrcode}
             </CardMedia>
+            <div style={{marginTop:2}}>
+                <Button fullWidth variant="contained">
+                    <Download onClick={downloadQRCode} />
+                    Download QR
+                </Button>
+            </div>
             {/* <IconButton
                 variant="contained"
                 sx={{ mt: 3, mb: 3 }}
