@@ -144,10 +144,10 @@ export default function RegisterVehicle() {
                                 </Typography>
                                 <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                     <Grid item xs={4}>
-                                        <FormInput label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} />
+                                        <FormInput name="letters" label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} value={letters} />
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <FormInput label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
+                                        <FormInput name = "vehicleNo" label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
                                     </Grid>
                                 </Grid>
                                 <FormInput label="Chassis Number" setValue={setChassisNo} />
@@ -183,7 +183,7 @@ export default function RegisterVehicle() {
 
                                 </Grid>
 
-                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
+                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={true}>Add another vehicle</Button>
                                 <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
                             </CardContent>
                         </Card>

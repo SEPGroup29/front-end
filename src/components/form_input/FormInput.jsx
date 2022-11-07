@@ -5,12 +5,14 @@ const FormInput = (props) => {
 
 
 
-    const {name, label, setValue, helperText, onBlur, type, isUpper = false } = props;
+    const {name, label, setValue, helperText, onBlur, type, isUpper, maxLength = false } = props;
     return (
         <div className="form_input">
             <TextField 
                 inputProps={{
-                    'id': `${name}`
+                    'id': `${name}`,
+                    style: {textTransform: isUpper ? 'uppercase' : 'none'},
+                    maxLength: maxLength
                   }}
                 sx={{marginTop:1}}
                 name = {name}
@@ -21,8 +23,8 @@ const FormInput = (props) => {
                 error = {props.isValid}
                 helperText={helperText}
                 onBlur={onBlur}
-                onChange={(e)=>props.setValue(e.target.value)}
-               type={props.type ? "password":""}
+                onChange={(e)=>setValue(e.target.value)}
+               type={type ? type:""}
             />
         </div>
     )
