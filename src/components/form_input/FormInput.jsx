@@ -1,3 +1,4 @@
+import { Propane } from "@mui/icons-material";
 import {TextField} from "@mui/material";
 import React from "react";
 
@@ -22,7 +23,7 @@ const FormInput = (props) => {
                 helperText={helperText}
                 onBlur={onBlur}
                 onChange={(e)=>props.setValue(e.target.value)}
-               type={props.type ? "password":""}
+               type={props.type ? props.type:""}
             />
         </div>
     )

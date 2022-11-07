@@ -92,30 +92,29 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                 </TableHead>
                                 <TableBody>
                                     {vehicles.map((vehicle, index) => (
-                                        <div data-testId={`table-row-${index}`}>
-                                            <TableRow
-                                                key={vehicle._id}
-                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                align="center"
-                                            >
-                                                <TableCell>
-                                                    {vehicle.regNo}
-                                                </TableCell>
-                                                <TableCell>{(vehicle.vehicleType.type).charAt(0).toUpperCase() + (vehicle.vehicleType.type).slice(1)}</TableCell>
-                                                <TableCell>{(vehicle.fuelType).charAt(0).toUpperCase() + (vehicle.fuelType).slice(1)}</TableCell>
-                                                <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
-                                                    <Button
-                                                        id={vehicle._id}
-                                                        variant="contained"
-                                                        color="primary"
-                                                        // id={vehicle._id}
-                                                        onClick={handleClick}
-                                                        endIcon={<InfoOutlinedIcon />}
-                                                    // sx={{display: {xs: 'none', sm: 'inline'}}}
-                                                    >
-                                                        More Info
-                                                    </Button>
-                                                    {/* <IconButton
+                                        <TableRow
+                                            key={vehicle._id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            align="center"
+                                        >
+                                            <TableCell data-testId={`table-row-${index}`}>
+                                                {vehicle.regNo}
+                                            </TableCell>
+                                            <TableCell>{(vehicle.vehicleType.type).charAt(0).toUpperCase() + (vehicle.vehicleType.type).slice(1)}</TableCell>
+                                            <TableCell>{(vehicle.fuelType).charAt(0).toUpperCase() + (vehicle.fuelType).slice(1)}</TableCell>
+                                            <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
+                                                <Button
+                                                    id={vehicle._id}
+                                                    variant="contained"
+                                                    color="primary"
+                                                    // id={vehicle._id}
+                                                    onClick={handleClick}
+                                                    endIcon={<InfoOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                >
+                                                    Info
+                                                </Button>
+                                                {/* <IconButton
                                                     aria-label="info"
                                                     // id={vehicle._id}
                                                     onClick={handleClick}
@@ -124,19 +123,19 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                 >
                                                     <InfoIcon/>
                                                 </IconButton> */}
-                                                </TableCell>
-                                                <TableCell align="left" sx={{ paddingLeft: 1, paddingRight: 1 }}>
-                                                    <Button
-                                                        id={vehicle._id}
-                                                        variant="contained"
-                                                        color="error"
-                                                        onClick={handleRemoveVehicle}
-                                                        endIcon={<DeleteOutlineOutlinedIcon />}
-                                                    // sx={{display: {xs: 'none', sm: 'inline'}}}
-                                                    >
-                                                        Remove
-                                                    </Button>
-                                                    {/* <IconButton
+                                            </TableCell>
+                                            <TableCell align="left" sx={{ paddingLeft: 1, paddingRight: 1 }}>
+                                                <Button
+                                                    id={vehicle._id}
+                                                    variant="contained"
+                                                    color="error"
+                                                    onClick={handleRemoveVehicle}
+                                                    endIcon={<DeleteOutlineOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                >
+                                                    Remove
+                                                </Button>
+                                                {/* <IconButton
                                                     aria-label="delete"
                                                     color="error"
                                                     onClick={handleRemoveVehicle}
@@ -144,9 +143,8 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                 >
                                                     <DeleteIcon/>
                                                 </IconButton> */}
-                                                </TableCell>
-                                            </TableRow>
-                                        </div>
+                                            </TableCell>
+                                        </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
