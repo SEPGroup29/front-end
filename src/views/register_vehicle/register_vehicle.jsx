@@ -11,36 +11,35 @@ import ErrorAlert from "../../alerts/errorAlert";
 import Loader from "../../components/loader/loader";
 import { useState } from "react";
 
-// const vehicle_types = [
-//     {
-//         value: 'bike',
-//         label: 'Motor Bike',
-//     },
-//     {
-//         value: 'car',
-//         label: 'Car',
-//     },
-//     {
-//         value: 'van',
-//         label: 'Van',
-//     },
-//     {
-//         value: 'lorry',
-//         label: 'Lorry',
-//     },
-// ];
-//
-// const vehicle_brands = vehicle_owner_services.getVehicleTypes()
-//
-// console.log(vehicle_brands)
-
 export default function RegisterVehicle() {
 
     const [vehicleTypes, setVehicleTypes] = useState([]);
+    const [vehicleCount, setVehicleCount] = useState(0);
 
     useEffect(() => {
         getVehicleTypes()
+        getRegisteredVehicleCount()
     }, [])
+
+    const getRegisteredVehicleCount = async () => {
+      try {
+          const response = await vehicle_owner_services.showVehicles()
+          if (response){
+              if (response.status === 200){
+                  setVehicleCount(response.data.vehicles.length)
+              }
+              else if (response.status === 401){
+                  setError("Internal Server Error")
+              }
+          }
+          else {
+              setError("Unknown Error Occurred")
+          }
+      }
+        catch (error) {
+          console.log(error)
+      }
+    }
 
     const getVehicleTypes = async () => {
         try {
@@ -188,8 +187,8 @@ export default function RegisterVehicle() {
 
                                 </Grid>
 
-                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={true}>Add another vehicle</Button>
-                                <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
+                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={vehicleCount > 1}>Add another vehicle</Button>
+                                <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle} disabled={vehicleCount > 2}>Done</Button>
                             </CardContent>
                         </Card>
                     </Grid>
