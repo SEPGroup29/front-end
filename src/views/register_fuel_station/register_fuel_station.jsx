@@ -50,21 +50,6 @@ export default function RegisterFuelStation() {
                                 FuelQ Management System
                             </Typography>
                             <FormInput label="Owner Name" />
-                            {/* <TextField
-                                id="select_tow"
-                                select
-                                label="Select Town Nearby"
-                                value={town}
-                                onChange={handleChange}
-                                sx={{marginTop : 2}}
-                                fullWidth
-                            >
-                                {towns.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField> */}
                             <Autocomplete
                                 disablePortal
                                 id="select_tow"
