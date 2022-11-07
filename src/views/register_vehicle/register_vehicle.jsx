@@ -74,6 +74,11 @@ export default function RegisterVehicle() {
         setVehicle(event.target.value);
     };
 
+    const handleLetterChange = (value) => {
+      const result = value.replace(/[^a-zA-Z]/g, '');
+      setLetters(result)
+    }
+
     const handleVehicleNumber = (value) => {
         if(parseInt(value) > 9999){
             setVehicleNo("9999")
@@ -144,7 +149,7 @@ export default function RegisterVehicle() {
                                 </Typography>
                                 <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                     <Grid item xs={4}>
-                                        <FormInput name="letters" label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} value={letters} />
+                                        <FormInput name="letters" label="ABC" type="text" setValue={handleLetterChange} isUpper = {true} maxLength = {3} value={letters} />
                                     </Grid>
                                     <Grid item xs={8}>
                                         <FormInput name = "vehicleNo" label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />

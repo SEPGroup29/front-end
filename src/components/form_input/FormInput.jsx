@@ -24,7 +24,7 @@ const FormInput = (props) => {
                 helperText={helperText}
                 onBlur={onBlur}
                 onChange={(e)=>setValue(e.target.value)}
-               type={type ? type:""}
+                type={type ? type:""}
             />
         </div>
     )
