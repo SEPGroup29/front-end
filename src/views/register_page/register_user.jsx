@@ -126,9 +126,9 @@ export default function Register_user() {
                                 {exists && <ErrorAlert custom_message={exists}></ErrorAlert>}
                                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
 
-                                <FormInput label="E-mail" value={email} setValue={setEmail} isValid={emailError ? true : false} />
+                                <FormInput label="E-mail" name="Email" value={email} setValue={setEmail} isValid={emailError ? true : false} />
                                 {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
-                                <FormInput label="NIC Number" value={NIC} setValue={setNIC} isValid={nicError ? true : false} />
+                                <FormInput label="NIC Number" name="NIC" value={NIC} setValue={setNIC} isValid={nicError ? true : false} />
                                 {nicError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{nicError}</Typography>}
 
                                 <Button
@@ -144,9 +144,9 @@ export default function Register_user() {
 
                                 <MuiOtpInput length={6} value={otp} onChange={handleChange} />
                                 {otpError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{otpError}</Typography>}
-                                <FormInput label="First Name" value={firstName} setValue={setFirstName} isValid={firstNameError ? true : false} />
+                                <FormInput label="First Name" name="firstname" value={firstName} setValue={setFirstName} isValid={firstNameError ? true : false} />
                                 {firstNameError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{firstNameError}</Typography>}
-                                <FormInput label="Last Name" value={lastName} setValue={setLastName} isValid={lastNameError ? true : false} />
+                                <FormInput label="Last Name" name="lastname" value={lastName} setValue={setLastName} isValid={lastNameError ? true : false} />
                                 {lastNameError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{lastNameError}</Typography>}
                                 <Button
                                     variant="contained"
