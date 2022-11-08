@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import Modal from '@mui/material/Modal';
 import { Box, Button, Grid, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import Loader from "../../components/loader/loader";
-
+import vehicle_owner_services from "../../services/api/vehicle_owner_services";
+import ErrorAlert from "../../alerts/errorAlert";
+import SuccessAlert from "../../alerts/successAlert";
+import { Container } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -19,6 +23,8 @@ const style = {
 };
 
 const JoinQueue = ({ vehicles, clicked, setClicked }) => {
+    const navigate = useNavigate()
+
     const [open, setOpen] = useState(clicked);
     const [loader, setLoader] = useState(false)
     const handleClose = () => {
@@ -36,16 +42,40 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
     };
 
     const [confirmError, setConfirmError] = useState()
-    const handleConfirm = () => {
+    const [joinError, setJoinError] = useState()
+    const [joinSuccess, setJoinSuccess] = useState()
+    const [buttonDisable, setButtonDisable] = useState(false)
+    const handleConfirm = async () => {
+        setButtonDisable(true)
+        setConfirmError()
+        setJoinError()
+        setJoinSuccess()
         if (fuel) {
             if (vehicle) {
-                
+                const stationId = "6335ddd0bf09b4881f0d5bb2"
+                try {
+                    const response = await vehicle_owner_services.joinQueue(stationId, fuel, vehicle)
+                    if (response.data.error) {
+                        setJoinError(response.data.error)
+                        setButtonDisable(false)
+                        return
+                    }
+                    if (response.data.success) {
+                        setJoinSuccess(response.data.success)
+                        setButtonDisable(false)
+                        return
+                    }
+                } catch (error) {
+                    navigate('/503-error')
+                }
+
             } else {
                 setConfirmError('Vehicle is required')
             }
         } else {
             setConfirmError('Fuel type is required')
         }
+        setButtonDisable(false)
     }
 
     return (
@@ -62,6 +92,12 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                         <Typography variant="h4">
                             Join Queue
                         </Typography>
+
+                        <Container maxWidth="lg" sx={{ mt: 2 }}>
+                            {joinError && <ErrorAlert custom_message={joinError} />}
+                            {joinSuccess && <SuccessAlert custom_message={joinSuccess} />}
+                        </Container>
+
                         <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
                             Select fuel type
                         </Typography>
@@ -80,6 +116,7 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                             </ToggleButtonGroup>
                         </Grid>
                         {confirmError === 'Fuel type is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+
                         <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
                             Select vehicle
                         </Typography>
@@ -101,7 +138,8 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                             </ToggleButtonGroup>
                         </Grid>
                         {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
-                        <Button sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+
+                        <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
                     </Box>
                 </Box>
             </Modal >
