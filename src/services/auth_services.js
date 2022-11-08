@@ -40,6 +40,18 @@ const fsLogin = async (email, password) => {
     return response
 }
 
+const fsRegister = (ownerName, nearTown, name) => {
+    return axois({
+        method: 'post',
+        url: API_URL + '/register-fuel-station',
+        data: {
+            ownerName,
+            nearTown,
+            name
+        }
+    })
+}
+
 const registerUser = (NIC, email, otp, firstName, lastName) => {
     return axois({
         method: 'post',

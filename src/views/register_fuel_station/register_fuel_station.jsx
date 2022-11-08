@@ -1,6 +1,8 @@
 import React from "react";
 import { Autocomplete, Button, Card, CardContent, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import FormInput from "../../components/form_input/FormInput";
+import auth_validation from "../../utils/auth_validation";
+import { SetMealOutlined } from "@mui/icons-material";
 
 const towns = [
     {
@@ -32,10 +34,34 @@ const towns = [
 export default function RegisterFuelStation() {
 
     const [town, setTown] = React.useState('Colombo 1');
+    const [ownerName, setOwnerName] = React.useState('');
+    const [name, setName] = React.useState('');
+
+    const [townError, setTownError] = React.useState('');
+    const [ownerNameError, setOwnerNameError] = React.useState('');
+    const [nameError, setNameError] = React.useState('');
 
     const handleChange = (event) => {
         setTown(event.target.value);
     };
+
+    const handleFSRegister = async(e) => {
+        e.preventDefault()
+        setOwnerNameError('')
+        setNameError('')
+
+        const { error, value } = auth_validation.nameValidation({ ownerName, name })
+        if (error) {
+            setOwnerNameError(error.details[0].message)
+            error.details[1] && setNameError(error.details[1].message)
+            return
+        }
+
+        try{
+            setLoader(true)
+            const response = await auth_services.registerUser({ email, firstName, lastName, NIC, otp })
+        }
+    }
 
     return (
         <dev>
