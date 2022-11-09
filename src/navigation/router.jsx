@@ -18,6 +18,7 @@ import AdminDashboard from "../views/admin_dashboard/admin_dashboard";
 import NotFound from "../views/errors/404";
 import ServiceUnavailable from "../views/errors/503";
 import About from "../views/about/about";
+import Logout from "../components/logout/logout";
 
 const Router = () => {
     return (
@@ -45,6 +46,8 @@ const Router = () => {
                 <Route path="*" element={<NotFound />} />
                 {/* 503 Error Page */}
                 <Route path="/503-error" element={<ServiceUnavailable />} />
+                {/* logout  */}
+                <Route path="/logout" element={<Logout />} />
             </Routes>
         </BrowserRouter>
     );
