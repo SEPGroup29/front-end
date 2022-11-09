@@ -8,6 +8,8 @@ import ErrorAlert from "../../alerts/errorAlert";
 import SuccessAlert from "../../alerts/successAlert";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import FormInput from "../../components/form_input/FormInput";
+import api_validations from "../../utils/api_validations";
 
 const style = {
     position: 'absolute',
@@ -34,6 +36,7 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
 
     const [fuel, setFuel] = useState('petrol')
     const [vehicle, setVehicle] = useState(vehicles[0].regNo)
+    const [amount, setAmount] = useState()
     const handleChange = (event, newFuel) => {
         setFuel(newFuel);
     };
@@ -41,20 +44,41 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
         setFuel(newVehicle);
     };
 
+    const handleAmount = (value) => {
+        if (parseInt(value) > 9999) {
+            setAmount("9999")
+        }
+        else if (parseInt(value) < 0) {
+            setAmount("0")
+        }
+        else {
+            setAmount(value)
+        }
+    }
+
     const [confirmError, setConfirmError] = useState()
+    const [amountError, setAmountError] = useState()
     const [joinError, setJoinError] = useState()
     const [joinSuccess, setJoinSuccess] = useState()
     const [buttonDisable, setButtonDisable] = useState(false)
     const handleConfirm = async () => {
         setButtonDisable(true)
         setConfirmError()
+        setAmountError()
         setJoinError()
         setJoinSuccess()
         if (fuel) {
             if (vehicle) {
+                const val = api_validations.fuelAmountValidation({ amount })
+                if (val.error) {
+                    console.log(val.error.details[0].message)
+                    setAmountError(val.error.details[0].message)
+                    setButtonDisable(false)
+                    return
+                }
                 const stationId = "6335ddd0bf09b4881f0d5bb2"
                 try {
-                    const response = await vehicle_owner_services.joinQueue(stationId, fuel, vehicle)
+                    const response = await vehicle_owner_services.joinQueue(stationId, fuel, vehicle, amount)
                     if (response.data.error) {
                         setJoinError(response.data.error)
                         setButtonDisable(false)
@@ -138,6 +162,14 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                             </ToggleButtonGroup>
                         </Grid>
                         {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Enter expected fuel amount
+                        </Typography>
+                        <Grid>
+                            <FormInput label="1234" setValue={handleAmount} type="number" value={amount} />
+                        </Grid>
+                        {setAmountError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{amountError}</Typography>}
 
                         <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
                     </Box>

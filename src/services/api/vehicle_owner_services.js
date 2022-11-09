@@ -44,14 +44,15 @@ const getVehicleTypes = () => {
     })
 }
 
-const joinQueue = (stationId, fuel, vehicle) => {
+const joinQueue = (stationId, fuel, vehicle, amount) => {
     return axios({
         method: 'post',
         url: API_URL + '/join-queue',
         data: {
             stationId,
             fuel,
-            regNo: vehicle
+            regNo: vehicle,
+            amount
         }
     })
 }

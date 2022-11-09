@@ -11,6 +11,7 @@ import { Button, Card } from '@mui/material';
 import { FollowTheSigns, LocationOn } from '@mui/icons-material';
 import NoStations from './no_stations';
 import SearchBar from './searchbar';
+import JoinQueue from '../vo_dashbord_new/join_queue';
 
 const columns = [
     // { id: '_id', label: "ID", minWidth: 150 },
@@ -63,6 +64,11 @@ export default function FuelStationTable({ fuelStations, search }) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const [clickedAdd, setClickAdd] = useState(false)
+    const handleAddQueue = () => {
+        setClickAdd(true)
+    }
 
     return (
         <Box sx={{ height: '100vh', mt: 3 }}>
@@ -117,7 +123,7 @@ export default function FuelStationTable({ fuelStations, search }) {
                                                         </TableCell>
                                                     );
                                                 })}
-                                                <TableCell><Button variant="contained" color='secondary' ><FollowTheSigns />Join</Button></TableCell>
+                                                <TableCell><Button variant="contained" color='secondary' onClick={handleAddQueue}><FollowTheSigns />Join</Button></TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -135,6 +141,8 @@ export default function FuelStationTable({ fuelStations, search }) {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Card>
+
+            {/* {clickedAdd && <JoinQueue vehicles={[]} clicked={clickedAdd} setClicked={setClickAdd} />} */}
         </Box>
 
     );
