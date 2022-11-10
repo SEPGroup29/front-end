@@ -44,12 +44,19 @@ const nicValidation = (data) => {
     return ({ error, value })
 }
 
-const nameValidation = (data) => {
+const nameValidation = (data,field) => {
     const name_val_schema = Joi.object({
-        firstName: name_validation_joi_object(),
-        lastName: name_validation_joi_object()
+        [`${field}`] : name_validation_joi_object()
     })
     const { error, value } = name_val_schema.validate(data, { abortEarly: false })
+    return ({ error, value })
+}
+
+const contactNumberValidation = (data) => {
+    const contact_number_val_schema = Joi.object({
+        contactNo: contact_number_validation_joi_object()
+    })
+    const { error, value } = contact_number_val_schema.validate(data, { abortEarly: false })
     return ({ error, value })
 }
 
@@ -93,7 +100,7 @@ const custom_password = (value, helper) => {
 }
 
 const name_validation_joi_object = () => {
-    return Joi.string().required().pattern(new RegExp('^[A-Z][a-z0-9_-]{0,}$'))
+    return Joi.string().required().pattern(new RegExp(/^[A-Z]+[a-zA-Z0-9]+$/))
         .messages({
             "string.empty": "Field should not be empty!",
             "string.pattern.base": "First letter must be a Capital"
@@ -101,7 +108,7 @@ const name_validation_joi_object = () => {
 }
 
 const contact_number_validation_joi_object = () => {
-    return Joi.string().required().pattern(new RegExp('^(?:7|0|(?:\\+94))[0-9]{9,10}$'))
+    return Joi.string().required().pattern(new RegExp('^(?:7|0)[0-9]{9}$'))
         .messages({
             "string.empty": "Field should not be empty!",
             "string.required": "Field is required!",
@@ -122,5 +129,6 @@ export default {
     registerPovalidation,
     nicValidation,
     nameValidation,
-    passwordValidation
+    passwordValidation,
+    contactNumberValidation
 }
