@@ -87,9 +87,16 @@ const registerPo = (email, firstName, lastName, contactNumber, password, fuelSta
             lastName,
             contactNumber,
             password,
-            fuelStationId   
+            fuelStationId
         }
     })
+}
+
+const logout = () => {
+    return axois({
+        method: "get",
+        url: API_URL + '/logout',
+    });
 }
 
 // eslint-disable-next-line
@@ -101,6 +108,7 @@ export default {
     voLoginBeforeOtp,
     voLoginAfterOtp,
     registerPo,
+    logout,
 }
 
 

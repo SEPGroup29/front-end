@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios from "../../services/http_services"
 import config from '../../config.json';
+import token from "../token"
 
 const API_URL = config.DOMAIN_NAME + '/api/vehicle-owner';
 
@@ -26,14 +27,15 @@ const showVehicles = () => {
 const deleteVehicle = (vehicle_id) => {
     return axios({
         method: 'delete',
-        url: API_URL + `/delete-vehicle/${vehicle_id}`,
+        url: API_URL + `/delete-vehicle/${vehicle_id}`
     })
 }
 
 const getVehicleOwnerName = () => {
     return axios({
         method: 'get',
-        url: API_URL + '/get-vehicle-owner-name'
+        url: API_URL + '/get-vehicle-owner-name',
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` },
     })
 }
 

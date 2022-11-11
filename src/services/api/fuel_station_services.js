@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../services/http_services"
 import config from '../../config.json';
 
 const API_URL = config.DOMAIN_NAME + '/api/fuel-station';

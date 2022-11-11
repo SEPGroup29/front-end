@@ -53,8 +53,8 @@ const Vo_Dashboard_new = () => {
             }
         }
         catch (error) {
-            // setError("Unknown Error Occured")
-            navigate('/503-error')
+            console.log("ERROR:",error);
+            // navigate('/503-error')
         }
         setLoader(false)
     }
