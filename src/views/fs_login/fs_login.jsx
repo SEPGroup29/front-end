@@ -40,15 +40,20 @@ export default function SignIn() {
     try {
       setLoader(true)
       const response = await auth_services.fsLogin(email, password);
-      console.log(response);
+      console.log(response.data.error);
       if (response.status === 200) {
-        //chnage page to dashboard
-        if (response.data.result === "Logged in") {
+        if (response.data.error) {
+          setError(response.data.error);
+          setLoader(false)
+          return
+        }
+        if (response.data.message === "Manager Login successful") {
           navigate('/fs-dashboard');
         }
-        else if (response.data.error) {
-          setError(response.data.error);
-        }
+        // if (response.data.message === "Pump Operator Login successful") {
+        //   navigate('/logout')
+        //   window.alert("Pump operator login successful. You need a mobile app to access pump operator functionalities.")
+        // }
       }
     } catch (error) {
       navigate('/503-error')
