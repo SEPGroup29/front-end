@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,9 @@ const ServiceUnavailable = () => {
             <Container>
 
                 <div className="content">
-                    <h1 style={{ textAlign: 'center', marginBottom: '3px'}} class="notfound_header">503 Error - Service Unavailable</h1>
+                    <Typography style={{ textAlign: 'center', mb: 3 }} variant="h3" color="#022B3A" fontWeight='lighter'>
+                        503 Error - Service Unavailable
+                    </Typography>
                     <p style={{ textAlign: 'center' }}>Sorry, the service you requested is not available at this time.</p>
                 </div>
                 <div className="image">
