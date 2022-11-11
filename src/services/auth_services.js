@@ -99,6 +99,14 @@ const logout = () => {
     });
 }
 
+const getUser = async (id) => {
+    return axois({
+        method: 'get',
+        url: API_URL + `/get-user/${id}`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` },
+    })
+}
+
 // eslint-disable-next-line
 export default {
     emailExistance,
@@ -109,6 +117,7 @@ export default {
     voLoginAfterOtp,
     registerPo,
     logout,
+    getUser,
 }
 
 
