@@ -1,7 +1,7 @@
 import axois from 'axios';
 import config from '../config';
 import token from './token'
-import axiosInstance from "../../services/http_services"
+import axiosInstance from "./http_services"
 
 const API_URL = config.DOMAIN_NAME + '/auth';
 
