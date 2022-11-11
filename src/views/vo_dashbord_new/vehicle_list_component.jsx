@@ -104,6 +104,14 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                     id={vehicle._id}
                                                     variant="contained"
                                                     color="primary"
+                                                    onClick={handleClick}
+                                                    endIcon={<InfoOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                >
+                                                    Info
+                                                </Button>
+                                                {/* <IconButton
+                                                    aria-label="info"
                                                     // id={vehicle._id}
                                                     onClick={handleClick}
                                                     endIcon={<InfoOutlinedIcon />}
@@ -125,6 +133,15 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                 <Button
                                                     id={vehicle._id}
                                                     variant="contained"
+                                                    color="error"
+                                                    onClick={handleRemoveVehicle}
+                                                    endIcon={<DeleteOutlineOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
+                                                >
+                                                    Remove
+                                                </Button>
+                                                {/* <IconButton
+                                                    aria-label="delete"
                                                     color="error"
                                                     onClick={handleRemoveVehicle}
                                                     endIcon={<DeleteOutlineOutlinedIcon />}

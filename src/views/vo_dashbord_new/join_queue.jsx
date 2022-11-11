@@ -1,7 +1,15 @@
 
 import React, { useState } from "react";
 import Modal from '@mui/material/Modal';
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { Box, Button, Grid, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import Loader from "../../components/loader/loader";
+import vehicle_owner_services from "../../services/api/vehicle_owner_services";
+import ErrorAlert from "../../alerts/errorAlert";
+import SuccessAlert from "../../alerts/successAlert";
+import { Container } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import FormInput from "../../components/form_input/FormInput";
+import api_validations from "../../utils/api_validations";
 
 const style = {
     position: 'absolute',
@@ -16,45 +24,158 @@ const style = {
     p: 4,
 };
 
-const JoinQueue = ({ clicked, setClicked }) => {
+const JoinQueue = ({ vehicles, clicked, setClicked }) => {
+    const navigate = useNavigate()
+
     const [open, setOpen] = useState(clicked);
+    const [loader, setLoader] = useState(false)
     const handleClose = () => {
         setOpen(false)
         setClicked(false);
     }
-    
-    const [queueType, setQueuetype] = useState(null)
-    const handleSubmit = () => {
-        
+
+    const [fuel, setFuel] = useState('petrol')
+    const [vehicle, setVehicle] = useState(vehicles[0].regNo)
+    const [amount, setAmount] = useState()
+    const handleChange = (event, newFuel) => {
+        setFuel(newFuel);
+    };
+    const handleChangeTwo = (event, newVehicle) => {
+        setFuel(newVehicle);
+    };
+
+    const handleAmount = (value) => {
+        if (parseInt(value) > 9999) {
+            setAmount("9999")
+        }
+        else if (parseInt(value) < 0) {
+            setAmount("0")
+        }
+        else {
+            setAmount(value)
+        }
+    }
+
+    const [confirmError, setConfirmError] = useState()
+    const [amountError, setAmountError] = useState()
+    const [joinError, setJoinError] = useState()
+    const [joinSuccess, setJoinSuccess] = useState()
+    const [buttonDisable, setButtonDisable] = useState(false)
+    const handleConfirm = async () => {
+        setButtonDisable(true)
+        setConfirmError()
+        setAmountError()
+        setJoinError()
+        setJoinSuccess()
+        if (fuel) {
+            if (vehicle) {
+                const val = api_validations.fuelAmountValidation({ amount })
+                if (val.error) {
+                    console.log(val.error.details[0].message)
+                    setAmountError(val.error.details[0].message)
+                    setButtonDisable(false)
+                    return
+                }
+                const stationId = "6335ddd0bf09b4881f0d5bb2"
+                try {
+                    const response = await vehicle_owner_services.joinQueue(stationId, fuel, vehicle, amount)
+                    if (response.data.error) {
+                        setJoinError(response.data.error)
+                        setButtonDisable(false)
+                        return
+                    }
+                    if (response.data.success) {
+                        setJoinSuccess(response.data.success)
+                        setButtonDisable(false)
+                        return
+                    }
+                } catch (error) {
+                    navigate('/503-error')
+                }
+
+            } else {
+                setConfirmError('Vehicle is required')
+            }
+        } else {
+            setConfirmError('Fuel type is required')
+        }
+        setButtonDisable(false)
     }
 
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style} >
-                <Box textAlign={'center'}>
-                    <FormControl>
-                        <FormLabel id="demo-row-radio-buttons-group-label"><p  style={{color: '#1F7A8C'}}>Select queue type</p></FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
-                        >
-                            <FormControlLabel value="petrol" control={<Radio color="primary" />} label="Petrol" onChange={(e) => setQueuetype(e.target.value)} />
-                            <FormControlLabel value="diesel" control={<Radio color="primary" />} label="Diesel" onChange={(e) => setQueuetype(e.target.value)} />
-                        </RadioGroup>
+        <div className="Join-queue">
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
 
-                        <div style={{ float: 'right' }}>
-                            <Button variant="contained" color="secondary" onClick={handleSubmit}>Confirm</Button>
-                        </div>
-                    </FormControl>
+                <Box sx={style} >
+                    <Box textAlign={'center'}>
+                        <Typography variant="h4">
+                            Join Queue
+                        </Typography>
+
+                        <Container maxWidth="lg" sx={{ mt: 2 }}>
+                            {joinError && <ErrorAlert custom_message={joinError} />}
+                            {joinSuccess && <SuccessAlert custom_message={joinSuccess} />}
+                        </Container>
+
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Select fuel type
+                        </Typography>
+                        <Grid container>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={fuel}
+                                exclusive
+                                onChange={handleChange}
+                                aria-label="Platform"
+                                variant="contained"
+                                fullWidth
+                            >
+                                <ToggleButton data-testId="select-fuel-type-petrol" value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                <ToggleButton data-testId="select-fuel-type-diesel" value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                        {confirmError === 'Fuel type is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Select vehicle
+                        </Typography>
+                        <Grid container>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={vehicle}
+                                exclusive
+                                onChange={handleChangeTwo}
+                                aria-label="Platform"
+                                variant="contained"
+                                fullWidth
+                            >
+                                {
+                                    vehicles.map(vehicle => (
+                                        <ToggleButton data-testId={`select-vehicle-${vehicle.regNo}`} value={vehicle.regNo} selectedColor="#26a69a">{vehicle.regNo}</ToggleButton>
+                                    ))
+                                }
+                            </ToggleButtonGroup>
+                        </Grid>
+                        {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                            Enter expected fuel amount
+                        </Typography>
+                        <Grid>
+                            <FormInput label="1234" setValue={handleAmount} type="number" value={amount} />
+                        </Grid>
+                        {setAmountError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{amountError}</Typography>}
+
+                        <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Modal >
+            </Modal >
+        </div>
     );
 }
 
