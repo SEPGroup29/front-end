@@ -3,7 +3,7 @@ import {
     Button,
     Card,
     CardContent,
-    CardHeader, Dialog, DialogTitle,
+    CardHeader,
     Typography,
 } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
@@ -15,9 +15,6 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from "@mui/material/IconButton";
-import InfoIcon from '@mui/icons-material/Info';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from "react-router-dom";
 
@@ -97,7 +94,7 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                             align="center"
                                         >
-                                            <TableCell data-testId={`table-row-${index}`}>
+                                            <TableCell>
                                                 {vehicle.regNo}
                                             </TableCell>
                                             <TableCell>{(vehicle.vehicleType.type).charAt(0).toUpperCase() + (vehicle.vehicleType.type).slice(1)}</TableCell>
@@ -107,7 +104,6 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                     id={vehicle._id}
                                                     variant="contained"
                                                     color="primary"
-                                                    // id={vehicle._id}
                                                     onClick={handleClick}
                                                     endIcon={<InfoOutlinedIcon />}
                                                 // sx={{display: {xs: 'none', sm: 'inline'}}}
@@ -118,11 +114,20 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                     aria-label="info"
                                                     // id={vehicle._id}
                                                     onClick={handleClick}
-                                                    sx={{display: {xs: 'block', sm: 'none'}}}
-                                                    color="primary"
+                                                    endIcon={<InfoOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
                                                 >
-                                                    <InfoIcon/>
-                                                </IconButton> */}
+                                                    Info
+                                                </Button>
+                                                {/* <IconButton
+                                                aria-label="info"
+                                                // id={vehicle._id}
+                                                onClick={handleClick}
+                                                sx={{display: {xs: 'block', sm: 'none'}}}
+                                                color="primary"
+                                            >
+                                                <InfoIcon/>
+                                            </IconButton> */}
                                             </TableCell>
                                             <TableCell align="left" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                                 <Button
@@ -139,10 +144,19 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                                                     aria-label="delete"
                                                     color="error"
                                                     onClick={handleRemoveVehicle}
-                                                    sx={{display: {xs: 'block', sm: 'none'}}}
+                                                    endIcon={<DeleteOutlineOutlinedIcon />}
+                                                // sx={{display: {xs: 'none', sm: 'inline'}}}
                                                 >
-                                                    <DeleteIcon/>
-                                                </IconButton> */}
+                                                    Remove
+                                                </Button>
+                                                {/* <IconButton
+                                                aria-label="delete"
+                                                color="error"
+                                                onClick={handleRemoveVehicle}
+                                                sx={{display: {xs: 'block', sm: 'none'}}}
+                                            >
+                                                <DeleteIcon/>
+                                            </IconButton> */}
                                             </TableCell>
                                         </TableRow>
                                     ))}

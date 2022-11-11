@@ -11,36 +11,35 @@ import ErrorAlert from "../../alerts/errorAlert";
 import Loader from "../../components/loader/loader";
 import { useState } from "react";
 
-// const vehicle_types = [
-//     {
-//         value: 'bike',
-//         label: 'Motor Bike',
-//     },
-//     {
-//         value: 'car',
-//         label: 'Car',
-//     },
-//     {
-//         value: 'van',
-//         label: 'Van',
-//     },
-//     {
-//         value: 'lorry',
-//         label: 'Lorry',
-//     },
-// ];
-//
-// const vehicle_brands = vehicle_owner_services.getVehicleTypes()
-//
-// console.log(vehicle_brands)
-
 export default function RegisterVehicle() {
 
     const [vehicleTypes, setVehicleTypes] = useState([]);
+    const [vehicleCount, setVehicleCount] = useState(0);
 
     useEffect(() => {
         getVehicleTypes()
+        getRegisteredVehicleCount()
     }, [])
+
+    const getRegisteredVehicleCount = async () => {
+      try {
+          const response = await vehicle_owner_services.showVehicles()
+          if (response){
+              if (response.status === 200){
+                  setVehicleCount(response.data.vehicles.length)
+              }
+              else if (response.status === 401){
+                  setError("Internal Server Error")
+              }
+          }
+          else {
+              setError("Unknown Error Occurred")
+          }
+      }
+        catch (error) {
+          console.log(error)
+      }
+    }
 
     const getVehicleTypes = async () => {
         try {
@@ -73,6 +72,11 @@ export default function RegisterVehicle() {
     const handleChangeVehicle = (event) => {
         setVehicle(event.target.value);
     };
+
+    const handleLetterChange = (value) => {
+      const result = value.replace(/[^a-zA-Z]/g, '');
+      setLetters(result)
+    }
 
     const handleVehicleNumber = (value) => {
         if(parseInt(value) > 9999){
@@ -144,10 +148,10 @@ export default function RegisterVehicle() {
                                 </Typography>
                                 <Grid container spacing={2} sx={{ marginBottom: 2 }}>
                                     <Grid item xs={4}>
-                                        <FormInput label="ABC" setValue={setLetters} isUpper = {true} maxLength = {3} />
+                                        <FormInput name="letters" label="ABC" type="text" setValue={handleLetterChange} isUpper = {true} maxLength = {3} value={letters} />
                                     </Grid>
                                     <Grid item xs={8}>
-                                        <FormInput label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
+                                        <FormInput name = "vehicleNo" label="1234" setValue={handleVehicleNumber} type = "number" value = {vehicleNo} />
                                     </Grid>
                                 </Grid>
                                 <FormInput label="Chassis Number" setValue={setChassisNo} />
@@ -183,8 +187,8 @@ export default function RegisterVehicle() {
 
                                 </Grid>
 
-                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth>Add another vehicle</Button>
-                                <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle}>Done</Button>
+                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={vehicleCount > 1}>Add another vehicle</Button>
+                                <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle} disabled={vehicleCount > 2}>Done</Button>
                             </CardContent>
                         </Card>
                     </Grid>
