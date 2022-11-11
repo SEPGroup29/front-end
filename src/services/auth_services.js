@@ -1,6 +1,7 @@
 import axois from 'axios';
 import config from '../config';
 import token from './token'
+import axiosInstance from "../../services/http_services"
 
 const API_URL = config.DOMAIN_NAME + '/auth';
 
@@ -78,7 +79,7 @@ const voLoginAfterOtp = async (email, entered_otp) => {
 }
 
 const registerPo = (email, firstName, lastName, contactNumber, password, fuelStationId) => {
-    return axois({
+    return axiosInstance({
         method: 'post',
         url: API_URL + '/register-po',
         data: {
@@ -88,7 +89,8 @@ const registerPo = (email, firstName, lastName, contactNumber, password, fuelSta
             contactNumber,
             password,
             fuelStationId
-        }
+        },
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
     })
 }
 
