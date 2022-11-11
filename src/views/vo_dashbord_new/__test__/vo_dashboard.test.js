@@ -49,27 +49,27 @@ describe('Vehicle list component testing', () => {
         expect(infoButton).toBeInTheDocument()
     })
 
-    test('Check table rows', async () => {
-        const v = [
-            {
-                "_id": "63615dbc7e9931bc7a33f76d",
-                "regNo": "PC 5222",
-                "chassisNo": "329784523",
-                "vehicleType": {
-                    "_id": "6331e8e07f120e21a622b7e6",
-                    "type": "van",
-                    "description": "DUAL PURPOSE VEHICLE",
-                    "fuelAllocation": 25
-                },
-                "fuelType": "diesel",
-                "vehicleOwnerId": "635c3d932a1719d1a3d6af4a",
-                "__v": 0
-            }
-        ]
-        render(<MockVehicleList handleClick={mockFunction} handleRemoveVehicle={mockFunction} vehicles={v}/>)
-        const divElemet = await screen.findByTestId("table-row-0")
-        expect(divElemet).toBeInTheDocument()
-    })
+    // test('Check table rows', async () => {
+    //     const v = [
+    //         {
+    //             "_id": "63615dbc7e9931bc7a33f76d",
+    //             "regNo": "PC 5222",
+    //             "chassisNo": "329784523",
+    //             "vehicleType": {
+    //                 "_id": "6331e8e07f120e21a622b7e6",
+    //                 "type": "van",
+    //                 "description": "DUAL PURPOSE VEHICLE",
+    //                 "fuelAllocation": 25
+    //             },
+    //             "fuelType": "diesel",
+    //             "vehicleOwnerId": "635c3d932a1719d1a3d6af4a",
+    //             "__v": 0
+    //         }
+    //     ]
+    //     render(<MockVehicleList handleClick={mockFunction} handleRemoveVehicle={mockFunction} vehicles={v}/>)
+    //     const divElemet = await screen.findByTestId("table-row-0")
+    //     expect(divElemet).toBeInTheDocument()
+    // })
 
     
 })

@@ -3,7 +3,7 @@ import config from '../../config.json';
 
 const API_URL = config.DOMAIN_NAME + '/api/vehicle-owner';
 
-const registerVehicle = (regNo, chassisNo, vehicleType, fuelType ) => {
+const registerVehicle = (regNo, chassisNo, vehicleType, fuelType) => {
     return axios({
         method: 'post',
         url: API_URL + '/add-vehicle',
@@ -32,23 +32,37 @@ const deleteVehicle = (vehicle_id) => {
 
 const getVehicleOwnerName = () => {
     return axios({
-        method : 'get',
+        method: 'get',
         url: API_URL + '/get-vehicle-owner-name'
     })
 }
 
 const getVehicleTypes = () => {
     return axios({
-        method : 'get',
+        method: 'get',
         url: API_URL + '/get-vehicle-types'
     })
 }
 
-export default{
+const joinQueue = (stationId, fuel, vehicle, amount) => {
+    return axios({
+        method: 'post',
+        url: API_URL + '/join-queue',
+        data: {
+            stationId,
+            fuel,
+            regNo: vehicle,
+            amount
+        }
+    })
+}
+
+export default {
     registerVehicle,
     showVehicles,
     deleteVehicle,
     getVehicleOwnerName,
-    getVehicleTypes
+    getVehicleTypes,
+    joinQueue,
 }
 

@@ -121,7 +121,7 @@ const Vo_Dashboard_new = () => {
     const handleAddQueue = () => {
         setClickAdd(true)
     }
-
+    
     return (
         <div className="vo-dashboard">
             {loader && <Loader />}
@@ -151,7 +151,7 @@ const Vo_Dashboard_new = () => {
                     {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
                     {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
                     {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
-                    {clickedAdd && <JoinQueue clicked={clickedAdd} setClicked={setClickAdd} />}
+                    {clickedAdd && <JoinQueue vehicles={vehicles} clicked={clickedAdd} setClicked={setClickAdd} />}
                 </Container>
             }
         </div>
