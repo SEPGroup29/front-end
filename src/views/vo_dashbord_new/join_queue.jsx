@@ -10,6 +10,7 @@ import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../../components/form_input/FormInput";
 import api_validations from "../../utils/api_validations";
+import { CarCrashOutlined } from "@mui/icons-material";
 
 const style = {
     position: 'absolute',
@@ -24,7 +25,7 @@ const style = {
     p: 4,
 };
 
-const JoinQueue = ({ vehicles, clicked, setClicked }) => {
+const JoinQueue = ({ vehicles, clicked, setClicked, stationId }) => {
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(clicked);
@@ -35,7 +36,7 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
     }
 
     const [fuel, setFuel] = useState('petrol')
-    const [vehicle, setVehicle] = useState(vehicles[0].regNo)
+    const [vehicle, setVehicle] = useState(vehicles[0] ? vehicles[0].regNo : null)
     const [amount, setAmount] = useState()
     const handleChange = (event, newFuel) => {
         setFuel(newFuel);
@@ -76,7 +77,6 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                     setButtonDisable(false)
                     return
                 }
-                const stationId = "6335ddd0bf09b4881f0d5bb2"
                 try {
                     const response = await vehicle_owner_services.joinQueue(stationId, fuel, vehicle, amount)
                     if (response.data.error) {
@@ -117,61 +117,85 @@ const JoinQueue = ({ vehicles, clicked, setClicked }) => {
                             Join Queue
                         </Typography>
 
-                        <Container maxWidth="lg" sx={{ mt: 2 }}>
-                            {joinError && <ErrorAlert custom_message={joinError} />}
-                            {joinSuccess && <SuccessAlert custom_message={joinSuccess} />}
-                        </Container>
+                        {vehicle !== null ?
+                            <Container>
+                                <Container maxWidth="lg" sx={{ mt: 2 }}>
+                                    {joinError && <ErrorAlert custom_message={joinError} />}
+                                    {joinSuccess && <SuccessAlert custom_message={joinSuccess} />}
+                                </Container>
 
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
-                            Select fuel type
-                        </Typography>
-                        <Grid container>
-                            <ToggleButtonGroup
-                                color="primary"
-                                value={fuel}
-                                exclusive
-                                onChange={handleChange}
-                                aria-label="Platform"
-                                variant="contained"
-                                fullWidth
-                            >
-                                <ToggleButton data-testId="select-fuel-type-petrol" value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
-                                <ToggleButton data-testId="select-fuel-type-diesel" value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
-                            </ToggleButtonGroup>
-                        </Grid>
-                        {confirmError === 'Fuel type is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                                    Select fuel type
+                                </Typography>
+                                <Grid container>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={fuel}
+                                        exclusive
+                                        onChange={handleChange}
+                                        aria-label="Platform"
+                                        variant="contained"
+                                        fullWidth
+                                    >
+                                        <ToggleButton data-testId="select-fuel-type-petrol" value="petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                        <ToggleButton data-testId="select-fuel-type-diesel" value="diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                                {confirmError === 'Fuel type is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
 
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
-                            Select vehicle
-                        </Typography>
-                        <Grid container>
-                            <ToggleButtonGroup
-                                color="primary"
-                                value={vehicle}
-                                exclusive
-                                onChange={handleChangeTwo}
-                                aria-label="Platform"
-                                variant="contained"
-                                fullWidth
-                            >
-                                {
-                                    vehicles.map(vehicle => (
-                                        <ToggleButton data-testId={`select-vehicle-${vehicle.regNo}`} value={vehicle.regNo} selectedColor="#26a69a">{vehicle.regNo}</ToggleButton>
-                                    ))
-                                }
-                            </ToggleButtonGroup>
-                        </Grid>
-                        {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                                    Select vehicle
+                                </Typography>
+                                <Grid container>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={vehicle}
+                                        exclusive
+                                        onChange={handleChangeTwo}
+                                        aria-label="Platform"
+                                        variant="contained"
+                                        fullWidth
+                                    >
+                                        {
+                                            vehicles.map(vehicle => (
+                                                <ToggleButton data-testId={`select-vehicle-${vehicle.regNo}`} value={vehicle.regNo} selectedColor="#26a69a">{vehicle.regNo}</ToggleButton>
+                                            ))
+                                        }
+                                    </ToggleButtonGroup>
+                                </Grid>
+                                {confirmError === 'Vehicle is required' && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{confirmError}</Typography>}
 
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
-                            Enter expected fuel amount
-                        </Typography>
-                        <Grid>
-                            <FormInput label="1234" setValue={handleAmount} type="number" value={amount} />
-                        </Grid>
-                        {setAmountError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{amountError}</Typography>}
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', paddingTop: 2 }}>
+                                    Enter expected fuel amount
+                                </Typography>
+                                <Grid>
+                                    <FormInput label="1234" setValue={handleAmount} type="number" value={amount} />
+                                </Grid>
+                                {setAmountError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{amountError}</Typography>}
 
-                        <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+                                <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+                            </Container>
+                            :
+                            <Container>
+                                <div className="content">
+                                    <h3 style={{ textAlign: 'center', marginBottom: '3px', marginTop: '10px', color: '#1F7A8C' }} class="notfound_header">No vehicles yet</h3>
+                                    <p style={{ textAlign: 'center', color: '#022B3A' }}>
+                                        Add one or more vehicles to your vehicle list and join your selected queue
+                                    </p>
+                                </div>
+                                <div className="image">
+                                    <CarCrashOutlined
+                                        sx={{
+                                            fontSize: {
+                                                xs: "10rem",
+                                                lg: "12rem"
+                                            },
+                                            color: '#1F7A8C',
+                                            lineHeight: 1
+                                        }} />
+                                </div>
+                            </Container>
+                        }
                     </Box>
                 </Box>
             </Modal >

@@ -1,4 +1,4 @@
-import React from "react";
+import {React} from "react";
 import { Button, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -12,6 +12,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import TableContainer from "@mui/material/TableContainer";
 import SearchIcon from '@mui/icons-material/Search';
 import { FollowTheSigns } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 // function createData(fuelStation , petrolStock , dieselStock , petrolQueue , dieselQueue){
 //     return {fuelStation, petrolStock, dieselStock , petrolQueue , dieselQueue};
@@ -23,7 +24,12 @@ import { FollowTheSigns } from "@mui/icons-material";
 //     createData('Walasmulla AK' , 60549 , 24769 , 125 , 200),
 // ]
 
-const FuelStationListComponent = ({ handleClick, stations }) => {
+const FuelStationListComponent = ({ handleClick, stations, vehicles }) => {
+    const navigate = useNavigate()
+    const navigateToFuelStations = () => {
+        navigate('/fuel-stations', {state: {vehicles}})
+    }
+
     return (
         <Card
             sx={{
@@ -50,15 +56,17 @@ const FuelStationListComponent = ({ handleClick, stations }) => {
             />
 
             <CardContent sx={{ alignContent: 'center' }}>
-                <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
-                    <Table aria-label="simple table">
+                <TableContainer component={Paper} sx={{ boxShadow: 0, height: 250 }}>
+                    <Table aria-label="simple table" sx={{height: 'max-content'}}>
                         <TableHead>
                             <TableRow>
                                 <TableCell> Fuel Station Name</TableCell>
                                 <TableCell> Petrol Stock</TableCell>
                                 <TableCell> Diesel Stock </TableCell>
-                                <TableCell> Petrol Queue </TableCell>
-                                <TableCell> Diesel Queue </TableCell>
+                                {/* <TableCell> Petrol Queue </TableCell>
+                                <TableCell> Diesel Queue </TableCell> */}
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
@@ -81,6 +89,7 @@ const FuelStationListComponent = ({ handleClick, stations }) => {
                                             color="primary"
                                             sx={{ display: { xs: 'none', sm: 'inline' } }}
                                             onClick={handleClick}
+                                            id={row.id}
                                         >
                                             <FollowTheSigns /> Join
                                         </Button>
@@ -103,7 +112,8 @@ const FuelStationListComponent = ({ handleClick, stations }) => {
                 <Typography align='center'>
                     <Button
                         variant="contained"
-                        href="/fuel-stations"
+                        // href="/fuel-stations"
+                        onClick={navigateToFuelStations}
                         color="secondary"
                         sx={{ marginTop: 3, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, "&:hover": {color: 'white' }}}
                         startIcon={<SearchIcon />}
