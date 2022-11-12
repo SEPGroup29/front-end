@@ -29,8 +29,26 @@ const updateStock = (fuel, amount, fuelStationId) => {
     })
 }
 
+const fsRegister = (name, nearCity, ownerName, mnFirstName, mnLastName, mnEmail, contactNumber) => {
+    //console.log(ownerName, nearTown, name, firstName, lastName, email, contactNo)
+    return axios({
+        method: 'post',
+        url: API_URL + '/register-fuel-station',
+        data: {
+            name,
+            nearCity,
+            ownerName,
+            mnFirstName,
+            mnLastName,
+            contactNumber,
+            mnEmail
+        }
+    })
+}
+
 export default {
     showAllFuelStations,
     getStock,
     updateStock,
+    fsRegister
 }

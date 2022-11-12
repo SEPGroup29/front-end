@@ -40,6 +40,8 @@ const fsLogin = async (email, password) => {
     return response
 }
 
+
+
 const registerUser = (NIC, email, otp, firstName, lastName) => {
     return axois({
         method: 'post',
