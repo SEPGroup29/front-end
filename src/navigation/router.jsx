@@ -55,6 +55,7 @@ const Router = () => {
 
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />
+                <Route path="/404-error" element={<NotFound />} />
 
                 {/* Unauthorized page */}
                 <Route path="/unauthorized" element={<Unauthorized />} />
