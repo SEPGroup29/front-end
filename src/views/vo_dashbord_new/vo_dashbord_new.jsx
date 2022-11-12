@@ -20,6 +20,8 @@ const Vo_Dashboard_new = () => {
     const [vehicles, setVehicles] = useState([])
     const [error, setError] = useState()
     const [voName, setVoName] = useState('')
+    const [qrData, setQrData] = useState()
+    const [remainingQuota, setRemainingQuota] = useState()
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
 
@@ -35,26 +37,33 @@ const Vo_Dashboard_new = () => {
     ];
 
     useEffect(() => {
-        getVoName()
+        getVo()
         getVehicles()
     }, [])
 
-    const getVoName = async () => {
+    const getVo = async () => {
         setLoader(true)
         try {
-            const response = await vehicle_owner_services.getVehicleOwnerName()
-            console.log(response.data.firstName)
+            const response = await vehicle_owner_services.getVehicleOwner()
             if (response) {
                 if (response.status === 200)
-                    setVoName(response.data.name)
+                    if (response.data.error) {
+                        navigate('/logout')
+                        return
+                    }
+                    setVoName(response.data.vo.user.firstName)
+                    setQrData({
+                        id: response.data.vo._id,
+                        NIC: response.data.vo.NIC
+                    })
+                    setRemainingQuota(response.data.remainingQuota)
             }
             else {
                 setError("Unknown Error Occured")
             }
         }
         catch (error) {
-            console.log("ERROR:",error);
-            // navigate('/503-error')
+            navigate('/503-error')
         }
         setLoader(false)
     }
@@ -63,10 +72,10 @@ const Vo_Dashboard_new = () => {
         setLoader(true)
         try {
             const response = await vehicle_owner_services.showVehicles()
-            console.log(response)
             if (response.data.error) {
-                setError(response.data.error)
-            } 
+                navigate('/logout')
+                return
+            }
             if (response.data.vehicles) {
                 setVehicles(response.data.vehicles)
             }
@@ -121,7 +130,7 @@ const Vo_Dashboard_new = () => {
     const handleAddQueue = () => {
         setClickAdd(true)
     }
-    
+
     return (
         <div className="vo-dashboard">
             {loader && <Loader />}
@@ -136,7 +145,7 @@ const Vo_Dashboard_new = () => {
                             <VehicleListComponent handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                            <QRComponent />
+                            <QRComponent qrData={qrData} remainingQuota={remainingQuota} />
                         </Grid>
                         <Grid item xs={12} md={8} lg={7} paddingTop={2}>
                             <FuelStationListComponent handleClick={handleAddQueue} stations={stations} />

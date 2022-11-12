@@ -35,10 +35,10 @@ const deleteVehicle = (vehicle_id) => {
     })
 }
 
-const getVehicleOwnerName = () => {
+const getVehicleOwner = () => {
     return axios({
         method: 'get',
-        url: API_URL + '/get-vehicle-owner-name',
+        url: API_URL + '/get-vehicle-owner',
         headers: { Authorization: `Bearer ${token.getAccessToken()}` },
     })
 }
@@ -69,7 +69,7 @@ export default {
     registerVehicle,
     showVehicles,
     deleteVehicle,
-    getVehicleOwnerName,
+    getVehicleOwner,
     getVehicleTypes,
     joinQueue,
 }

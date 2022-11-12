@@ -17,6 +17,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from "react-router-dom";
+import { Container } from "@mui/system";
+import { CarCrashOutlined } from "@mui/icons-material";
 
 
 
@@ -75,7 +77,7 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
             <CardContent sx={{ alignContent: 'center' }}>
 
                 {
-                    vehicles.length <= 3 ?
+                    vehicles.length > 0 ?
                         <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
                             <Table aria-label="simple table">
                                 <TableHead>
@@ -164,9 +166,25 @@ const VehicleListComponent = ({ handleClick, handleRemoveVehicle, vehicles }) =>
                             </Table>
                         </TableContainer>
                         :
-                        <Typography>
-                            No Vehicles to show
-                        </Typography>
+                        <Container>
+                            <div className="content">
+                                <h3 style={{ textAlign: 'center', marginBottom: '3px', marginTop: '10px', color: '#1F7A8C' }} class="notfound_header">No vehicles yet</h3>
+                                <p style={{ textAlign: 'center', color: '#022B3A' }}>
+                                    Add one or more vehicles to your vehicle list and get the weekly fuel quota
+                                </p>
+                            </div>
+                            <div className="image">
+                                <CarCrashOutlined
+                                    sx={{
+                                        fontSize: {
+                                            xs: "10rem",
+                                            lg: "12rem"
+                                        },
+                                        color: '#1F7A8C',
+                                        lineHeight: 1
+                                    }} />
+                            </div>
+                        </Container>
                 }
 
                 <Typography align='center'>
