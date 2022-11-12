@@ -114,7 +114,7 @@ export default function RegisterFuelStation() {
             if (response.data.error) {
                 setError(response.data.error)
             } else {
-                setUpdateSuccess('Fuel Station registered successfully')
+                setUpdateSuccess('Fuel Station registered successfully. Manager password is sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')))
                 setOwnerName('')
                 setName('')
                 setTown('Colombo 1')
