@@ -1,27 +1,26 @@
 import { Button, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './404.css'
+import '../errors/404.css'
 
-const ServiceUnavailable = () => {
+const Unauthorized = () => {
     const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);
     }
 
     return (
-        <div className="not_found">
-            <Container>
+        <div className="unauthorized">
+            <Container sx={{ mt: 3 }}>
 
                 <div className="content">
                     <Typography style={{ textAlign: 'center', mb: 3 }} variant="h3" color="#022B3A" fontWeight='lighter'>
-                        503 Error - Service Unavailable
+                        401 Error - Unauthorized
                     </Typography>
-                    <p style={{ textAlign: 'center' }}>Sorry, the service you requested is not available at this time.</p>
+                    <p style={{ textAlign: 'center' }}>Sorry, you do not have the permission to view this page.</p>
                 </div>
                 <div className="image">
-                    <img src="https://i.ibb.co/P6TbVnB/503-error-service-unavailable-bro-2837.webp" alt="error" height='300px' width='300px' />
+                    <img src="https://i.ibb.co/f4cwBmF/error-401-no-autorizado-removebg-preview.png" alt="error-401-no-autorizado-removebg-preview" border="0" />
                 </div>
 
                 <div className="back_button">
@@ -33,5 +32,4 @@ const ServiceUnavailable = () => {
     );
 }
 
-export default ServiceUnavailable
-    ;
+export default Unauthorized;
