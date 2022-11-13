@@ -61,7 +61,7 @@ export default function Register_user() {
                 if (response.data.result === 'Sent') {
                     setDisabled(true)
                     setAllowed(false)
-                    setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute')
+                    setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 10 minutes')
                     setTimeout(() => {
                         setDisabled(false)
                     }, 60000)

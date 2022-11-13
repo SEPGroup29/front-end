@@ -71,12 +71,12 @@ export default function Login_enterOTP() {
                                 </Typography>
                                 {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
                                 <Typography variant="subtitle1" sx={{ paddingTop: 2 }}>
-                                    {!loginError && email && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute'} />}
+                                    {!loginError && email && <InfoAlert custom_message={'Enter OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 10 minutes'} />}
                                 </Typography>
                                 <MuiOtpInput style={{ outlineColor: 'blue' }} length={6} value={value} onChange={handleChange} />
                                 {emptyError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emptyError}</Typography>}
                                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleLogin}>PROCEED</Button>
-                                <Link sx={{ textDecoration: 'none' }} href="/register-user" color="secondary">Register</Link>
+                                <Link sx={{ textDecoration: 'none' }} href="/login" color="secondary">Go back</Link>
                             </CardContent>
                         </Card>
                     </Grid>
