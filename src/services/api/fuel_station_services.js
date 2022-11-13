@@ -58,10 +58,19 @@ const getThreeFuelStations = () => {
     })
 }
 
+const showFuelStation = async () => {
+    return axios({
+        method: 'GET',
+        url: API_URL + `/show-fuel-station`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    }) 
+}
+
 export default {
     showAllFuelStations,
     getStock,
     updateStock,
     fsRegister,
     getThreeFuelStations,
+    showFuelStation,
 }
