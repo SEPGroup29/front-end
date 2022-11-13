@@ -15,13 +15,22 @@ import SuccessAlert from "../../alerts/successAlert";
 export default function Update_fuel_stock() {
     const [petrolStock, setPetrolStock] = useState('---')
     const [dieselStock, setDieselStock] = useState('---')
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    var { fs_name, fs_id } = {}
+    if(!location.state){
+        navigate('/404-error')
+        // return
+    }
+    if(location.state){
+        var { fs_name, fs_id } = location.state
+    }
     
     useEffect(() => {
         getStock()
     }, [petrolStock, dieselStock])
-
-    const location = useLocation()
-    const { fs_name, fs_id } = location.state
 
     const getStock = async () => {
         const response = await fuel_station_services.getStock(fs_id)
@@ -47,7 +56,6 @@ export default function Update_fuel_stock() {
     const [updateError, setUpdateError] = useState('')
     const [updateSuccess, setUpdateSuccess] = useState('')
     const [loader, setLoader] = useState(false)
-    const navigate = useNavigate()
 
     const handleUpdate = async (e) => {
         e.preventDefault();

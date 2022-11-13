@@ -27,7 +27,6 @@ const FuelStations = () => {
     const getFuelStations = async (search = null) => {
         console.log(search)
         if (search === '') {
-            console.log("IF")
             search = null
         }
         try {
