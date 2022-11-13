@@ -3,7 +3,7 @@ import { Card, CardMedia, Grid, Link, Typography } from "@mui/material";
 import "../home/home.css"
 import { LocalGasStation } from "@mui/icons-material";
 import RoundedButton from "../../components/rounded_button/roundedButton";
-import Container from "@mui/material/Container";
+//import Container from "@mui/material/Container";
 
 const Home = () => {
     return (
@@ -30,8 +30,8 @@ const Home = () => {
                             <LocalGasStation
                                 sx={{
                                     fontSize: {
-                                        xs: "10rem",
-                                        lg: "12rem"
+                                        xs: "6rem",
+                                        lg: "8rem"
                                     },
                                     color: 'white',
                                     lineHeight: 1
@@ -41,8 +41,8 @@ const Home = () => {
                             sx={{
                                 textAlign: "center",
                                 fontSize: {
-                                    xs: "5rem",
-                                    lg: "9rem"
+                                    xs: "4rem",
+                                    lg: "6rem"
                                 },
                                 color: "white",
                                 fontWeight: "bold",
@@ -62,7 +62,7 @@ const Home = () => {
                                 paddingRight: 2,
                                 lineHeight: 1.1
                             }}>
-                            The all new fuel queue management and token issuer system in
+                            The all new Fuel Queue Management and Token Issuer System in
                             Sri Lanka.
                         </Typography>
 
