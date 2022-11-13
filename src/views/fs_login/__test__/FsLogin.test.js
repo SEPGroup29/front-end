@@ -17,9 +17,9 @@ test('Should render a "Log in" text', () => {
     expect(linkElement).toBeInTheDocument();
 });
 
-test('Should render a "FuelQ Management System" text', () => {
+test('Should render a "FuelQ" text', () => {
     render(<MockSignIn />);
-    const linkElement = screen.getByText(/FuelQ Management System/i);
+    const linkElement = screen.getByText(/FuelQ/i);
     expect(linkElement).toBeInTheDocument();
 });
 

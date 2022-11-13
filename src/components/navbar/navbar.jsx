@@ -14,12 +14,44 @@ import MenuItem from '@mui/material/MenuItem';
 import { LocalGasStation } from '@mui/icons-material';
 import { Link } from '@mui/material';
 
-
+import Token from '../../services/token'
+import jwtDecode from "jwt-decode";
+import { useEffect } from 'react';
+import auth_services from '../../services/auth_services';
+import { useState } from 'react';
 
 const pages = ['About Us', 'How to Use'];
 const settings = ['Dashboard', 'Logout', 'Login'];
 
+
 const Navbar = () => {
+    const [displayAvatar, setDisplayAvatar] = useState(false)
+    const [token, setToken] = useState()
+    const [loggedUser, setLoggedUser] = useState()
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    const getUser = async () => {
+        if (Token.getAccessToken()) {
+            var t = jwtDecode(Token.getAccessToken())
+            setToken(t)
+            try {
+                const response = await auth_services.getUser(t.user_id)
+                if (response.data.error) {
+                    return
+                }
+                if (response.data.user) {
+                    console.log("NAVBAR USER", response.data.user);
+                    setLoggedUser(response.data.user)
+                    setDisplayAvatar(true)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -92,11 +124,6 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {/* {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))} */}
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='/about'><Typography textAlign="center">About Us</Typography></Link>
                             </MenuItem>
@@ -127,15 +154,6 @@ const Navbar = () => {
                         <LocalGasStation />FuelQ
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))} */}
                         <Button
                             // key={page}
                             onClick={handleCloseNavMenu}
@@ -162,45 +180,50 @@ const Navbar = () => {
                         </Button>
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar sx={{ bgcolor: '#022B3A' }}>DL</Avatar>
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            <div className="info">
-                                <h6 style={{ padding: '5px', textAlign: 'center' }}>Deshan Lakshitha</h6>
-                                <p style={{ padding: '5px', textAlign: 'center' }}>NIC No: 123456789V</p>
-                            </div>
-                            {/* {settings.map((setting) => (
-                                <MenuItem style={{ textAlign: 'center' }} key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                    {displayAvatar &&
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    {token.user_type === "Vehicle-Owner" && <Avatar sx={{ bgcolor: '#022B3A' }}>{loggedUser.user.firstName[0] + loggedUser.user.lastName[0]}</Avatar>}
+                                    {token.user_type !== "Vehicle-Owner" && <Avatar sx={{ bgcolor: '#022B3A' }}>{loggedUser.firstName[0] + loggedUser.lastName[0]}</Avatar>}
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                <div className="info">
+                                    {token.user_type === "Vehicle-Owner" && <h6 style={{ padding: '5px', textAlign: 'center' }}>{`${loggedUser.user.firstName} ${loggedUser.user.lastName}`}</h6>}
+                                    {token.user_type !== "Vehicle-Owner" && <h6 style={{ padding: '5px', textAlign: 'center' }}>{`${loggedUser.firstName} ${loggedUser.lastName}`}</h6>}
+
+                                    {token.user_type == "Vehicle-Owner" && <p style={{ padding: '5px', textAlign: 'center' }}>NIC No: {loggedUser.NIC}</p>}
+                                </div>
+                                <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
+                                    <Link
+                                        sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }}
+                                        href={token.user_type === "Admin" ? '/admin-dashboard' : (token.user_type === "Vehicle-Owner" ? '/vo-dashboard' : (token.user_type === "Fuel-Station-Manager" && '/fs-dashboard' ))}>
+                                        <Typography textAlign="center">Dashboard</Typography>
+                                    </Link>
                                 </MenuItem>
-                            ))} */}
-                            <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
-                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} href='#'><Typography textAlign="center">Dashboard</Typography></Link>
-                            </MenuItem>
-                            <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
-                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} href='/vo-dashboard'><Typography textAlign="center">Logout</Typography></Link>
-                            </MenuItem>
-                        </Menu>
-                    </Box>
+                                <MenuItem style={{ textAlign: 'center' }} onClick={handleCloseUserMenu}>
+                                    <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} href='/logout'><Typography textAlign="center">Logout</Typography></Link>
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    }
+
                 </Toolbar>
             </Container>
         </AppBar>

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RequireAuth from "../utils/require_auth"
 import SignIn from "../views/admin_login/admin_login";
 import Home from '../views/home/home';
 import Login from '../views/login/login';
@@ -18,33 +19,52 @@ import AdminDashboard from "../views/admin_dashboard/admin_dashboard";
 import NotFound from "../views/errors/404";
 import ServiceUnavailable from "../views/errors/503";
 import About from "../views/about/about";
+import Logout from "../components/logout/logout";
+import Unauthorized from "../views/unauthorized/unauthorized";
+import FsDashboard from "../views/fs_dashboard/fs_dashboard";
+
+const ROLES = {
+    "ADMIN": 1,
+    "VEHICLE_OWNER": 2,
+    "FUEL_STATION_MANAGER": 3,
+    "PUMP_OPERATOR": 4
+}
 
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+                {/* General Routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/login" element={<Login />} />
-                <Route path='/vo-list' element={<VehicleOwnersList />} />
-                <Route path="/fs-dashboard" element={<FSDashboard />} />
-                <Route path="/fs-list" element={<FuelStationList />} />
-                <Route path="/vo-dashboard" element={<VoDashboardNew />} />
+                <Route path='/vo-list' element={<RequireAuth allowedRoles={[ROLES.ADMIN]}><VehicleOwnersList /></RequireAuth>} />
+                <Route path="/fs-dashboard" element={<RequireAuth allowedRoles={[ROLES.FUEL_STATION_MANAGER]}><FsDashboard /></RequireAuth>} />
+                <Route path="/fs-list" element={<RequireAuth allowedRoles={[ROLES.ADMIN]}><FuelStationList /></RequireAuth>} />
+                <Route path="/vo-dashboard" element={<RequireAuth allowedRoles={[ROLES.VEHICLE_OWNER]}><VoDashboardNew /></RequireAuth>} />
                 <Route path="/login-enter-otp" element={<LoginEnterOTP />} />
                 <Route path="/register-user" element={<RegisterUser />} />
-                <Route path="/register-po" element={<RegisterPumpOperator />} />
-                <Route path="/register-vehicle" element={<RegisterVehicle />} />
-                <Route path="/register-fuel-station" element={<RegisterFuelStation />} />
-                <Route path="/update-fuel-stock" element={<UpdateFuelStock />} />
-                <Route path="/fuel-stations" element={<FuelStations/>} />
-                {/* <Route path="/vo-dashboard-new" element={<VoDashboardNew />} /> */}
-                <Route path="/admin-login" element={<SignIn/>}/>
-                <Route path="/fs-login" element={<FuelStationLogin/>} />
-                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/register-po" element={<RequireAuth allowedRoles={[ROLES.FUEL_STATION_MANAGER]}><RegisterPumpOperator /></RequireAuth>} />
+                <Route path="/register-vehicle" element={<RequireAuth allowedRoles={[ROLES.VEHICLE_OWNER]}><RegisterVehicle /></RequireAuth>} />
+                <Route path="/register-fuel-station" element={<RequireAuth allowedRoles={[ROLES.ADMIN]}><RegisterFuelStation /></RequireAuth>} />
+                <Route path="/update-fuel-stock" element={<RequireAuth allowedRoles={[ROLES.FUEL_STATION_MANAGER]}><UpdateFuelStock /></RequireAuth>} />
+                <Route path="/fuel-stations" element={<RequireAuth allowedRoles={[ROLES.VEHICLE_OWNER]}><FuelStations /></RequireAuth>} />
+                <Route path="/admin-login" element={<SignIn />} />
+                <Route path="/fs-login" element={<FuelStationLogin />} />
+                <Route path="/admin-dashboard" element={<RequireAuth allowedRoles={[ROLES.ADMIN]}><AdminDashboard /></RequireAuth>} />
+
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />
+                <Route path="/404-error" element={<NotFound />} />
+
+                {/* Unauthorized page */}
+                <Route path="/unauthorized" element={<Unauthorized />} />
+
                 {/* 503 Error Page */}
                 <Route path="/503-error" element={<ServiceUnavailable />} />
+
+                {/* logout  */}
+                <Route path="/logout" element={<Logout />} />
             </Routes>
         </BrowserRouter>
     );

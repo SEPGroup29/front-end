@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import fuel_station_services from "../../services/api/fuel_station_services";
 import FuelStationTable from "./fuel_station_table";
 import Loader from "../../components/loader/loader";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "./searchbar"
+import JoinQueue from "../vo_dashbord_new/join_queue";
 
 const FuelStations = () => {
 
@@ -26,7 +27,6 @@ const FuelStations = () => {
     const getFuelStations = async (search = null) => {
         console.log(search)
         if (search === '') {
-            console.log("IF")
             search = null
         }
         try {
@@ -42,6 +42,24 @@ const FuelStations = () => {
         setLoader(false)
     }
 
+    const [clickedAdd, setClickAdd] = useState(false)
+    const [stationId, setStationId] = useState()
+    const handleAddQueue = (event) => {
+        fuelStations.map(s => {
+            if (s._id === event.target.id) {
+                setStationId(s._id)
+            }
+        })
+        setClickAdd(true)
+    }
+
+    const location = useLocation()
+    if(!location.state){
+        navigate('/404-error')
+        return
+    } 
+    const { vehicles } = location.state
+
     return (
         <div className="fuelStationList">
             {loader && <Loader />}
@@ -55,7 +73,8 @@ const FuelStations = () => {
                             <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
                         </Grid>
                     </Grid>
-                    <FuelStationTable fuelStations={fuelStations} search={search} />
+                    <FuelStationTable fuelStations={fuelStations} search={search} handleAddQueue={handleAddQueue} />
+                    {clickedAdd && <JoinQueue vehicles={vehicles} clicked={clickedAdd} setClicked={setClickAdd} stationId={stationId} />}
                 </Container>
             }
         </div>

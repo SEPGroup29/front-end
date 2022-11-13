@@ -15,19 +15,22 @@ import RemoveAlertBox from "./remove_alertbox";
 import JoinQueue from "./join_queue";
 import Loader from "../../components/loader/loader";
 import { useNavigate } from "react-router-dom";
+import fuel_station_services from "../../services/api/fuel_station_services";
 
 const Vo_Dashboard_new = () => {
     const [vehicles, setVehicles] = useState([])
     const [error, setError] = useState()
     const [voName, setVoName] = useState('')
+    const [qrData, setQrData] = useState()
+    const [remainingQuota, setRemainingQuota] = useState()
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
 
-    const stations = [
-        { name: 'AK Filling Station', city: 'Walasmulla', petrol: 60549, diesel: 24769, petrolQueue: 110, dieselQueue: 100 },
-        { name: 'EDS Holdings', city: 'Walasmulla', petrol: 600, diesel: 14000, petrolQueue: 200, dieselQueue: 189 },
-        { name: 'Abeysekara Filling Station', city: 'Galle', petrol: 600, diesel: 12567, petrolQueue: 96, dieselQueue: 90 },
-    ];
+    const [stations, setStations] = useState([
+        // { name: 'AK Filling Station', city: 'Walasmulla', petrol: 60549, diesel: 24769, petrolQueue: 110, dieselQueue: 100 },
+        // { name: 'EDS Holdings', city: 'Walasmulla', petrol: 600, diesel: 14000, petrolQueue: 200, dieselQueue: 189 },
+        // { name: 'Abeysekara Filling Station', city: 'Galle', petrol: 600, diesel: 12567, petrolQueue: 96, dieselQueue: 90 },
+    ])
 
     const queues = [
         { vehicle: 'XQ - 6799', token: 124, ongoing: 205 },
@@ -35,25 +38,33 @@ const Vo_Dashboard_new = () => {
     ];
 
     useEffect(() => {
-        getVoName()
+        getVo()
         getVehicles()
+        getFuelStations()
     }, [])
 
-    const getVoName = async () => {
+    const getVo = async () => {
         setLoader(true)
         try {
-            const response = await vehicle_owner_services.getVehicleOwnerName()
-            console.log(response.data.firstName)
+            const response = await vehicle_owner_services.getVehicleOwner()
             if (response) {
                 if (response.status === 200)
-                    setVoName(response.data.name)
+                    if (response.data.error) {
+                        navigate('/logout')
+                        return
+                    }
+                setVoName(response.data.vo.user.firstName)
+                setQrData({
+                    id: response.data.vo._id,
+                    NIC: response.data.vo.NIC
+                })
+                setRemainingQuota(response.data.remainingQuota)
             }
             else {
                 setError("Unknown Error Occured")
             }
         }
         catch (error) {
-            // setError("Unknown Error Occured")
             navigate('/503-error')
         }
         setLoader(false)
@@ -63,16 +74,39 @@ const Vo_Dashboard_new = () => {
         setLoader(true)
         try {
             const response = await vehicle_owner_services.showVehicles()
-            console.log(response)
             if (response.data.error) {
-                setError(response.data.error)
-            } 
+                navigate('/logout')
+                return
+            }
             if (response.data.vehicles) {
                 setVehicles(response.data.vehicles)
             }
         }
         catch (error) {
             // setError("Unknown Error Occured")
+            navigate('/503-error')
+        }
+        setLoader(false)
+    }
+
+    const getFuelStations = async () => {
+        setLoader(true)
+        try {
+            const response = await fuel_station_services.getThreeFuelStations()
+            if (response.data.error) {
+                navigate('/logout')
+                return
+            }
+            if (response.data.result) {
+                const fs = response.data.result
+                const tempStations = []
+                fs.map(station => (
+                    tempStations.push({ id: station._id, name: station.name, city: station.nearCity, petrol: station.rpstock ? station.rpstock : 0, diesel: station.rdstock ? station.rdstock : 0 })
+                ))
+                setStations(tempStations)
+            }
+        }
+        catch (error) {
             navigate('/503-error')
         }
         setLoader(false)
@@ -118,10 +152,16 @@ const Vo_Dashboard_new = () => {
     }
 
     const [clickedAdd, setClickAdd] = useState(false)
-    const handleAddQueue = () => {
+    const [stationId, setStationId] = useState()
+    const handleAddQueue = (event) => {
+        stations.map(s => {
+            if (s.id === event.target.id) {
+                setStationId(s.id)
+            }
+        })
         setClickAdd(true)
     }
-    
+
     return (
         <div className="vo-dashboard">
             {loader && <Loader />}
@@ -136,10 +176,10 @@ const Vo_Dashboard_new = () => {
                             <VehicleListComponent handleClick={handleClickVehicles} handleRemoveVehicle={handleRemoveVehicle} vehicles={vehicles} />
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                            <QRComponent />
+                            <QRComponent qrData={qrData} remainingQuota={remainingQuota} />
                         </Grid>
                         <Grid item xs={12} md={8} lg={7} paddingTop={2}>
-                            <FuelStationListComponent handleClick={handleAddQueue} stations={stations} />
+                            <FuelStationListComponent handleClick={handleAddQueue} stations={stations} vehicles={vehicles} />
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} paddingTop={2}>
                             <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
@@ -151,7 +191,7 @@ const Vo_Dashboard_new = () => {
                     {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
                     {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
                     {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
-                    {clickedAdd && <JoinQueue vehicles={vehicles} clicked={clickedAdd} setClicked={setClickAdd} />}
+                    {clickedAdd && <JoinQueue vehicles={vehicles} clicked={clickedAdd} setClicked={setClickAdd} stationId={stationId} />}
                 </Container>
             }
         </div>

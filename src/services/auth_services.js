@@ -1,6 +1,7 @@
 import axois from 'axios';
 import config from '../config';
 import token from './token'
+import axiosInstance from "./http_services"
 
 const API_URL = config.DOMAIN_NAME + '/auth';
 
@@ -40,6 +41,8 @@ const fsLogin = async (email, password) => {
     return response
 }
 
+
+
 const registerUser = (NIC, email, otp, firstName, lastName) => {
     return axois({
         method: 'post',
@@ -78,7 +81,7 @@ const voLoginAfterOtp = async (email, entered_otp) => {
 }
 
 const registerPo = (email, firstName, lastName, contactNumber, password, fuelStationId) => {
-    return axois({
+    return axiosInstance({
         method: 'post',
         url: API_URL + '/register-po',
         data: {
@@ -87,8 +90,24 @@ const registerPo = (email, firstName, lastName, contactNumber, password, fuelSta
             lastName,
             contactNumber,
             password,
-            fuelStationId   
-        }
+            fuelStationId
+        },
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    })
+}
+
+const logout = () => {
+    return axois({
+        method: "get",
+        url: API_URL + '/logout',
+    });
+}
+
+const getUser = async (id) => {
+    return axois({
+        method: 'get',
+        url: API_URL + `/get-user/${id}`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` },
     })
 }
 
@@ -101,6 +120,8 @@ export default {
     voLoginBeforeOtp,
     voLoginAfterOtp,
     registerPo,
+    logout,
+    getUser,
 }
 
 

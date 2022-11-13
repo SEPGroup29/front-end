@@ -4,15 +4,15 @@ import { Download } from "@mui/icons-material";
 import { useState, useRef } from "react";
 import { QRCodeSVG, QRCodeCanvas } from "qrcode.react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Container} from "@mui/system";
+import { Box, Container } from "@mui/system";
 
-const QRComponent = () => {
-    const [qrData, setQrData] = useState({ a: 5, b: 10 });
-    const qrRef = useRef()
-
+const QRComponent = (props) => {
+    const qrData = props.qrData
+    const remainingQuota = props.remainingQuota
     const downloadQRCode = (e) => {
         e.preventDefault();
-        let canvas = qrRef.current.querySelector("canvas");
+        let canvas = document.getElementById("qrCode");
+        console.log("CANVAS", canvas);
         let image = canvas.toDataURL("image/jpeg");
         let anchor = document.createElement("a");
         anchor.href = image;
@@ -53,14 +53,14 @@ const QRComponent = () => {
                     marginTop: 2,
                 }}
             >
-                {qrcode}
+                <div className="canvas">{qrcode}</div>
             </CardMedia>
-            <div style={{marginTop:2}}>
-                <Button fullWidth variant="contained">
-                    <Download onClick={downloadQRCode} />
+            <Box textAlign='center'>
+                <Button onClick={downloadQRCode} color="secondary" variant="contained" sx={{ mt: 1, mb: 1, alignSelf: 'center', paddingRight: 5, paddingLeft: 5, }}>
                     Download QR
+                    <Download />
                 </Button>
-            </div>
+            </Box>
             {/* <IconButton
                 variant="contained"
                 sx={{ mt: 3, mb: 3 }}
@@ -76,7 +76,7 @@ const QRComponent = () => {
                             Remaining Petrol Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >
-                            12.5L
+                            {remainingQuota && remainingQuota.rpq ? remainingQuota.rpq : '00'}
                         </Typography>
                     </Grid>
 
@@ -85,7 +85,7 @@ const QRComponent = () => {
                             Remaining Diesel Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >
-                            12.5L
+                            {remainingQuota && remainingQuota.rdq ? remainingQuota.rdq : '00'}
                         </Typography>
                     </Grid>
                 </Grid>

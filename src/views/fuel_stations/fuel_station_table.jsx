@@ -50,7 +50,7 @@ const columns = [
 // ]
 
 
-export default function FuelStationTable({ fuelStations, search }) {
+export default function FuelStationTable({ fuelStations, search, handleAddQueue }) {
 
     const rows = fuelStations
     const [page, setPage] = useState(0);
@@ -64,11 +64,6 @@ export default function FuelStationTable({ fuelStations, search }) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    const [clickedAdd, setClickAdd] = useState(false)
-    const handleAddQueue = () => {
-        setClickAdd(true)
-    }
 
     return (
         <Box sx={{ height: '100vh', mt: 3 }}>
@@ -123,7 +118,7 @@ export default function FuelStationTable({ fuelStations, search }) {
                                                         </TableCell>
                                                     );
                                                 })}
-                                                <TableCell><Button variant="contained" color='secondary' onClick={handleAddQueue}><FollowTheSigns />Join</Button></TableCell>
+                                                <TableCell><Button id={row._id} variant="contained" color='secondary' onClick={handleAddQueue}><FollowTheSigns />Join</Button></TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -141,8 +136,6 @@ export default function FuelStationTable({ fuelStations, search }) {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Card>
-
-            {/* {clickedAdd && <JoinQueue vehicles={[]} clicked={clickedAdd} setClicked={setClickAdd} />} */}
         </Box>
 
     );

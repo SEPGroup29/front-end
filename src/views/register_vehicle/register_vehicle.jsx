@@ -139,7 +139,7 @@ export default function RegisterVehicle() {
                                     Register Vehicle
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    FuelQ Management System
+                                    FuelQ
                                 </Typography>
                                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
                                 {/* {success && <SuccessAlert custom_message={success}></SuccessAlert>} */}

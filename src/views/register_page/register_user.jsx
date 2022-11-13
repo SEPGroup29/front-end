@@ -43,6 +43,7 @@ export default function Register_user() {
         var { error, value } = auth_validation.emailValidation({ email })
         if (error) {
             setEmailError(error.details[0].message)
+            return
         }
         var { error, value } = auth_validation.nicValidation({ NIC })
         if (error) {
@@ -60,7 +61,7 @@ export default function Register_user() {
                 if (response.data.result === 'Sent') {
                     setDisabled(true)
                     setAllowed(false)
-                    setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 1 minute')
+                    setOtpContent('Enter the OTP sent to ' + email.slice(0, 3) + '***' + email.slice(email.indexOf('@')) + '. OTP will expire in 10 minutes')
                     setTimeout(() => {
                         setDisabled(false)
                     }, 60000)
@@ -86,13 +87,17 @@ export default function Register_user() {
         if (otp === '') {
             setOtpError('OTP is required')
         }
-        const {error, value} = auth_validation.nameValidation({firstName, lastName})
+        var {error, value} = auth_validation.nameValidation({firstName}, 'firstName')
+        console.log(error)
         if (error) {
             setFirstNameError(error.details[0].message)
-            error.details[1] && setLastNameError(error.details[1].message)
             return
         }
-
+        var {error, value} = auth_validation.nameValidation({lastName}, 'lastName')
+        if (error) {
+            setLastNameError(error.details[0].message)
+            return
+        }
         try {
             setLoader(true)
             const response = await auth_services.registerUser(NIC, email, otp, firstName, lastName)
