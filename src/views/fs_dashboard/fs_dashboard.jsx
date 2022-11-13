@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import ProgressBar from "./fs_pbar";
+import StockDetails from "./fs_pbar";
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
-import { Button, CardContent, Link } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Button, CardContent, Link, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
+import { Add, Email, LocalGasStation, Person, PhoneAndroid } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import fuel_station_services from "../../services/api/fuel_station_services";
+import Loader from "../../components/loader/loader";
+import ErrorAlert from "../../alerts/errorAlert"
+import Paper from "@mui/material/Paper";
+import Empty from "./empty";
+import PoTable from "./po_table";
 
 function Item({ name, value }) {
 
@@ -37,57 +44,58 @@ Item.propTypes = {
 
 
 const FsDashboard = () => {
+    const [fuelStation, setFuelStation] = useState()
+    const [pumpOperators, setPumpOperators] = useState()
+    const [error, setError] = useState()
+    const [loader, setLoader] = useState(false)
+    useEffect(() => {
+        getFuelStation()
+    }, [])
+
+    const getFuelStation = async () => {
+        setLoader(true)
+        try {
+            const response = await fuel_station_services.showFuelStation()
+            if (response.data.error) {
+                setError(response.data.error)
+            }
+            setFuelStation(response.data.fs)
+            setPumpOperators(response.data.pumpOperators)
+        } catch (error) {
+            navigate('/503-error')
+        }
+        setLoader(false)
+    }
 
     const navigate = useNavigate()
 
     const handleAddPo = () => {
-        navigate('/register-po', { state: { fs_name: 'Maco Filling Station, Kalegana', fs_id: '6335ddd0bf09b4881f0d5bb5' } }) // Should send actual fuel station id and name
+        navigate('/register-po', { state: { fs_name: fuelStation.fuelStationId.name, fs_id: fuelStation.fuelStationId._id } }) // Should send actual fuel station id and name
     }
 
     const handleUpdateStock = () => {
-        navigate('/update-fuel-stock', { state: { fs_name: 'Abeysekara Filling Station, Galle', fs_id: '6335ddd0bf09b4881f0d5bb2' } }) // Should send actual fuel station id and name
+        navigate('/update-fuel-stock', { state: { fs_name: fuelStation.fuelStationId.name, fs_id: fuelStation.fuelStationId._id } }) // Should send actual fuel station id and name
     }
 
     return (
         <div className="fs_dashboard">
-            <Container sx={{ mt: 3, mb: 15 }}>
-                <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
-                    Maco Filling Station, Kalegana
-                </Typography>
-                <Card
-                    sx={{
-                        mt: 3,
-                        alignSelf: 'center',
-                        borderRadius: 5,
-                    }}
-                    variant={"outlined"}
-                >
-                    <CardHeader
-                        sx={{ backgroundColor: 'primary.main', color: 'white' }}
-                        title={
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    textAlign: "center",
-                                    fontWeight: "medium"
-                                }}
-                            >
-                                Remaining Stocks
-                            </Typography>
-                        }
-                    />
-                    <ProgressBar />
-                    <Typography sx={{ textAlign: 'center', mb: 3 }}>
-                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
+            {loader && <Loader />}
+            {!loader && fuelStation &&
+                <Container sx={{ mt: 3, mb: 15 }}>
+                    {error && <ErrorAlert custom_message={error}></ErrorAlert>}
+                    <Typography variant="h3" color="#022B3A" fontWeight='lighter'>
+                        {fuelStation.fuelStationId.name}, {fuelStation.fuelStationId.nearCity}
                     </Typography>
-                </Card>
-
-
-                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderRadius: 5 }} mt={2}>
-
-                    <Card sx={{ mr: 3, borderRadius: 5 }}>
+                    <Card
+                        sx={{
+                            mt: 3,
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                        }}
+                        variant={"outlined"}
+                    >
                         <CardHeader
-                            sx={{ backgroundColor: 'primary.main', color: 'white', mb: 3 }}
+                            sx={{ backgroundColor: 'primary.main', color: 'white' }}
                             title={
                                 <Typography
                                     variant="h5"
@@ -96,18 +104,71 @@ const FsDashboard = () => {
                                         fontWeight: "medium"
                                     }}
                                 >
-                                    Petrol Queue
+                                    Remaining Stocks
                                 </Typography>
                             }
                         />
-                        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                            <Item name={"Tokens Given"} value={500}></Item>
-                            <Item name={"Ongoing Number"} value={197}></Item>
-                        </Box>
+                        <StockDetails fuelStation={fuelStation} />
+                        <Typography sx={{ textAlign: 'center', mb: 3 }}>
+                            <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
+                        </Typography>
                     </Card>
-                    <Card sx={{ ml: 3, borderRadius: 5 }}>
+
+
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderRadius: 5 }} mt={2}>
+
+                        <Card sx={{ mr: 3, borderRadius: 5 }}>
+                            <CardHeader
+                                sx={{ backgroundColor: 'primary.main', color: 'white', mb: 3 }}
+                                title={
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            textAlign: "center",
+                                            fontWeight: "medium"
+                                        }}
+                                    >
+                                        Petrol Queue
+                                    </Typography>
+                                }
+                            />
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                                <Item name={"Tokens Given"} value={500}></Item>
+                                <Item name={"Ongoing Number"} value={197}></Item>
+                            </Box>
+                        </Card>
+                        <Card sx={{ ml: 3, borderRadius: 5 }}>
+                            <CardHeader
+                                sx={{ backgroundColor: 'primary.main', color: 'white', mb: 3 }}
+                                title={
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            textAlign: "center",
+                                            fontWeight: "medium"
+                                        }}
+                                    >
+                                        Diesel Queue
+                                    </Typography>
+                                }
+                            />
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                                <Item name={"Tokens Given"} value={500} ></Item>
+                                <Item name={"Ongoing Number"} value={197}></Item>
+                            </Box>
+                        </Card>
+                    </Box>
+
+                    <Card
+                        sx={{
+                            mt: 3,
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                        }}
+                        variant={"outlined"}
+                    >
                         <CardHeader
-                            sx={{ backgroundColor: 'primary.main', color: 'white', mb: 3 }}
+                            sx={{ backgroundColor: 'primary.main', color: 'white' }}
                             title={
                                 <Typography
                                     variant="h5"
@@ -116,48 +177,24 @@ const FsDashboard = () => {
                                         fontWeight: "medium"
                                     }}
                                 >
-                                    Diesel Queue
+                                    Pump Operators
                                 </Typography>
                             }
                         />
-                        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                            <Item name={"Tokens Given"} value={500} ></Item>
-                            <Item name={"Ongoing Number"} value={197}></Item>
-                        </Box>
+                        <CardContent>
+                            {pumpOperators.length > 0 ?
+                                <PoTable pumpOperators={pumpOperators} />
+                                :
+                                <Empty subject={'No pump operators assigned to this fuel station yet'} description={'Add one or more pump operator to continue fuel refilling process and using the system'} />
+                            }
+                        </CardContent>
+                        <Typography sx={{ textAlign: 'center', mt: 3, mb: 3 }}>
+                            <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleAddPo}><Add /> Add Pump Operator </Button>
+                        </Typography>
                     </Card>
-                </Box>
 
-                <Card
-                    sx={{
-                        mt: 3,
-                        alignSelf: 'center',
-                        borderRadius: 5,
-                    }}
-                    variant={"outlined"}
-                >
-                    <CardHeader
-                        sx={{ backgroundColor: 'primary.main', color: 'white' }}
-                        title={
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    textAlign: "center",
-                                    fontWeight: "medium"
-                                }}
-                            >
-                                Pump Operators
-                            </Typography>
-                        }
-                    />
-                    <CardContent>
-
-                    </CardContent>
-                    <Typography sx={{ textAlign: 'center', mt: 3, mb: 3 }}>
-                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleAddPo}><Add /> Add Pump Operator </Button>
-                    </Typography>
-                </Card>
-
-            </Container>
+                </Container>
+            }
         </div>
     );
 }
