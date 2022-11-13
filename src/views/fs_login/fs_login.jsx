@@ -74,7 +74,7 @@ export default function SignIn() {
                   Log in
                 </Typography>
                 <Typography variant="subtitle1">
-                  FuelQ Management System
+                  FuelQ
                 </Typography>
                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
                 <FormInput label="Email" name="Email" value={email} setValue={setEmail} isValid={emailError ? true : false} />

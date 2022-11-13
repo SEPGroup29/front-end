@@ -30,7 +30,13 @@ export default function RegisterPumpOperator() {
     const location = useLocation()
     const [loader, setLoader] = useState(false)
 
-    const {fs_name, fs_id} = location.state
+    var { fs_name, fs_id } = {}
+    if (!location.state) {
+        navigate('/404-error')
+    }
+    if (location.state) {
+        var { fs_name, fs_id } = location.state
+    }
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -88,7 +94,7 @@ export default function RegisterPumpOperator() {
                                     Register Pump Operator
                                 </Typography>
                                 <Typography variant="h5" color="#022B3A" fontWeight='lighter' sx={{ mb: 3 }}>
-                                   {fs_name}
+                                    {fs_name}
                                 </Typography>
                                 {regError && <ErrorAlert custom_message={regError}></ErrorAlert>}
 

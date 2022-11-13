@@ -143,7 +143,7 @@ export default function RegisterFuelStation() {
                                 Register Fuel Station
                             </Typography>
                             <Typography variant="subtitle1">
-                                FuelQ Management System
+                                FuelQ
                             </Typography>
                             {error && <ErrorAlert custom_message={error} />}
                             {updateSuccess && <SuccessAlert custom_message={updateSuccess}></SuccessAlert>}

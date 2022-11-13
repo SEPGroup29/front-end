@@ -83,7 +83,7 @@ export default function SignIn() {
                   Log in
                 </Typography>
                 <Typography variant="subtitle1">
-                  FuelQ Management System
+                  FuelQ
                 </Typography>
                 {loginError && <ErrorAlert custom_message={loginError}></ErrorAlert>}
                 <FormInput label="Email" name="Email" setValue={setEmail} onBlur = {checkEmail} isValid={!!emailError}/>
