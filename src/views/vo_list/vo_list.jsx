@@ -3,7 +3,8 @@ import OwnersTable from "./vo_table";
 import { Container, Typography, Grid } from "@mui/material";
 import admin_services from "../../services/api/admin_services";
 import SearchBar from "../../components/searchbar/searchbar";
-import { useEffect, useState, useNavigate } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/loader";
 
 const VehicleOwnersList = () => {
