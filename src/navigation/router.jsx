@@ -22,6 +22,7 @@ import About from "../views/about/about";
 import Logout from "../components/logout/logout";
 import Unauthorized from "../views/unauthorized/unauthorized";
 import FsDashboard from "../views/fs_dashboard/fs_dashboard";
+import HowToUse from "../views/how_to_use/how_to_use";
 
 const ROLES = {
     "ADMIN": 1,
@@ -52,6 +53,7 @@ const Router = () => {
                 <Route path="/admin-login" element={<SignIn />} />
                 <Route path="/fs-login" element={<FuelStationLogin />} />
                 <Route path="/admin-dashboard" element={<RequireAuth allowedRoles={[ROLES.ADMIN]}><AdminDashboard /></RequireAuth>} />
+                <Route path="/how-to-use" element={<HowToUse />} />
 
                 {/* 404 Error Page */}
                 <Route path="*" element={<NotFound />} />
