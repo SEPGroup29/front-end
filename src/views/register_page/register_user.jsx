@@ -104,8 +104,8 @@ export default function Register_user() {
             console.log(response)
             if (response.data.error) {
                 setError(response.data.error)
-            } else {
-                navigate('/register-vehicle')
+            } if (response.data.success) {
+                navigate('/login?register=success')
             }
         } catch (error) {
             navigate('/503-error')
