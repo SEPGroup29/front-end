@@ -6,14 +6,30 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AuthServices from "../../services/auth_services";
 import ErrorAlert from "../../alerts/errorAlert";
 import Loader from '../../components/loader/loader';
+import SuccessAlert from "../../alerts/successAlert";
+import { useEffect } from "react";
 
 const Login = () => {
+
+    useEffect(() => {
+        checkRegSuccess()
+    }, [])
 
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
     const navigate = useNavigate()
     const [loginError, setLoginError] = useState('')
     const [loader, setLoader] = useState(false)
+    const [regSuccess, setRegSuccess] = useState()
+    const location = useLocation()
+
+    const checkRegSuccess = () => {
+        // Hanlde successful registration redirects
+        const search = location.search;
+        const register = new URLSearchParams(search).get('register');
+        if (register === 'success')
+            setRegSuccess('Successfully registered to FuelQ as a vehicle owner. Please login to continue')
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -54,6 +70,7 @@ const Login = () => {
                     <Grid item xs={10} md={5} paddingTop={2}>
                         <Card sx={{ alignSelf: 'center', boxShadow: 12, borderRadius: 5 }} variant={"outlined"}>
                             <CardContent>
+                                {regSuccess && <SuccessAlert custom_message={regSuccess} />}
                                 <Typography variant="h4">
                                     Log in
                                 </Typography>
