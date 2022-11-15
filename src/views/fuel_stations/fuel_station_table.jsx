@@ -10,45 +10,14 @@ import TableRow from '@mui/material/TableRow';
 import { Button, Card } from '@mui/material';
 import { FollowTheSigns, LocationOn } from '@mui/icons-material';
 import NoStations from './no_stations';
-import SearchBar from './searchbar';
 import JoinQueue from '../vo_dashbord_new/join_queue';
 
 const columns = [
-    // { id: '_id', label: "ID", minWidth: 150 },
     { id: 'name', label: "Name", minWidth: 150 },
     { id: 'nearCity', label: 'Near City', minWidth: 150 },
     { id: 'rpstock', label: 'Remaining Petrol Stock (L)', minWidth: 50 },
     { id: 'rdstock', label: 'Remaining Diesel Stock (L)', minWidth: 50 },
-    // { id: '', label: 'Remaining Diesel Stock (L)', minWidth: 50 }
 ];
-
-// function createData(_id, name, nearCity, ownerName, pstock, dstock, rpstock, rdstock) {
-//     return { _id, name, nearCity, ownerName, pstock, dstock, rpstock, rdstock };
-// }
-
-// const rows = [
-//     createData(1, 'John', 'Doe', 6000, 4000),
-//     createData(1, 'Jane', 'Doe', 9000, 4000),
-//     createData(1, 'John', 'Smith', 16000, 6000),
-//     createData(1, 'Jane', 'Smith', 7770, 4030),
-//     createData(1, 'Yasiru', 'Doe', 16000, 3900),
-//     createData(1, 'Theshan', 'Doe', 0.00, 0.00),
-//     createData(1, 'Deshan', 'Smith', 6000, 2000),
-//     createData(1, 'Dilshan', 'Smith', 5000, 6500),
-//     createData(1, 'Pasan', 'Doe', 3700, 43000),
-//     createData(1, 'Nuwan', 'Doe', 24000, 6000),
-//     createData(1, 'John', 'Doe', 6000, 4000),
-//     createData(1, 'Jane', 'Doe', 9000, 4000),
-//     createData(1, 'John', 'Smith', 16000, 6000),
-//     createData(1, 'Jane', 'Smith', 7770, 4030),
-//     createData(1, 'Yasiru', 'Doe', 16000, 3900),
-//     createData(1, 'Theshan', 'Doe', 0.00, 0.00),
-//     createData(1, 'Deshan', 'Smith', 6000, 2000),
-//     createData(1, 'Dilshan', 'Smith', 5000, 6500),
-//     createData(1, 'Pasan', 'Doe', 3700, 43000),
-//     createData(1, 'Nuwan', 'Doe', 24000, 6000)
-// ]
-
 
 export default function FuelStationTable({ fuelStations, search, handleAddQueue }) {
 
