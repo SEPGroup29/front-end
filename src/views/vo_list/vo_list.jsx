@@ -30,12 +30,29 @@ const VehicleOwnersList = () => {
         }
         try {
             setLoader(true)
+            console.log(search)
             const response = await admin_services.getVehicleOwnersList(search)
             if (response.status === 200) {
-                setVehicleOwners(response.data.vehicleOwners)
-                console.log("Vehicle Owners",response.data.vehicleOwners)
+                //setVehicleOwners(response.data.vehicleOwners)
+                const vehicleOwnersList = response.data.vehicleOwners
+                const vehicleOwners = []
+                vehicleOwnersList.map((vehicleOwner) => (
+                    vehicleOwners.push({
+                        'firstName': vehicleOwner.user.firstName,
+                        'lastName': vehicleOwner.user.lastName,
+                        'epquota': 100,
+                        'edquota': 100,
+                        'rpquota': 50,
+                        'rdquota': 50,
+
+                    })
+                    
+                ))
+                setVehicleOwners(vehicleOwners)
+                console.log("Vehicle Owners",vehicleOwners)
             }
         } catch (error) {
+            console.log(error)
             navigate('/503-error')
         }
         setLoader(false)
@@ -54,7 +71,7 @@ const VehicleOwnersList = () => {
                             <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
                         </Grid>
                     </Grid>
-                <OwnersTable vehicleOwners={vehicleOwners} key="table"/>
+                <OwnersTable vehicleOwners={vehicleOwners} search/>
             </Container>
             }
         </div>

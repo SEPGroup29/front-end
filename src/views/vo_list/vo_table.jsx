@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-
+import NoStations from '../fuel_stations/no_stations';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,7 +11,6 @@ import TableRow from '@mui/material/TableRow';
 import { Card } from '@mui/material';
 
 const columns = [
-  { id: 'id', label: 'ID', minWidth: 50 },
   { id: 'firstName', label: 'First Name', minWidth: 150 },
   { id: 'lastName', label: 'Last Name', minWidth: 150 },
   { id: 'epquota', label: 'Eligible Petrol Quota (L)', minWidth: 50 },
@@ -38,6 +37,7 @@ export default function OwnersTable({vehicleOwners, search}) {
   return(
     <Box sx={{ height: '100vh', mt: 3}} data-testid = "table">
     <Card sx={{ width: '100%', borderRadius: 5}} elevation={4} >
+    {vehicleOwners.length === 0 ? <NoStations search={search} /> :
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" >
           <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"}}}>
@@ -77,6 +77,7 @@ export default function OwnersTable({vehicleOwners, search}) {
         </Table>
         
       </TableContainer>
+}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
