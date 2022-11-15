@@ -65,7 +65,7 @@ export default function FuelStationTable({ fuelStations, search }) {
                       {column.label}
                     </TableCell>
                   ))}
-                  <TableCell align="center"></TableCell>
+                  {/* <TableCell align="left"></TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>

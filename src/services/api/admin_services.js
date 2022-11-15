@@ -12,6 +12,15 @@ const showDashboard = async () => {
     })
 }
 
+const getVehicleOwnerList = async () => {
+    return axios({
+        method: 'GET',
+        url: API_URL + '/show-all-vehicle-owners',
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    })
+}
+
 export default {
-    showDashboard
+    showDashboard,
+    getVehicleOwnerList
 }

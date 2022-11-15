@@ -20,35 +20,9 @@ const columns = [
   { id: 'rdquota', label: 'Remaining Diesel Quota (L)', minWidth: 50 },
 ];
 
-function createData(id, firstName, lastName, epquota, edquota, rpquota, rdquota) {
-  return { id, firstName, lastName, epquota, edquota, rpquota, rdquota };
-}
+export default function OwnersTable({vehicleOwners, search}) {
 
-const rows = [
-  createData(1, 'John', 'Doe', 15.00, 6.00, 20.00, 4.00),
-  createData(2, 'Jane', 'Doe', 20.00, 9.00, 30.00, 4.00),
-  createData(3, 'John', 'Smith', 26.00, 16.00, 24.00, 6.00),
-  createData(4, 'Jane', 'Smith', 30.00, 3.70, 30.00, 4.30),
-  createData(5, 'Yasiru', 'Doe', 35.00, 16.00, 40.00, 3.90),
-  createData(6, 'Theshan', 'Doe', 30.00, 0.00, 20.00, 0.00),
-  createData(7, 'Deshan', 'Smith', 30.00, 20.00, 60.00, 20.0),
-  createData(8, 'Dilshan', 'Smith', 40.00, 3.20, 50.00, 6.50),
-  createData(9, 'Pasan', 'Doe', 23.00, 9.00, 37.00, 4.30),
-  createData(10, 'Nuwan', 'Doe', 26.00, 16.00, 24.00, 6.00),
-  createData(11, 'John', 'Doe', 15.00, 6.00, 20.00, 4.00),
-  createData(12, 'Jane', 'Doe', 20.00, 9.00, 30.00, 4.00),
-  createData(13, 'John', 'Smith', 26.00, 16.00, 24.00, 6.00),
-  createData(14, 'Jane', 'Smith', 30.00, 3.70, 30.00, 4.30),
-  createData(15, 'Yasiru', 'Doe', 35.00, 16.00, 40.00, 3.90),
-  createData(16, 'Theshan', 'Doe', 30.00, 0.00, 20.00, 0.00),
-  createData(17, 'Deshan', 'Smith', 30.00, 20.00, 60.00, 20.0),
-  createData(18, 'Dilshan', 'Smith', 40.00, 3.20, 50.00, 6.50),
-  createData(19, 'Pasan', 'Doe', 23.00, 9.00, 37.00, 4.30),
-  createData(20, 'Nuwan', 'Doe', 26.00, 16.00, 24.00, 6.00),
-]
-
-
-export default function OwnersTable() {
+  const rows = vehicleOwners
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
