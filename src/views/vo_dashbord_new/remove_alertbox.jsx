@@ -25,9 +25,12 @@ const RemoveAlertBox = ({ clicked, setClicked, vehicleDetails }) => {
         setOpen(false)
         setClicked(false);
     }
+    
+    const [disabled, setDisabled] = useState(false)
 
     const [deleteError, setDeleteError] = useState();
     const handleDelete = async () => {
+        setDisabled(true)
         setDeleteError()
         try {
             const response = await vehicle_owner_services.deleteVehicle(vehicleDetails._id)
@@ -41,6 +44,7 @@ const RemoveAlertBox = ({ clicked, setClicked, vehicleDetails }) => {
         } catch (error) {
             console.log(error)
         }
+        setDisabled(false)
     }
 
     return (
@@ -56,7 +60,7 @@ const RemoveAlertBox = ({ clicked, setClicked, vehicleDetails }) => {
                     <p style={{ textAlign: 'center' }}>Withdraw the vehicle - {vehicleDetails.regNo}? </p>
                 </Typography>
                 <p style={{ textAlign: 'center' }}>This cannot be undone</p>
-                <Box textAlign={'center'}><Button variant="contained" color="error" onClick={handleDelete}>Confirm</Button></Box>
+                <Box textAlign={'center'}><Button disabled={disabled} variant="contained" color="error" onClick={handleDelete}>Confirm</Button></Box>
             </Box>
         </Modal>
     );
