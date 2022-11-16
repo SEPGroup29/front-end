@@ -109,7 +109,7 @@ export default function RegisterVehicle() {
         e.preventDefault()
         
         console.log(letters, vehicleNo)
-        regNo = letters + ' ' + vehicleNo
+        regNo = letters.toUpperCase() + ' ' + vehicleNo
         try {
             setLoader(true)
             console.log([regNo, chassisNo, vehicle, fuel])
