@@ -5,7 +5,7 @@ import fuel_station_services from "../../services/api/fuel_station_services";
 import FuelStationTable from "./fuel_station_table";
 import Loader from "../../components/loader/loader";
 import { useLocation, useNavigate } from "react-router-dom";
-import SearchBar from "./searchbar"
+import SearchBar from "../../components/searchbar/searchbar"
 import JoinQueue from "../vo_dashbord_new/join_queue";
 
 const FuelStations = () => {
@@ -36,7 +36,6 @@ const FuelStations = () => {
                 setFuelStations(response.data.stations)
             }
         } catch (error) {
-            console.log(error)
             navigate('/503-error')
         }
         setLoader(false)

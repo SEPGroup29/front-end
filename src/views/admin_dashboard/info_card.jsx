@@ -3,7 +3,7 @@ import {Card, CardContent, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
-export default function InfoCard({image , cardTitle , amount}){
+export default function InfoCard({image , cardTitle , amount,icon}){
     return(
         <Box
             sx={{
@@ -30,7 +30,8 @@ export default function InfoCard({image , cardTitle , amount}){
                         variant="h6"
                         align='center'
                     >
-                        <InfoRoundedIcon fontSize="large" />
+                        {/* <InfoRoundedIcon fontSize="large" /> */}
+                        {icon}
                     </Typography>
 
                     <Typography

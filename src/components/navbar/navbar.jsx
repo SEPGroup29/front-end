@@ -174,7 +174,7 @@ const Navbar = () => {
                                     color: 'white',
                                 },
                             }}
-                            href="#"
+                            href="/how-to-use"
                         >
                             How to use
                         </Button>
