@@ -62,6 +62,7 @@ const FsDashboard = () => {
             setFuelStation(response.data.fs)
             setPumpOperators(response.data.pumpOperators)
         } catch (error) {
+            console.log("error:",error)
             navigate('/503-error')
         }
         setLoader(false)
