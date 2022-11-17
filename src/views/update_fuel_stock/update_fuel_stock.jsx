@@ -77,11 +77,10 @@ export default function Update_fuel_stock() {
             const response = await fuel_station_services.updateStock(fuel, parseInt(amount), fs_id)
             if (response.data.updatedStation) {
                 if (response.data.success) {
-                setUpdateSuccess('Fuel stock updated successfully')
-                    setUpdateSuccess(`Fuel stock updated successfully. ${response.data.updatedStation}`)
+                    setUpdateSuccess(`Fuel stock updated successfully. ${response.data.success}`)
                 }
                 setAmount()
-                setUpdateSuccess('Fuel stock updated successfully')
+                // setUpdateSuccess('Fuel stock updated successfully')
                 getStock()
             }
             if (response.data.error) {
