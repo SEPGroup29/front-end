@@ -15,8 +15,8 @@ import JoinQueue from '../vo_dashbord_new/join_queue';
 const columns = [
     { id: 'name', label: "Name", minWidth: 150 },
     { id: 'nearCity', label: 'Near City', minWidth: 150 },
-    { id: 'rpstock', label: 'Remaining Petrol Stock (L)', minWidth: 50 },
-    { id: 'rdstock', label: 'Remaining Diesel Stock (L)', minWidth: 50 },
+    { id: 'tempPetrolStock', label: 'Remaining Petrol Stock (L)', minWidth: 50 },
+    { id: 'tempDieselStock', label: 'Remaining Diesel Stock (L)', minWidth: 50 },
 ];
 
 export default function FuelStationTable({ fuelStations, search, handleAddQueue }) {
@@ -79,7 +79,7 @@ export default function FuelStationTable({ fuelStations, search, handleAddQueue 
                                                         <TableCell
                                                             key={column.id}
                                                             align={'center'}
-                                                            sx={column.id === 'rpstock' || column.id === 'rdstock' ? { fontSize: '20px', color: '#673ab7' } : {}}
+                                                            sx={column.id === 'tempPetrolStock' || column.id === 'tempDieselStock' ? { fontSize: '20px', color: '#673ab7' } : {}}
                                                         >
                                                             {column.format && typeof value === 'number'
                                                                 ? column.format(value)
