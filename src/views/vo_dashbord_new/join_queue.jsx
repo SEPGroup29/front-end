@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../../components/form_input/FormInput";
 import api_validations from "../../utils/api_validations";
 import { CarCrashOutlined } from "@mui/icons-material";
+import { styled } from '@mui/material/styles';
+import MuiToggleButton from '@mui/material/ToggleButton';
 
 const style = {
     position: 'absolute',
@@ -42,8 +44,15 @@ const JoinQueue = ({ vehicles, clicked, setClicked, stationId }) => {
         setFuel(newFuel);
     };
     const handleChangeTwo = (event, newVehicle) => {
-        setFuel(newVehicle);
+        setVehicle(newVehicle);
     };
+
+    const ToggleButton = styled(MuiToggleButton)(({ selectedColor }) => ({
+        '&.Mui-selected, &.Mui-selected:hover': {
+            color: 'white',
+            backgroundColor: selectedColor,
+        },
+    }));
 
     const handleAmount = (value) => {
         if (parseInt(value) > 9999) {
