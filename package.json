@@ -19,6 +19,7 @@
     "jest-dom": "^4.0.0",
     "joi": "^17.6.2",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "mui-one-time-password-input": "^1.0.3",
     "mui-treasury": "^0.1.5-alpha.3",
     "qrcode.react": "^3.1.0",

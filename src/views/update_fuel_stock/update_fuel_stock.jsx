@@ -20,14 +20,14 @@ export default function Update_fuel_stock() {
     const navigate = useNavigate()
 
     var { fs_name, fs_id } = {}
-    if(!location.state){
+    if (!location.state) {
         navigate('/404-error')
         // return
     }
-    if(location.state){
+    if (location.state) {
         var { fs_name, fs_id } = location.state
     }
-    
+
     useEffect(() => {
         getStock()
     }, [petrolStock, dieselStock])
@@ -75,12 +75,15 @@ export default function Update_fuel_stock() {
         try {
             setLoader(true)
             const response = await fuel_station_services.updateStock(fuel, parseInt(amount), fs_id)
-            if(response.data.updatedStation) {
-                // navigate('/fs-dashboard')
+            if (response.data.updatedStation) {
+                if (response.data.success) {
+                setUpdateSuccess('Fuel stock updated successfully')
+                    setUpdateSuccess(`Fuel stock updated successfully. ${response.data.updatedStation}`)
+                }
                 setAmount()
                 setUpdateSuccess('Fuel stock updated successfully')
                 getStock()
-            } 
+            }
             if (response.data.error) {
                 setUpdateError(response.data.error)
             }
@@ -119,8 +122,8 @@ export default function Update_fuel_stock() {
                                         variant="contained"
                                         fullWidth
                                     >
-                                        <ToggleButton data-testId="select-fuel-type-petrol"  value="Petrol" selectedColor="#26a69a">Petrol</ToggleButton>
-                                        <ToggleButton data-testId="select-fuel-type-diesel"  value="Diesel" selectedColor="#26a69a">Diesel</ToggleButton>
+                                        <ToggleButton data-testId="select-fuel-type-petrol" value="Petrol" selectedColor="#26a69a">Petrol</ToggleButton>
+                                        <ToggleButton data-testId="select-fuel-type-diesel" value="Diesel" selectedColor="#26a69a">Diesel</ToggleButton>
                                     </ToggleButtonGroup>
 
                                 </Grid>

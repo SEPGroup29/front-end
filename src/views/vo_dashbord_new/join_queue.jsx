@@ -173,7 +173,7 @@ const JoinQueue = ({ vehicles, clicked, setClicked, stationId }) => {
                                 </Grid>
                                 {setAmountError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{amountError}</Typography>}
 
-                                <Button disable={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
+                                <Button disabled={buttonDisable} sx={{ mt: 3 }} variant="contained" color="secondary" onClick={handleConfirm}>Confirm</Button>
                             </Container>
                             :
                             <Container>
