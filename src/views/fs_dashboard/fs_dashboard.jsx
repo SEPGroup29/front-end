@@ -16,6 +16,7 @@ import ErrorAlert from "../../alerts/errorAlert"
 import Paper from "@mui/material/Paper";
 import Empty from "./empty";
 import PoTable from "./po_table";
+import moment from "moment/moment";
 
 function Item({ name, value }) {
 
@@ -48,6 +49,7 @@ const FsDashboard = () => {
     const [pumpOperators, setPumpOperators] = useState()
     const [error, setError] = useState()
     const [loader, setLoader] = useState(false)
+    const [date, setDate] = useState(moment())
     useEffect(() => {
         getFuelStation()
     }, [])
@@ -104,13 +106,17 @@ const FsDashboard = () => {
                                         fontWeight: "medium"
                                     }}
                                 >
-                                    Remaining Stocks
+                                    Remaining Stocks - {date.format('D/MM/YYYY kk:mm ')}
                                 </Typography>
                             }
                         />
                         <StockDetails fuelStation={fuelStation} />
                         <Typography sx={{ textAlign: 'center', mb: 3 }}>
-                            <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
+                            {(0 <= parseInt(date.format('kk')) && parseInt(date.format('kk')) <= 3) ?
+                                <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
+                                :
+                                <Typography variant="h6" sx={{ color: 'crimson' }}>Stock update only available from 00.00 to 03.00</Typography>
+                            }
                         </Typography>
                     </Card>
 
