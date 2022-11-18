@@ -105,10 +105,30 @@ export default function RegisterVehicle() {
         },
     }));
 
+    const handleAddAnotherVehicle = async (e) => {
+        e.preventDefault()
+
+        regNo = letters.toUpperCase() + ' ' + vehicleNo
+        try {
+            setLoader(true)
+            console.log([regNo, chassisNo, vehicle, fuel])
+            const response = await vehicle_owner_services.registerVehicle(regNo, chassisNo, vehicle, fuel)
+            console.log(response)
+            if (response.data.error) {
+                setError(response.data.error)
+            } else {
+                navigate('/register-vehicle')
+            }
+        } catch (error) {
+            console.log(error)
+            navigate('/503-error')
+        }
+        setLoader(false)
+    }
+
     const handleAddVehicle = async (e) => {
         e.preventDefault()
-        
-        console.log(letters, vehicleNo)
+
         regNo = letters.toUpperCase() + ' ' + vehicleNo
         try {
             setLoader(true)
@@ -187,7 +207,7 @@ export default function RegisterVehicle() {
 
                                 </Grid>
 
-                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={vehicleCount > 1}>Add another vehicle</Button>
+                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} fullWidth disabled={vehicleCount > 1} onClick={handleAddAnotherVehicle}>Add another vehicle</Button>
                                 <Button variant="contained" sx={{ marginTop: 2 }} fullWidth onClick={handleAddVehicle} disabled={vehicleCount > 2}>Done</Button>
                             </CardContent>
                         </Card>
