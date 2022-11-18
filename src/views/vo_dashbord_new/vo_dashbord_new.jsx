@@ -19,6 +19,7 @@ import fuel_station_services from "../../services/api/fuel_station_services";
 
 const Vo_Dashboard_new = () => {
     const [vehicles, setVehicles] = useState([])
+    const [queueVehicles, setQueueVehicles] = useState([])
     const [error, setError] = useState()
     const [voName, setVoName] = useState('')
     const [qrData, setQrData] = useState()
@@ -50,7 +51,7 @@ const Vo_Dashboard_new = () => {
             if (response) {
                 if (response.status === 200)
                     if (response.data.error) {
-                        navigate('/logout')
+                        setError(response.data.error)
                         return
                     }
                 setVoName(response.data.vo.user.firstName)
@@ -75,11 +76,19 @@ const Vo_Dashboard_new = () => {
         try {
             const response = await vehicle_owner_services.showVehicles()
             if (response.data.error) {
-                navigate('/logout')
+                setError(response.data.error)
                 return
             }
             if (response.data.vehicles) {
+                const qVehicles = []
                 setVehicles(response.data.vehicles)
+                response.data.vehicles.forEach(v => {
+                    if (v.queueId) {
+                        qVehicles.push(v)
+                    }
+                });
+                setQueueVehicles(qVehicles)
+                console.log("Q VEHICLES", queueVehicles);
             }
         }
         catch (error) {
@@ -94,7 +103,7 @@ const Vo_Dashboard_new = () => {
         try {
             const response = await fuel_station_services.getThreeFuelStations()
             if (response.data.error) {
-                navigate('/logout')
+                setError(response.data.error)
                 return
             }
             if (response.data.result) {
@@ -127,14 +136,40 @@ const Vo_Dashboard_new = () => {
 
     const [clickedQueues, setClickedQueues] = useState(false)
     const [queueDetails, setQueueDetails] = useState(null)
-    const handleClickQueues = () => {
-        setQueueDetails({ regNo: 'CAA - 1234', tokenNo: 124, totalTokens: 205, type: 'Petrol', fsName: 'Abeysekara Filling Station', city: 'Galle' })   // Get from database
+    const handleClickQueues = async (event) => {
+        // setQueueDetails({ regNo: 'CAA - 1234', tokenNo: 124, totalTokens: 205, type: 'Petrol', fsName: 'Abeysekara Filling Station', city: 'Galle' })   // Get from database
+        let qv
+        queueVehicles.map(v => {
+            if (v.regNo === event.target.id) {
+                qv = v
+            }
+        })
+        try {
+            setLoader(true)
+            const response = await vehicle_owner_services.getQueueDetails(qv.queueId)
+            if (response.data.error) {
+                setError(response.data.error)
+            }
+            if (response.data.queue) {
+                setQueueDetails({ vehicle: qv, queue: response.data.queue })
+            }
+        } catch (error) {
+            setError('Unkoown error occured')
+        }
+        setLoader(false)
         setClickedQueues(true)
     }
 
     const [clickedWithdraw, setClickedWithdraw] = useState(false)
-    const handleWithdrawQueues = () => {
-        setQueueDetails({ regNo: 'CAA - 1234', tokenNo: 124, totalTokens: 205, type: 'Petrol', fsName: 'Abeysekara Filling Station', city: 'Galle' })   // Get from database
+    const [withdrawingVehicle, setWithdrawingVehicle] = useState(null)
+    const handleWithdrawQueues = (event) => {
+        console.log("ID", event.target.id);
+        queueVehicles.map(v => {
+            if (v.regNo === event.target.id) {
+                console.log("V", v);
+                setWithdrawingVehicle(v)
+            }
+        })
         setClickedWithdraw(true)
     }
 
@@ -182,14 +217,14 @@ const Vo_Dashboard_new = () => {
                             <FuelStationListComponent handleClick={handleAddQueue} stations={stations} vehicles={vehicles} />
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                            <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} queues={queues} />
+                            <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} vehicles={queueVehicles} />
                         </Grid>
                     </Grid>
 
                     {/* Popup components */}
                     {clickedVehicles && <VehicleDetails clicked={clickedVehicles} setClicked={setClickedVehicles} vehicleDetails={vehicleDetails} />}
                     {clickedQueues && <QueueDet clicked={clickedQueues} setClicked={setClickedQueues} queueDetails={queueDetails}></QueueDet>}
-                    {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} queueDetails={queueDetails}></WithdrawAlertBox>}
+                    {clickedWithdraw && <WithdrawAlertBox clicked={clickedWithdraw} setClicked={setClickedWithdraw} withdrawingVehicle={withdrawingVehicle}></WithdrawAlertBox>}
                     {clickedRemove && <RemoveAlertBox clicked={clickedRemove} setClicked={setClickedRemove} vehicleDetails={vehicleDetails}></RemoveAlertBox>}
                     {clickedAdd && <JoinQueue vehicles={vehicles} clicked={clickedAdd} setClicked={setClickAdd} stationId={stationId} />}
                 </Container>

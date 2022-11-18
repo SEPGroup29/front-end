@@ -65,6 +65,24 @@ const joinQueue = (stationId, fuel, vehicle, amount) => {
     })
 }
 
+const getQueueDetails = (queueId) => {
+    return axios({
+        method: 'get',
+        url: API_URL + `/show-queue/${queueId}`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    })
+}
+
+const withdrawFromQueue = (queueId, regNo) => {
+    console.log("queueId", queueId);
+    console.log("regNo", regNo);
+    return axios({
+        method: 'get',
+        url: API_URL + `/withdraw-queue/${queueId}/${regNo}`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    })
+}
+
 export default {
     registerVehicle,
     showVehicles,
@@ -72,5 +90,7 @@ export default {
     getVehicleOwner,
     getVehicleTypes,
     joinQueue,
+    getQueueDetails,
+    withdrawFromQueue,
 }
 

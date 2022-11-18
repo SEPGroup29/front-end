@@ -34,18 +34,22 @@ const QueueDet = ({ clicked, setClicked, queueDetails }) => {
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    <LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;{queueDetails.fsName} - {queueDetails.city}
+                    <LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;{queueDetails.queue.fuelStationId.name} - {queueDetails.queue.fuelStationId.nearCity}
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Vehicle No: {queueDetails.regNo}
-                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{queueDetails.type} Queue</span>
+                    Vehicle No: {queueDetails.vehicle.regNo}
+                    <span style={{ float: 'right', padding: '5px', color: 'white', backgroundColor: '#1F7A8C', borderRadius: '5px' }}><LocalGasStation />&ensp;{queueDetails.queue.queueType} Queue</span>
                 </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Token No: {queueDetails.tokenNo}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Total Tokens: {queueDetails.totalTokens}
-                </Typography>
+                {queueDetails.vehicle.queuePosition > 0 &&
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Token No: {queueDetails.vehicle.queuePosition}
+                    </Typography>
+                }
+                {queueDetails.vehicle.tempQueuePosition > 0 &&
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Token No: {queueDetails.vehicle.tempQueuePosition}
+                    </Typography>
+                }
             </Box>
         </Modal>
     );
