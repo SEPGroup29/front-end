@@ -43,7 +43,7 @@ export default function AdminDashboard() {
                     setVoCount(response.data.vehicleOwnerCount)
                     setVehicle(response.data.vehicleCount)
                     setFsCount(response.data.fuelStationCount)
-                    //setQCount(response.data.queueCount)
+                    setQCount(response.data.queueCount)
                     console.log(response)
             }
         }catch(error){
