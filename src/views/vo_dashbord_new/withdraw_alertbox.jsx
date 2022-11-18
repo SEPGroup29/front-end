@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Box, Button } from "@mui/material";
 import { LocalGasStation, LocationOn } from "@mui/icons-material";
+import vehicle_owner_services from "../../services/api/vehicle_owner_services";
+import InfoAlert from "../../alerts/infoAlert";
 
 const style = {
     position: 'absolute',
@@ -18,11 +20,33 @@ const style = {
     p: 4,
 };
 
-const WithdrawAlertBox = ({ clicked, setClicked, queueDetails }) => {
+const WithdrawAlertBox = ({ clicked, setClicked, withdrawingVehicle }) => {
     const [open, setOpen] = useState(clicked);
     const handleClose = () => {
         setOpen(false)
         setClicked(false);
+    }
+
+    const [disabled, setDisabled] = useState(false)
+
+    const [withdrawError, setWithdrawError] = useState();
+    const handleWithdraw = async () => {
+        setDisabled(true)
+        setWithdrawError()
+        try {
+            console.log("withdrawingVehicle", withdrawingVehicle);
+            const response = await vehicle_owner_services.withdrawFromQueue(withdrawingVehicle.queueId, withdrawingVehicle.regNo)
+            if (response.status === 200) {
+                if (response.data.error) {
+                    setWithdrawError(response.data.error)
+                } else if (response.data.success) {
+                    window.location.reload();
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        setDisabled(false)
     }
 
     return (
@@ -33,15 +57,12 @@ const WithdrawAlertBox = ({ clicked, setClicked, queueDetails }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
+                {withdrawError && <InfoAlert custom_message={withdrawError} />}
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    <p style={{ textAlign: 'center' }}>Withdraw from the following queue?</p>
+                    <p style={{ textAlign: 'center' }}>Withdraw from this queue?</p>
                 </Typography>
-                    <p style={{ textAlign: 'center' }}>
-                        <LocationOn style={{ color: 'crimson', fontSize: '15px' }} />&ensp;{queueDetails.fsName} - {queueDetails.city}
-                        <p><LocalGasStation />&ensp;{queueDetails.type} Queue</p>
-                    </p>
                 <p style={{ textAlign: 'center' }}>This cannot be undone</p>
-                <Box textAlign={'center'}><Button variant="contained" color="error" >Confirm</Button></Box>
+                <Box textAlign={'center'}><Button disabled={disabled} variant="contained" color="error" onClick={handleWithdraw}>Confirm</Button></Box>
 
 
             </Box>
