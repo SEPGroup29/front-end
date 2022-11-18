@@ -101,7 +101,7 @@ const Vo_Dashboard_new = () => {
                 const fs = response.data.result
                 const tempStations = []
                 fs.map(station => (
-                    tempStations.push({ id: station._id, name: station.name, city: station.nearCity, petrol: station.rpstock ? station.rpstock : 0, diesel: station.rdstock ? station.rdstock : 0 })
+                    tempStations.push({ id: station._id, name: station.name, city: station.nearCity, petrol: station.tempPetrolStock ? station.tempPetrolStock : 0, diesel: station.tempDieselStock ? station.tempDieselStock : 0 })
                 ))
                 setStations(tempStations)
             }

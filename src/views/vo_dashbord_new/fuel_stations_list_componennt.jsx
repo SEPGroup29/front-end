@@ -76,11 +76,11 @@ const FuelStationListComponent = ({ handleClick, stations, vehicles }) => {
                                     key={row.number}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell>
+                                    <TableCell> 
                                         {row.name}, {row.city}
                                     </TableCell>
-                                    <TableCell>{row.petrol}</TableCell>
-                                    <TableCell>{row.diesel}</TableCell>
+                                    <TableCell>{row.petrol}L</TableCell>
+                                    <TableCell>{row.diesel}L</TableCell>
                                     <TableCell>{row.petrolQueue}</TableCell>
                                     <TableCell>{row.dieselQueue}</TableCell>
                                     <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
