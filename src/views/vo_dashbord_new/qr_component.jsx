@@ -76,7 +76,7 @@ const QRComponent = (props) => {
                             Remaining Petrol Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >
-                            {remainingQuota && remainingQuota.rpq ? remainingQuota.rpq : '00'}
+                            {remainingQuota && remainingQuota.rpq ? (remainingQuota.rpq > 0 ? remainingQuota.rpq : '00' ) : '00'}
                         </Typography>
                     </Grid>
 
@@ -85,7 +85,7 @@ const QRComponent = (props) => {
                             Remaining Diesel Quota
                         </Typography>
                         <Typography variant='h4' align='center' fontWeight='bold' >
-                            {remainingQuota && remainingQuota.rdq ? remainingQuota.rdq : '00'}
+                            {remainingQuota && remainingQuota.rdq ? (remainingQuota.rdq > 0 ? remainingQuota.rdq : '00') : '00'}
                         </Typography>
                     </Grid>
                 </Grid>

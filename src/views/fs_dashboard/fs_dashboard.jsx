@@ -66,6 +66,7 @@ const FsDashboard = () => {
             }
             setFuelStation(response.data.fs)
             setPumpOperators(response.data.pumpOperators)
+            console.log("FS", fuelStation.fuelStationId);
 
             // Get queue details
             const res = await fuel_station_services.getQueueCount(response.data.fs.fuelStationId._id)
@@ -75,7 +76,7 @@ const FsDashboard = () => {
             setPetrolTokens(res.data.petrolTokens)
             setDieseltokens(res.data.dieselTokens)
         } catch (error) {
-            console.log("error:",error)
+            console.log("error:", error)
             navigate('/503-error')
         }
         setLoader(false)
@@ -124,13 +125,13 @@ const FsDashboard = () => {
                         />
                         <StockDetails fuelStation={fuelStation} />
                         <Typography sx={{ textAlign: 'center', mb: 3 }}>
-                            {(0 <= parseInt(date.format('kk')) && parseInt(date.format('kk')) <= 3) ?
+                            {/* {(0 <= parseInt(date.format('kk')) && parseInt(date.format('kk')) <= 3) ?
                                 <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
                                 :
                                 <Typography variant="h6" sx={{ color: 'crimson' }}>Stock update only available from 00.00 to 03.00</Typography>
-                            }
+                            } */}
+                            <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
                         </Typography>
-                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
                     </Card>
 
 
@@ -152,8 +153,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={petrolTokens.allTokens}></Item>
-                                <Item name={"Maximum Tokens for Today"} value={petrolTokens.todayTokens}></Item>
+                                <Item name={"Tokens Given"} value={petrolTokens && petrolTokens.allTokens}></Item>
+                                <Item name={"Maximum Tokens for Today"} value={petrolTokens && petrolTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                         <Card sx={{ ml: 3, borderRadius: 5 }}>
@@ -172,8 +173,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={dieselTokens.allTokens} ></Item>
-                                <Item name={"Maximum Tokens for Today"} value={dieselTokens.todayTokens}></Item>
+                                <Item name={"Tokens Given"} value={dieselTokens && dieselTokens.allTokens} ></Item>
+                                <Item name={"Maximum Tokens for Today"} value={dieselTokens && dieselTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                     </Box>
