@@ -79,7 +79,7 @@ export default function SignIn() {
                 {error && <ErrorAlert custom_message={error}></ErrorAlert>}
                 <FormInput label="Email" name="Email" value={email} setValue={setEmail} isValid={emailError ? true : false} />
                 {emailError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{emailError}</Typography>}
-                <FormInput label="Password" name="Password" value={password} setValue={setPassword} isValid={passwordError ? true : false} />
+                <FormInput label="Password" name="Password" value={password} type="password" setValue={setPassword} isValid={passwordError ? true : false} />
                 {passwordError && <Typography variant="inherit" color="#d32f2f" sx={{ mt: 1 }}>{passwordError}</Typography>}
                 <Button variant="contained" sx={{ marginTop: 2, marginBottom: 2 }} fullWidth onClick={handleSubmit} >PROCEED</Button>
                 {/* <Link sx={{textDecoration: 'none'}} href="/register-user" color="secondary">Register</Link> */}
