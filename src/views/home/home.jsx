@@ -88,7 +88,7 @@ const Home = () => {
                     <Card sx={{ backgroundColor: "#1F7A8C", boxShadow: 0 }} >
                         <CardMedia
                             component="img"
-                            image="img/main_image.png"
+                            image="https://i.ibb.co/nsZcSzQ/main-image.png"
                         />
                     </Card>
                 </Grid>
