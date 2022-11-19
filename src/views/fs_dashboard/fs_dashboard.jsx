@@ -47,11 +47,14 @@ Item.propTypes = {
 const FsDashboard = () => {
     const [fuelStation, setFuelStation] = useState()
     const [pumpOperators, setPumpOperators] = useState()
+    const [petrolTokens, setPetrolTokens] = useState()
+    const [dieselTokens, setDieseltokens] = useState()
     const [error, setError] = useState()
     const [loader, setLoader] = useState(false)
     const [date, setDate] = useState(moment())
     useEffect(() => {
         getFuelStation()
+        // getQueueDetails()
     }, [])
 
     const getFuelStation = async () => {
@@ -63,6 +66,14 @@ const FsDashboard = () => {
             }
             setFuelStation(response.data.fs)
             setPumpOperators(response.data.pumpOperators)
+
+            // Get queue details
+            const res = await fuel_station_services.getQueueCount(response.data.fs.fuelStationId._id)
+            if (res.data.error) {
+                setError(res.data.error)
+            }
+            setPetrolTokens(res.data.petrolTokens)
+            setDieseltokens(res.data.dieselTokens)
         } catch (error) {
             navigate('/503-error')
         }
@@ -139,8 +150,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={500}></Item>
-                                <Item name={"Ongoing Number"} value={197}></Item>
+                                <Item name={"Tokens Given"} value={petrolTokens.allTokens}></Item>
+                                <Item name={"Maximum Tokens for Today"} value={petrolTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                         <Card sx={{ ml: 3, borderRadius: 5 }}>
@@ -159,8 +170,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={500} ></Item>
-                                <Item name={"Ongoing Number"} value={197}></Item>
+                                <Item name={"Tokens Given"} value={dieselTokens.allTokens} ></Item>
+                                <Item name={"Maximum Tokens for Today"} value={dieselTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                     </Box>
