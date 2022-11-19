@@ -20,6 +20,7 @@ import fuel_station_services from "../../services/api/fuel_station_services";
 const Vo_Dashboard_new = () => {
     const [vehicles, setVehicles] = useState([])
     const [queueVehicles, setQueueVehicles] = useState([])
+    const [maxTokens, setMaxTokens] = useState([])
     const [error, setError] = useState()
     const [voName, setVoName] = useState('')
     const [qrData, setQrData] = useState()
@@ -80,15 +81,13 @@ const Vo_Dashboard_new = () => {
                 return
             }
             if (response.data.vehicles) {
-                const qVehicles = []
                 setVehicles(response.data.vehicles)
-                response.data.vehicles.forEach(v => {
-                    if (v.queueId) {
-                        qVehicles.push(v)
-                    }
-                });
-                setQueueVehicles(qVehicles)
-                console.log("Q VEHICLES", queueVehicles);
+            }
+            if (response.data.qVehicles) {
+                setQueueVehicles(response.data.qVehicles)
+            }
+            if (response.data.maxTokens) {
+                setMaxTokens(response.data.maxTokens)
             }
         }
         catch (error) {
@@ -217,7 +216,7 @@ const Vo_Dashboard_new = () => {
                             <FuelStationListComponent handleClick={handleAddQueue} stations={stations} vehicles={vehicles} />
                         </Grid>
                         <Grid item xs={12} md={4} lg={5} paddingTop={2}>
-                            <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} vehicles={queueVehicles} />
+                            <QueueDetailComponent handleClick={handleClickQueues} handleWithdrawQueues={handleWithdrawQueues} vehicles={queueVehicles} maxTokens={maxTokens} />
                         </Grid>
                     </Grid>
 

@@ -66,6 +66,14 @@ const showFuelStation = async () => {
     }) 
 }
 
+const getQueueCount = async (fuelStationId) => {
+    return axios({
+        method: 'GET',
+        url: API_URL + `/get-queue-count/${fuelStationId}`,
+        headers: { Authorization: `Bearer ${token.getAccessToken()}` }
+    }) 
+}
+
 export default {
     showAllFuelStations,
     getStock,
@@ -73,4 +81,5 @@ export default {
     fsRegister,
     getThreeFuelStations,
     showFuelStation,
+    getQueueCount,
 }

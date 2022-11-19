@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import TableBody from "@mui/material/TableBody";
 import { FollowTheSigns, InfoOutlined, LocalGasStation, Logout } from "@mui/icons-material";
-import { Container } from "@mui/system";
+import { Container, textAlign } from "@mui/system";
 
 // function createData(number , tokenNumber , ongoingNumber){
 //     return {number , tokenNumber , ongoingNumber};
@@ -20,7 +20,7 @@ import { Container } from "@mui/system";
 //     createData('XQ-6792' , 205 , 125),
 // ]
 
-const QueueDetailComponent = ({ handleClick, handleWithdrawQueues, vehicles }) => {
+const QueueDetailComponent = ({ handleClick, handleWithdrawQueues, vehicles, maxTokens }) => {
     return (
         <Card
             sx={{
@@ -53,13 +53,13 @@ const QueueDetailComponent = ({ handleClick, handleWithdrawQueues, vehicles }) =
                             <TableRow>
                                 <TableCell> Vehicle Number</TableCell>
                                 <TableCell> Token Number</TableCell>
-                                <TableCell> On Going Number </TableCell>
+                                <TableCell> Maximum Tokens for Today</TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {vehicles.map((row) => (
+                            {vehicles.map((row, index) => (
                                 <TableRow
                                     key={row.regNo}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -69,7 +69,7 @@ const QueueDetailComponent = ({ handleClick, handleWithdrawQueues, vehicles }) =
                                     </TableCell>
                                     {row.queuePosition > 0 && <TableCell>{row.queuePosition} <span style={{ color: '#673ab7' }}>(Eligible)</span></TableCell>}
                                     {row.tempQueuePosition > 0 && <TableCell>{row.tempQueuePosition} <span style={{ color: '#673ab7' }}>(Waiting)</span></TableCell>}
-                                    <TableCell>XXXXXXXXXXXXX</TableCell>
+                                    <TableCell sx={{textAlign: 'center'}}>{maxTokens[index]}</TableCell>
                                     {/* <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}> */}
                                     {/* <Button
                                         variant="contained"
