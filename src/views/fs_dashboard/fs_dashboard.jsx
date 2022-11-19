@@ -152,8 +152,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={petrolTokens.allTokens}></Item>
-                                <Item name={"Maximum Tokens for Today"} value={petrolTokens.todayTokens}></Item>
+                                <Item name={"Tokens Given"} value={petrolTokens && petrolTokens.allTokens}></Item>
+                                <Item name={"Maximum Tokens for Today"} value={petrolTokens && petrolTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                         <Card sx={{ ml: 3, borderRadius: 5 }}>
@@ -172,8 +172,8 @@ const FsDashboard = () => {
                                 }
                             />
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                                <Item name={"Tokens Given"} value={dieselTokens.allTokens} ></Item>
-                                <Item name={"Maximum Tokens for Today"} value={dieselTokens.todayTokens}></Item>
+                                <Item name={"Tokens Given"} value={dieselTokens && dieselTokens.allTokens} ></Item>
+                                <Item name={"Maximum Tokens for Today"} value={dieselTokens && dieselTokens.todayTokens}></Item>
                             </Box>
                         </Card>
                     </Box>
