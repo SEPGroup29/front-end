@@ -75,6 +75,7 @@ const FsDashboard = () => {
             setPetrolTokens(res.data.petrolTokens)
             setDieseltokens(res.data.dieselTokens)
         } catch (error) {
+            console.log("error:",error)
             navigate('/503-error')
         }
         setLoader(false)
@@ -129,6 +130,7 @@ const FsDashboard = () => {
                                 <Typography variant="h6" sx={{ color: 'crimson' }}>Stock update only available from 00.00 to 03.00</Typography>
                             }
                         </Typography>
+                        <Button sx={{ paddingLeft: 5, paddingRight: 5 }} variant="contained" color="secondary" onClick={handleUpdateStock}><Add /> Update Stock </Button>
                     </Card>
 
 
