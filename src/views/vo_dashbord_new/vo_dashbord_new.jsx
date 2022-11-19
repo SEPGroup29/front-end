@@ -101,16 +101,18 @@ const Vo_Dashboard_new = () => {
         setLoader(true)
         try {
             const response = await fuel_station_services.getThreeFuelStations()
+            console.log(response.data)
             if (response.data.error) {
                 setError(response.data.error)
                 return
             }
-            if (response.data.result) {
-                const fs = response.data.result
+            if (response.data.fuelStations) {
+                const fs = response.data.fuelStations
                 const tempStations = []
                 fs.map(station => (
                     tempStations.push({ id: station._id, name: station.name, city: station.nearCity, petrol: station.tempPetrolStock ? station.tempPetrolStock : 0, diesel: station.tempDieselStock ? station.tempDieselStock : 0 })
                 ))
+                console.log("Temp Stations:" , tempStations)
                 setStations(tempStations)
             }
         }

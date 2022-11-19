@@ -60,9 +60,9 @@ const FuelStationListComponent = ({ handleClick, stations, vehicles }) => {
                     <Table aria-label="simple table" sx={{height: 'max-content'}}>
                         <TableHead>
                             <TableRow>
-                                <TableCell> Fuel Station Name</TableCell>
-                                <TableCell> Petrol Stock</TableCell>
-                                <TableCell> Diesel Stock </TableCell>
+                                <TableCell sx={{textAlign:'center'}}> Fuel Station Name</TableCell>
+                                <TableCell sx={{textAlign:'center'}}> Remaining Petrol Stock</TableCell>
+                                <TableCell sx={{textAlign:'center'}}> Remaining Diesel Stock </TableCell>
                                 {/* <TableCell> Petrol Queue </TableCell>
                                 <TableCell> Diesel Queue </TableCell> */}
                                 <TableCell></TableCell>
@@ -70,19 +70,17 @@ const FuelStationListComponent = ({ handleClick, stations, vehicles }) => {
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody >
                             {stations.map((row) => (
                                 <TableRow
                                     key={row.number}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 }, alignSelf: 'center', alignContent: 'center' }}
                                 >
-                                    <TableCell> 
+                                    <TableCell sx={{textAlign:'center'}}>
                                         {row.name}, {row.city}
                                     </TableCell>
-                                    <TableCell>{row.petrol}L</TableCell>
-                                    <TableCell>{row.diesel}L</TableCell>
-                                    <TableCell>{row.petrolQueue}</TableCell>
-                                    <TableCell>{row.dieselQueue}</TableCell>
+                                    <TableCell sx={{textAlign:'center'}}>{row.petrol}L</TableCell>
+                                    <TableCell sx={{textAlign:'center'}}>{row.diesel}L</TableCell>
                                     <TableCell align="right" sx={{ paddingLeft: 1, paddingRight: 1 }}>
                                         <Button
                                             variant="contained"
