@@ -66,7 +66,7 @@ const FsDashboard = () => {
             }
             setFuelStation(response.data.fs)
             setPumpOperators(response.data.pumpOperators)
-            console.log("FS", fuelStation.fuelStationId);
+            // console.log("FS", fuelStation.fuelStationId);
 
             // Get queue details
             const res = await fuel_station_services.getQueueCount(response.data.fs.fuelStationId._id)
