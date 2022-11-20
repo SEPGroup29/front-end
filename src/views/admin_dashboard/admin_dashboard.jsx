@@ -57,7 +57,7 @@ export default function AdminDashboard() {
         <div>
             {loader && <Loader />}
             {!loader && 
-            <Container maxWidth="xl" sx={{mt:3}}>
+            <Container sx={{mt:3}}>
                 <Typography variant="h3" color="#022B3A" fontWeight='lighter'>FuelQ - Admin Dashboard </Typography>
             <Grid container spacing={2} paddingTop={5}>
             
