@@ -128,7 +128,7 @@ const Navbar = () => {
                                 <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='/about'><Typography textAlign="center">About Us</Typography></Link>
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
-                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='#'><Typography textAlign="center">How to use</Typography></Link>
+                                <Link sx={{ textDecoration: 'none', "&:hover": { color: 'black' } }} underline='none' href='how-to-use'><Typography textAlign="center">How to use</Typography></Link>
                             </MenuItem>
                         </Menu>
                     </Box>
