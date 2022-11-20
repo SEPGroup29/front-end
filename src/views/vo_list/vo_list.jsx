@@ -10,13 +10,13 @@ import Loader from "../../components/loader/loader";
 const VehicleOwnersList = () => {
 
     //fetch vehicle owners from the backend
-    const [search, setSearch] = useState()
+    const [search, setSearch] = useState(null)
 
     useEffect(() => {
         getVehicleOwners()
     },[])
 
-    const [vehicleOwners, setVehicleOwners] = useState([])
+    const [vehicleOwners, setVehicleOwners] = useState()
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
 
@@ -24,7 +24,7 @@ const VehicleOwnersList = () => {
         getVehicleOwners(search)
     }
 
-    const getVehicleOwners = async (search = null) => {
+    const getVehicleOwners = async (search = 'null') => {
         if (search === '') {
             search = null
         }
@@ -33,23 +33,24 @@ const VehicleOwnersList = () => {
             console.log(search)
             const response = await admin_services.getVehicleOwnersList(search)
             if (response.status === 200) {
-                //setVehicleOwners(response.data.vehicleOwners)
-                const vehicleOwnersList = response.data.vehicleOwners
-                const vehicleOwners = []
-                vehicleOwnersList.map((vehicleOwner) => (
-                    vehicleOwners.push({
-                        'firstName': vehicleOwner.user.firstName,
-                        'lastName': vehicleOwner.user.lastName,
-                        'epquota': 100,
-                        'edquota': 100,
-                        'rpquota': 50,
-                        'rdquota': 50,
+                console.log("RES", response);
+                setVehicleOwners(response.data.vehicleOwners)
+                // const vehicleOwnersList = response.data.vehicleOwners
+                // const vehicleOwners = []
+                // vehicleOwnersList.map((vehicleOwner) => (
+                //     vehicleOwners.push({
+                //         'firstName': vehicleOwner.user.firstName,
+                //         'lastName': vehicleOwner.user.lastName,
+                //         'epquota': 100,
+                //         'edquota': 100,
+                //         'rpquota': 50,
+                //         'rdquota': 50,
 
-                    })
+                //     })
                     
-                ))
-                setVehicleOwners(vehicleOwners)
-                console.log("Vehicle Owners",vehicleOwners)
+                // ))
+                // setVehicleOwners(vehicleOwners)
+                // console.log("Vehicle Owners",vehicleOwners)
             }
         } catch (error) {
             console.log(error)
@@ -71,7 +72,7 @@ const VehicleOwnersList = () => {
                             <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
                         </Grid>
                     </Grid>
-                <OwnersTable vehicleOwners={vehicleOwners} search/>
+                {vehicleOwners && <OwnersTable vehicleOwners={vehicleOwners} search/>}
             </Container>
             }
         </div>
